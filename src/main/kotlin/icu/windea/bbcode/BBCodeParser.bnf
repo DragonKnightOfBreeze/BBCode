@@ -1,0 +1,60 @@
+{
+	parserClass="icu.windea.bbcode.psi.BBCodeParser"
+	extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+	psiClassPrefix="BBCode"
+	psiImplClassSuffix="Impl"
+	psiPackage="icu.windea.bbcode.psi"
+	psiImplPackage="icu.windea.bbcode.psi.impl"
+	elementTypeHolderClass="icu.windea.bbcode.psi.BBCodeTypes"
+	tokenTypeClass="icu.windea.bbcode.psi.BBCodeTokenType"
+	elementTypeClass="icu.windea.bbcode.psi.BBCodeElementType"
+	psiImplUtilClass="icu.windea.bbcode.psi.impl.BBCodePsiImplUtil"
+
+	tokens=[
+    TAG_NAME='regexp:[\w*\-_]+'
+    ATTRIBUTE_NAME='regexp:[\w*\-_]+'
+    ATTRIBUTE_VALUE='regexp:[^\[\]\s]+'
+    TEXT_TOKEN='regexp:[^\[\]]*[^\[\]\s]'
+    EQUAL_SIGN='='
+    TAG_PREFIX_START='['
+    TAG_PREFIX_END=']'
+    TAG_SUFFIX_START='[/'
+    TAG_SUFFIX_END=']'
+	]
+}
+
+root ::= (tag | text)*
+
+tag ::= tag_prefix  tag_body ? tag_suffix ? {
+  pin=1
+  mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
+  implements="icu.windea.bbcode.psi.BBCodeNamedElement"
+  methods=[getName setName getNameIdentifier getTextOffset getIcon]
+}
+tag_prefix ::= TAG_PREFIX_START TAG_NAME attributes ? TAG_PREFIX_END {
+  pin=1
+}
+
+private attributes ::= simple_attribute | attribute_group
+private simple_attribute ::= EQUAL_SIGN ATTRIBUTE_VALUE{
+  pin=1
+}
+private attribute_group ::= attribute +
+
+private tag_body ::= (tag | text) +
+tag_suffix ::= TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END {
+  pin=1
+}
+
+attribute ::= ATTRIBUTE_NAME EQUAL_SIGN ATTRIBUTE_VALUE {
+  pin=1
+  mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
+  implements="icu.windea.bbcode.psi.BBCodeNamedElement"
+  implements="com.intellij.psi.PsiLiteralValue"
+  methods=[getName setName getNameIdentifier getTextOffset getValue]
+}
+
+text ::= TEXT_TOKEN{
+  implements="com.intellij.psi.PsiLiteralValue"
+  methods=[getValue]
+}

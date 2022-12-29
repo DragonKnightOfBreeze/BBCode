@@ -1,5 +1,5 @@
 <idea-plugin>
-  <id>com.windea.bbcode</id>
+  <id>icu.windea.bbcode</id>
   <name>BBCode</name>
   <category>Languages</category>
 
@@ -10,29 +10,29 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileType
       name="BBCode File"
-      implementationClass="com.windea.plugin.idea.bbcode.BBCodeFileType"
+      implementationClass="icu.windea.bbcode.BBCodeFileType"
       fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb"/>
     <lang.parserDefinition
       language="BBCode"
-      implementationClass="com.windea.plugin.idea.bbcode.psi.BBCodeParserDefinition"/>
+      implementationClass="icu.windea.bbcode.psi.BBCodeParserDefinition"/>
     <lang.syntaxHighlighterFactory
       language="BBCode"
-      implementationClass="com.windea.plugin.idea.bbcode.highlighter.BBCodeSyntaxHighlighterFactory"/>
+      implementationClass="icu.windea.bbcode.highlighter.BBCodeSyntaxHighlighterFactory"/>
     <colorSettingsPage
-      implementation="com.windea.plugin.idea.bbcode.highlighter.BBCodeColorSettingsPage"/>
+      implementation="icu.windea.bbcode.highlighter.BBCodeColorSettingsPage"/>
     <spellchecker.support
       language="BBCode"
-      implementationClass="com.windea.plugin.idea.bbcode.BBCodeSpellchecker"/>
+      implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
     <lang.braceMatcher
       language="BBCode"
-      implementationClass="com.windea.plugin.idea.bbcode.BBCodeBraceMatcher"/>
+      implementationClass="icu.windea.bbcode.BBCodeBraceMatcher"/>
     <elementDescriptionProvider
-      implementation="com.windea.plugin.idea.bbcode.editor.BBCodeDescriptionProvider"/>
+      implementation="icu.windea.bbcode.editor.BBCodeDescriptionProvider"/>
     <typedHandler
-      implementation="com.windea.plugin.idea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
+      implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
 
     <annotator
       language="BBCode"
-      implementationClass="com.windea.plugin.idea.bbcode.editor.BBCodeAnnotator"/>
+      implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
   </extensions>
 </idea-plugin>
