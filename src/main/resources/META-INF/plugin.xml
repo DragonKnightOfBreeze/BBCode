@@ -9,7 +9,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <fileType
-      name="BBCode File"
+      name="BBCode"
       implementationClass="icu.windea.bbcode.BBCodeFileType"
       fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb"/>
     <lang.parserDefinition
