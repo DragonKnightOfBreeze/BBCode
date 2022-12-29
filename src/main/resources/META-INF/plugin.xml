@@ -1,0 +1,38 @@
+<idea-plugin>
+  <id>com.windea.bbcode</id>
+  <name>BBCode</name>
+  <category>Languages</category>
+
+  <vendor email="dk_breeze@qq.com" url="https://github.com/DragonKnightOfBreeze">DragonKnightOfBreeze</vendor>
+  
+  <depends>com.intellij.modules.lang</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType
+      name="BBCode File"
+      implementationClass="com.windea.plugin.idea.bbcode.BBCodeFileType"
+      fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb"/>
+    <lang.parserDefinition
+      language="BBCode"
+      implementationClass="com.windea.plugin.idea.bbcode.psi.BBCodeParserDefinition"/>
+    <lang.syntaxHighlighterFactory
+      language="BBCode"
+      implementationClass="com.windea.plugin.idea.bbcode.highlighter.BBCodeSyntaxHighlighterFactory"/>
+    <colorSettingsPage
+      implementation="com.windea.plugin.idea.bbcode.highlighter.BBCodeColorSettingsPage"/>
+    <spellchecker.support
+      language="BBCode"
+      implementationClass="com.windea.plugin.idea.bbcode.BBCodeSpellchecker"/>
+    <lang.braceMatcher
+      language="BBCode"
+      implementationClass="com.windea.plugin.idea.bbcode.BBCodeBraceMatcher"/>
+    <elementDescriptionProvider
+      implementation="com.windea.plugin.idea.bbcode.editor.BBCodeDescriptionProvider"/>
+    <typedHandler
+      implementation="com.windea.plugin.idea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
+
+    <annotator
+      language="BBCode"
+      implementationClass="com.windea.plugin.idea.bbcode.editor.BBCodeAnnotator"/>
+  </extensions>
+</idea-plugin>
