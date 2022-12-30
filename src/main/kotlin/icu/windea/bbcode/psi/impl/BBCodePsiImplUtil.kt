@@ -2,6 +2,7 @@ package icu.windea.bbcode.psi.impl
 
 import com.intellij.openapi.util.Iconable
 import com.intellij.psi.PsiElement
+import com.intellij.psi.util.*
 import com.intellij.refactoring.suggested.startOffset
 import com.intellij.util.IncorrectOperationException
 import icons.BBCodeIcons
@@ -11,8 +12,13 @@ import javax.swing.Icon
 object BBCodePsiImplUtil {
     //region BBCodeTag
     @JvmStatic
+    fun getIcon(element: BBCodeTag, @Iconable.IconFlags flags: Int): Icon {
+        return BBCodeIcons.Tag
+    }
+    
+    @JvmStatic
     fun getName(element: BBCodeTag): String? {
-        return element.tagPrefix.tagName?.text
+        return element.tagName?.text
     }
 
     @JvmStatic
@@ -22,17 +28,27 @@ object BBCodePsiImplUtil {
 
     @JvmStatic
     fun getNameIdentifier(element: BBCodeTag): PsiElement? {
-        return element.tagPrefix.tagName
+        return element.tagName
     }
 
     @JvmStatic
     fun getTextOffset(element: BBCodeTag): Int {
-        return element.tagPrefix.tagName?.startOffset ?: (element.tagPrefix.startOffset + 1)
+        return element.nameIdentifier?.startOffset ?: 1
     }
 
     @JvmStatic
-    fun getIcon(element: BBCodeTag, @Iconable.IconFlags flags: Int): Icon {
-        return BBCodeIcons.Tag
+    fun getTagName(element: BBCodeTag): PsiElement? {
+        return element.firstChild?.siblings()?.find { it.elementType == BBCodeTypes.TAG_NAME }
+    }
+    
+    @JvmStatic
+    fun getAttributes(element: BBCodeTag) : List<BBCodeAttribute> {
+        return element.attributeList
+    }
+    
+    @JvmStatic
+    fun getValue(element: BBCodeTag) : String? {
+        return element.attributeValue?.text
     }
     //endregion
 
@@ -63,9 +79,16 @@ object BBCodePsiImplUtil {
     }
     //endregion
 
+    //region BBCodeAttributeValue
+    @JvmStatic
+    fun getValue(element: BBCodeAttributeValue): String {
+        return element.attributeValueToken.text
+    }
+    //endregion
+
     //region BBCodeText
     @JvmStatic
-    fun getValue(element: BBCodeText): String? {
+    fun getValue(element: BBCodeText): String {
         return element.textToken.text
     }
     //endregion

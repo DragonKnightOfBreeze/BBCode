@@ -11,7 +11,7 @@ public interface BBCodeText extends PsiLiteralValue {
   @NotNull
   PsiElement getTextToken();
 
-  @Nullable
+  @NotNull
   String getValue();
 
 }

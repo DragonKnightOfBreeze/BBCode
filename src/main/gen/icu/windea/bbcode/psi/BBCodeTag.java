@@ -4,22 +4,25 @@ package icu.windea.bbcode.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-
+import com.intellij.openapi.util.Iconable.IconFlags;
 import javax.swing.Icon;
 
 public interface BBCodeTag extends BBCodeNamedElement {
 
   @NotNull
+  List<BBCodeAttribute> getAttributeList();
+
+  @Nullable
+  BBCodeAttributeValue getAttributeValue();
+
+  @NotNull
   List<BBCodeTag> getTagList();
 
   @NotNull
-  BBCodeTagPrefix getTagPrefix();
-
-  @Nullable
-  BBCodeTagSuffix getTagSuffix();
+  List<BBCodeText> getTextList();
 
   @NotNull
-  List<BBCodeText> getTextList();
+  Icon getIcon(@IconFlags int flags);
 
   @Nullable
   String getName();
@@ -32,7 +35,13 @@ public interface BBCodeTag extends BBCodeNamedElement {
 
   int getTextOffset();
 
+  @Nullable
+  PsiElement getTagName();
+
   @NotNull
-  Icon getIcon(@IconFlags int flags);
+  List<BBCodeAttribute> getAttributes();
+
+  @Nullable
+  String getValue();
 
 }

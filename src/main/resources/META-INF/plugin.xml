@@ -1,11 +1,13 @@
 <idea-plugin>
   <id>icu.windea.bbcode</id>
-  <name>BBCode</name>
+  <name>BBCode BBCode</name>
   <category>Languages</category>
 
   <vendor email="dk_breeze@qq.com" url="https://github.com/DragonKnightOfBreeze">DragonKnightOfBreeze</vendor>
-  
-  <depends>com.intellij.modules.lang</depends>
+
+  <depends>
+    com.intellij.modules.lang
+  </depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileType
@@ -23,8 +25,8 @@
     <spellchecker.support
       language="BBCode"
       implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
-    <lang.braceMatcher
-      language="BBCode"
+    <braceMatcher
+      filetype="BBCode"
       implementationClass="icu.windea.bbcode.BBCodeBraceMatcher"/>
     <elementDescriptionProvider
       implementation="icu.windea.bbcode.editor.BBCodeDescriptionProvider"/>

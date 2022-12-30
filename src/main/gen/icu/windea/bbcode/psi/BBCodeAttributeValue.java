@@ -4,16 +4,14 @@ package icu.windea.bbcode.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiLiteralValue;
 
-public interface BBCodeTagPrefix extends PsiElement {
+public interface BBCodeAttributeValue extends PsiLiteralValue {
 
   @NotNull
-  List<BBCodeAttribute> getAttributeList();
+  PsiElement getAttributeValueToken();
 
-  @Nullable
-  PsiElement getAttributeValue();
-
-  @Nullable
-  PsiElement getTagName();
+  @NotNull
+  String getValue();
 
 }

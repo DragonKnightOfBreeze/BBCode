@@ -1,13 +1,13 @@
 // This is a generated file. Not intended for manual editing.
 package icu.windea.bbcode.psi.impl;
 
-import icu.windea.bbcode.psi.BBCodeAttribute;
-import icu.windea.bbcode.psi.BBCodeTypes;
-import icu.windea.bbcode.psi.BBCodeVisitor;
+import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
+import static icu.windea.bbcode.psi.BBCodeTypes.*;
 import icu.windea.bbcode.psi.*;
 
 public class BBCodeAttributeImpl extends BBCodeNamedElementImpl implements BBCodeAttribute {
@@ -27,15 +27,15 @@ public class BBCodeAttributeImpl extends BBCodeNamedElementImpl implements BBCod
   }
 
   @Override
-  @NotNull
-  public PsiElement getAttributeName() {
-    return findNotNullChildByType(BBCodeTypes.ATTRIBUTE_NAME);
+  @Nullable
+  public BBCodeAttributeValue getAttributeValue() {
+    return findChildByClass(BBCodeAttributeValue.class);
   }
 
   @Override
-  @Nullable
-  public PsiElement getAttributeValue() {
-    return findChildByType(BBCodeTypes.ATTRIBUTE_VALUE);
+  @NotNull
+  public PsiElement getAttributeName() {
+    return findNotNullChildByType(ATTRIBUTE_NAME);
   }
 
   @Override

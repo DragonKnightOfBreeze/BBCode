@@ -7,11 +7,11 @@ import com.intellij.psi.PsiElement;
 
 public interface BBCodeAttribute extends BBCodeNamedElement {
 
+  @Nullable
+  BBCodeAttributeValue getAttributeValue();
+
   @NotNull
   PsiElement getAttributeName();
-
-  @Nullable
-  PsiElement getAttributeValue();
 
   @Nullable
   String getName();

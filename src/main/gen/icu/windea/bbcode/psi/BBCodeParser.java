@@ -7,6 +7,7 @@ import static icu.windea.bbcode.psi.BBCodeTypes.*;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
 import com.intellij.lang.PsiParser;
 import com.intellij.lang.LightPsiParser;
 
@@ -35,14 +36,15 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ATTRIBUTE_NAME EQUAL_SIGN ATTRIBUTE_VALUE
+  // ATTRIBUTE_NAME EQUAL_SIGN attribute_value
   public static boolean attribute(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute")) return false;
     if (!nextTokenIs(b, ATTRIBUTE_NAME)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ATTRIBUTE, null);
-    r = consumeTokens(b, 1, ATTRIBUTE_NAME, EQUAL_SIGN, ATTRIBUTE_VALUE);
+    r = consumeTokens(b, 1, ATTRIBUTE_NAME, EQUAL_SIGN);
     p = r; // pin = 1
+    r = r && attribute_value(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
@@ -61,6 +63,18 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "attribute_group", c)) break;
     }
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ATTRIBUTE_VALUE_TOKEN
+  public static boolean attribute_value(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_value")) return false;
+    if (!nextTokenIs(b, ATTRIBUTE_VALUE_TOKEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ATTRIBUTE_VALUE_TOKEN);
+    exit_section_(b, m, ATTRIBUTE_VALUE, r);
     return r;
   }
 
@@ -91,50 +105,75 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   private static boolean root_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "root_0")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = tag(b, l + 1);
     if (!r) r = text(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // EQUAL_SIGN ATTRIBUTE_VALUE
+  // EQUAL_SIGN attribute_value
   static boolean simple_attribute(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "simple_attribute")) return false;
     if (!nextTokenIs(b, EQUAL_SIGN)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
-    r = consumeTokens(b, 1, EQUAL_SIGN, ATTRIBUTE_VALUE);
+    r = consumeToken(b, EQUAL_SIGN);
     p = r; // pin = 1
+    r = r && attribute_value(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
   /* ********************************************************** */
-  // tag_prefix  tag_body ? tag_suffix ?
+  // TAG_PREFIX_START TAG_NAME attributes? (TAG_SUFFIX_END | (TAG_PREFIX_END tag_body? tag_suffix ))
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, TAG, null);
-    r = tag_prefix(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
+    r = consumeTokens(b, 1, TAG_PREFIX_START, TAG_NAME);
     p = r; // pin = 1
-    r = r && report_error_(b, tag_1(b, l + 1));
-    r = p && tag_2(b, l + 1) && r;
-    exit_section_(b, l, m, r, p, null);
+    r = r && report_error_(b, tag_2(b, l + 1));
+    r = p && tag_3(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, tag_auto_recover_);
     return r || p;
   }
 
-  // tag_body ?
-  private static boolean tag_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_1")) return false;
-    tag_body(b, l + 1);
+  // attributes?
+  private static boolean tag_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_2")) return false;
+    attributes(b, l + 1);
     return true;
   }
 
-  // tag_suffix ?
-  private static boolean tag_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_2")) return false;
-    tag_suffix(b, l + 1);
+  // TAG_SUFFIX_END | (TAG_PREFIX_END tag_body? tag_suffix )
+  private static boolean tag_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TAG_SUFFIX_END);
+    if (!r) r = tag_3_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // TAG_PREFIX_END tag_body? tag_suffix
+  private static boolean tag_3_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_3_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TAG_PREFIX_END);
+    r = r && tag_3_1_1(b, l + 1);
+    r = r && tag_suffix(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // tag_body?
+  private static boolean tag_3_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_3_1_1")) return false;
+    tag_body(b, l + 1);
     return true;
   }
 
@@ -159,40 +198,20 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   private static boolean tag_body_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_body_0")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = tag(b, l + 1);
     if (!r) r = text(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // TAG_PREFIX_START TAG_NAME attributes ? TAG_PREFIX_END
-  public static boolean tag_prefix(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_prefix")) return false;
-    if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, TAG_PREFIX, null);
-    r = consumeTokens(b, 1, TAG_PREFIX_START, TAG_NAME);
-    p = r; // pin = 1
-    r = r && report_error_(b, tag_prefix_2(b, l + 1));
-    r = p && consumeToken(b, TAG_PREFIX_END) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // attributes ?
-  private static boolean tag_prefix_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_prefix_2")) return false;
-    attributes(b, l + 1);
-    return true;
-  }
-
-  /* ********************************************************** */
   // TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END
-  public static boolean tag_suffix(PsiBuilder b, int l) {
+  static boolean tag_suffix(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_suffix")) return false;
     if (!nextTokenIs(b, TAG_SUFFIX_START)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, TAG_SUFFIX, null);
+    Marker m = enter_section_(b, l, _NONE_);
     r = consumeTokens(b, 1, TAG_SUFFIX_START, TAG_NAME, TAG_SUFFIX_END);
     p = r; // pin = 1
     exit_section_(b, l, m, r, p, null);
@@ -211,4 +230,5 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  static final Parser tag_auto_recover_ = (b, l) -> !nextTokenIsFast(b, TAG_PREFIX_START, TAG_SUFFIX_START, TEXT_TOKEN);
 }

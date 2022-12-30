@@ -12,16 +12,12 @@ public class BBCodeVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitAttributeValue(@NotNull BBCodeAttributeValue o) {
+    visitPsiLiteralValue(o);
+  }
+
   public void visitTag(@NotNull BBCodeTag o) {
     visitNamedElement(o);
-  }
-
-  public void visitTagPrefix(@NotNull BBCodeTagPrefix o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTagSuffix(@NotNull BBCodeTagSuffix o) {
-    visitPsiElement(o);
   }
 
   public void visitText(@NotNull BBCodeText o) {

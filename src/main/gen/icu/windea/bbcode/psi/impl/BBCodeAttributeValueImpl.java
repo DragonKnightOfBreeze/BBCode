@@ -2,10 +2,6 @@
 package icu.windea.bbcode.psi.impl;
 
 import java.util.List;
-
-import icu.windea.bbcode.psi.BBCodeAttribute;
-import icu.windea.bbcode.psi.BBCodeTagPrefix;
-import icu.windea.bbcode.psi.BBCodeVisitor;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -15,14 +11,14 @@ import static icu.windea.bbcode.psi.BBCodeTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import icu.windea.bbcode.psi.*;
 
-public class BBCodeTagPrefixImpl extends ASTWrapperPsiElement implements BBCodeTagPrefix {
+public class BBCodeAttributeValueImpl extends ASTWrapperPsiElement implements BBCodeAttributeValue {
 
-  public BBCodeTagPrefixImpl(@NotNull ASTNode node) {
+  public BBCodeAttributeValueImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull BBCodeVisitor visitor) {
-    visitor.visitTagPrefix(this);
+    visitor.visitAttributeValue(this);
   }
 
   @Override
@@ -33,20 +29,14 @@ public class BBCodeTagPrefixImpl extends ASTWrapperPsiElement implements BBCodeT
 
   @Override
   @NotNull
-  public List<BBCodeAttribute> getAttributeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, BBCodeAttribute.class);
+  public PsiElement getAttributeValueToken() {
+    return findNotNullChildByType(ATTRIBUTE_VALUE_TOKEN);
   }
 
   @Override
-  @Nullable
-  public PsiElement getAttributeValue() {
-    return findChildByType(ATTRIBUTE_VALUE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getTagName() {
-    return findChildByType(TAG_NAME);
+  @NotNull
+  public String getValue() {
+    return BBCodePsiImplUtil.getValue(this);
   }
 
 }
