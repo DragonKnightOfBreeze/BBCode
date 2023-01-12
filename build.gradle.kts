@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "icu.windea"
-version = "1.7"
+version = "1.8"
 
 intellij {
 	pluginName.set("BBCode")

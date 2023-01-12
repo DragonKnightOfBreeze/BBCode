@@ -1,13 +1,11 @@
 <idea-plugin>
   <id>icu.windea.bbcode</id>
-  <name>BBCode BBCode</name>
+  <name>BBCode</name>
   <category>Languages</category>
 
   <vendor email="dk_breeze@qq.com" url="https://github.com/DragonKnightOfBreeze">DragonKnightOfBreeze</vendor>
 
-  <depends>
-    com.intellij.modules.lang
-  </depends>
+  <depends>com.intellij.modules.lang</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileType
