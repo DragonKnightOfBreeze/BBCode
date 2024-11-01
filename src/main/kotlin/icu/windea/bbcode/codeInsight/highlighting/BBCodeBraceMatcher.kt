@@ -11,10 +11,10 @@ import icu.windea.bbcode.psi.*
 //see: com.intellij.xml.impl.XmlBraceMatcher
 
 class BBCodeBraceMatcher : XmlAwareBraceMatcher {
-    companion object {
-        private const val TAG_TOKEN_GROUP = 1
+    object Constants {
+        const val TAG_TOKEN_GROUP = 1
 
-        private val PAIRING_TOKENS = BidirectionalMap<IElementType, IElementType>()
+        val PAIRING_TOKENS = BidirectionalMap<IElementType, IElementType>()
 
         init {
             PAIRING_TOKENS.put(BBCodeTypes.TAG_PREFIX_START, BBCodeTypes.TAG_SUFFIX_END)
@@ -22,7 +22,7 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
     }
 
     override fun getBraceTokenGroupId(tokenType: IElementType): Int {
-        return TAG_TOKEN_GROUP
+        return Constants.TAG_TOKEN_GROUP
     }
 
     override fun isLBraceToken(iterator: HighlighterIterator, text: CharSequence, fileType: FileType): Boolean {
@@ -37,8 +37,8 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
 
     override fun isPairBraces(tokenType: IElementType, tokenType2: IElementType): Boolean {
         return when {
-            tokenType2 == PAIRING_TOKENS.get(tokenType) -> true
-            PAIRING_TOKENS.getKeysByValue(tokenType)?.contains(tokenType2) == true -> true
+            tokenType2 == Constants.PAIRING_TOKENS.get(tokenType) -> true
+            Constants.PAIRING_TOKENS.getKeysByValue(tokenType)?.contains(tokenType2) == true -> true
             else -> false
         }
     }
@@ -54,14 +54,14 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
 
     override fun isStrictTagMatching(fileType: FileType, braceGroupId: Int): Boolean {
         return when {
-            braceGroupId == TAG_TOKEN_GROUP -> true
+            braceGroupId == Constants.TAG_TOKEN_GROUP -> true
             else -> false
         }
     }
 
     override fun areTagsCaseSensitive(fileType: FileType, braceGroupId: Int): Boolean {
         return when {
-            braceGroupId == TAG_TOKEN_GROUP -> true
+            braceGroupId == Constants.TAG_TOKEN_GROUP -> true
             else -> false
         }
     }

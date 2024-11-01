@@ -33,13 +33,7 @@ import static icu.windea.bbcode.psi.BBCodeTypes.*;
 %state WAITING_TAG_SUFFIX
 
 %{
-  private String tagName;
-  private int depth = 0;
-
-  public int nextState(){
-  	if(depth <= 0) return YYINITIAL;
-  	else return WAITING_TAG_BODY;
-  }
+  private int tagStatus = 0; // 0/1/2/3 none/start_prefix/end_prefix/start_suffix 
 %}
 
 EOL=\R
@@ -53,23 +47,25 @@ TEXT_TOKEN=[^\[\]\s]+
 %%
 <YYINITIAL> {
   {WHITE_SPACE} { return WHITE_SPACE; }
-  "[" { tagName=null; depth++; yybegin(WAITING_TAG_PREFIX); return TAG_PREFIX_START; }
+  "[/" {
+      tagStatus=3; yybegin(WAITING_TAG_SUFFIX); return TAG_SUFFIX_START;
+  }
+  "[" {
+      tagStatus=1; yybegin(WAITING_TAG_PREFIX); return TAG_PREFIX_START;
+  }
+  
   {TEXT_TOKEN} { return TEXT_TOKEN; }
 }
 <WAITING_TAG_PREFIX> {
   {WHITE_SPACE} { return WHITE_SPACE; }
-  {TAG_NAME} { 
-      tagName = yytext().toString();
-      yybegin(WAITING_ATTRIBUTES); 
-      return TAG_NAME;
-  }
-  "]" { yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END); }
+  {TAG_NAME} { yybegin(WAITING_ATTRIBUTES); return TAG_NAME; }
+  "]" { tagStatus=2; yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END); }
 }
 <WAITING_ATTRIBUTES> {
   {WHITE_SPACE} { return WHITE_SPACE; }
   "=" { yybegin(WAITING_SIMPLE_ATTRIBUTE_VALUE); return EQUAL_SIGN; }
   {ATTRIBUTE_NAME} { yybegin(WAITING_EQUAL_SIGN); return ATTRIBUTE_NAME; }
-  "]" { yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END); }
+  "]" { tagStatus=2; yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END); }
 }
 <WAITING_ATTRIBUTE_NAME> {
   {WHITE_SPACE} { return WHITE_SPACE; }
@@ -93,27 +89,12 @@ TEXT_TOKEN=[^\[\]\s]+
 }
 <WAITING_TAG_PREFIX_END> {
   {WHITE_SPACE} { return WHITE_SPACE; }
-  "]" {
-      if(tagName == null || BBCodeSchemaManager.getInstance().isBlockTag(tagName)) {
-          yybegin(WAITING_TAG_BODY);
-          return TAG_PREFIX_END; 
-      } else {
-          depth--;
-          yybegin(nextState());
-          return TAG_SUFFIX_END;
-      }
-  }
-}
-<WAITING_TAG_BODY> {
-  "[/" { yybegin(WAITING_TAG_SUFFIX); return TAG_SUFFIX_START; }
-  "[" { tagName=null; depth++; yybegin(WAITING_TAG_PREFIX); return TAG_PREFIX_START; }
-  {WHITE_SPACE} { return WHITE_SPACE; }
-  {TEXT_TOKEN} { return TEXT_TOKEN; }
+  "]" { tagStatus=2; yybegin(WAITING_TAG_BODY); return TAG_PREFIX_END; }
 }
 <WAITING_TAG_SUFFIX> {
   {WHITE_SPACE} { return WHITE_SPACE; }
   {TAG_NAME} { return TAG_NAME; }
-  "]" { depth--; yybegin(nextState()); return TAG_SUFFIX_END; }
+  "]" { tagStatus=0; yybegin(YYINITIAL); return TAG_SUFFIX_END; }
 }
 
 [^] { return BAD_CHARACTER; }
