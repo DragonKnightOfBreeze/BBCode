@@ -1,16 +1,14 @@
-package icu.windea.bbcode
+package icu.windea.bbcode.codeInsight.highlighting
 
 import com.intellij.codeInsight.highlighting.XmlAwareBraceMatcher
-import com.intellij.lang.*
 import com.intellij.openapi.editor.highlighter.HighlighterIterator
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.*
 import com.intellij.psi.tree.*
-import com.intellij.psi.xml.XmlTokenType
 import com.intellij.util.containers.BidirectionalMap
 import icu.windea.bbcode.psi.BBCodeTypes
 
-//com.intellij.xml.impl.XmlBraceMatcher
+//see: com.intellij.xml.impl.XmlBraceMatcher
 
 class BBCodeBraceMatcher : XmlAwareBraceMatcher {
     companion object {

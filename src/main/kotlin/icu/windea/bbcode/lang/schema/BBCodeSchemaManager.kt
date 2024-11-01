@@ -1,4 +1,4 @@
-package icu.windea.bbcode.schema
+package icu.windea.bbcode.lang.schema
 
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper

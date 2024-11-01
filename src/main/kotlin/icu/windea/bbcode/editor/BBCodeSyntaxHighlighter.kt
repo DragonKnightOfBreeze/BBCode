@@ -10,6 +10,8 @@ import com.intellij.psi.tree.IElementType
 import icu.windea.bbcode.psi.BBCodeLexerAdapter
 import icu.windea.bbcode.psi.BBCodeTypes.*
 
+//see: com.intellij.ide.highlighter.XmlFileHighlighter
+
 class BBCodeSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getHighlightingLexer() = BBCodeLexerAdapter()
 

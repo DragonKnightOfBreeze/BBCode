@@ -8,15 +8,15 @@
   <depends>com.intellij.modules.lang</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileType name="BBCode" implementationClass="icu.windea.bbcode.BBCodeFileType"
-      fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb"/>
+    <fileType name="BBCode" fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb" 
+              implementationClass="icu.windea.bbcode.BBCodeFileType"/>
     <lang.parserDefinition language="BBCode" implementationClass="icu.windea.bbcode.psi.BBCodeParserDefinition"/>
     <lang.syntaxHighlighterFactory language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeSyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="icu.windea.bbcode.editor.BBCodeColorSettingsPage"/>
-    <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
-    <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.BBCodeBraceMatcher"/>
     <elementDescriptionProvider implementation="icu.windea.bbcode.editor.BBCodeDescriptionProvider"/>
+    <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
+    <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
 
     <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
   </extensions>

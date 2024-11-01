@@ -9,6 +9,7 @@ import icons.BBCodeIcons
 import icu.windea.bbcode.psi.*
 import javax.swing.Icon
 
+@Suppress("UNUSED_PARAMETER")
 object BBCodePsiImplUtil {
     //region BBCodeTag
     @JvmStatic

@@ -7,6 +7,8 @@ import com.intellij.openapi.options.colors.*
 import icons.BBCodeIcons
 import icu.windea.bbcode.*
 
+//see: com.intellij.openapi.options.colors.pages.XMLColorsPage
+
 class BBCodeColorSettingsPage : ColorSettingsPage {
     private val _attributesDescriptors = arrayOf(
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.tag"), BBCodeHighlighterColors.TAG),

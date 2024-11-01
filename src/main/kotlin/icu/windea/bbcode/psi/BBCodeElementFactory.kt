@@ -10,4 +10,3 @@ object BBCodeElementFactory {
 		return PsiFileFactory.getInstance(project).createFileFromText(BBCodeLanguage, text) as BBCodeFile
 	}
 }
-

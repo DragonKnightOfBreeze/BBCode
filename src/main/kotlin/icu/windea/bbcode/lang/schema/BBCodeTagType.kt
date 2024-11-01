@@ -1,4 +1,4 @@
-package icu.windea.bbcode.schema
+package icu.windea.bbcode.lang.schema
 
 enum class BBCodeTagType {
     Block, Phrase, Line

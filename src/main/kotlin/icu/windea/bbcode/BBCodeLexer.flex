@@ -2,7 +2,7 @@ package icu.windea.bbcode.psi;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import icu.windea.bbcode.schema.BBCodeSchemaManager;
+import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
 
 import static com.intellij.psi.TokenType.*;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
