@@ -1,7 +1,7 @@
 package icu.windea.bbcode
 
-import java.io.File
-import java.net.URL
+import java.io.*
+import java.net.*
 
 fun String.toFileUrl(): URL = File(this).toURI().toURL()
 

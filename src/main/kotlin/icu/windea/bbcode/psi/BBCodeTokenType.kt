@@ -4,6 +4,6 @@ import com.intellij.psi.tree.*
 import icu.windea.bbcode.*
 
 class BBCodeTokenType(
-	debugName:String
-): IElementType(debugName, BBCodeLanguage)
+    debugName: String
+) : IElementType(debugName, BBCodeLanguage)
 

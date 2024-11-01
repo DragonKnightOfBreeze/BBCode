@@ -1,13 +1,13 @@
 package icu.windea.bbcode.psi.impl
 
-import com.intellij.openapi.util.Iconable
-import com.intellij.psi.PsiElement
+import com.intellij.openapi.util.*
+import com.intellij.psi.*
 import com.intellij.psi.util.*
-import com.intellij.refactoring.suggested.startOffset
-import com.intellij.util.IncorrectOperationException
-import icons.BBCodeIcons
+import com.intellij.refactoring.suggested.*
+import com.intellij.util.*
+import icons.*
 import icu.windea.bbcode.psi.*
-import javax.swing.Icon
+import javax.swing.*
 
 @Suppress("UNUSED_PARAMETER")
 object BBCodePsiImplUtil {
@@ -16,7 +16,7 @@ object BBCodePsiImplUtil {
     fun getIcon(element: BBCodeTag, @Iconable.IconFlags flags: Int): Icon {
         return BBCodeIcons.Tag
     }
-    
+
     @JvmStatic
     fun getName(element: BBCodeTag): String? {
         return element.tagName?.text
@@ -41,14 +41,14 @@ object BBCodePsiImplUtil {
     fun getTagName(element: BBCodeTag): PsiElement? {
         return element.firstChild?.siblings()?.find { it.elementType == BBCodeTypes.TAG_NAME }
     }
-    
+
     @JvmStatic
-    fun getAttributes(element: BBCodeTag) : List<BBCodeAttribute> {
+    fun getAttributes(element: BBCodeTag): List<BBCodeAttribute> {
         return element.attributeList
     }
-    
+
     @JvmStatic
-    fun getValue(element: BBCodeTag) : String? {
+    fun getValue(element: BBCodeTag): String? {
         return element.attributeValue?.text
     }
     //endregion

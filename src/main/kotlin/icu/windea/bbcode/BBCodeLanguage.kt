@@ -2,5 +2,5 @@ package icu.windea.bbcode
 
 import com.intellij.lang.*
 
-object BBCodeLanguage: Language("BBCode")
+object BBCodeLanguage : Language("BBCode")
 

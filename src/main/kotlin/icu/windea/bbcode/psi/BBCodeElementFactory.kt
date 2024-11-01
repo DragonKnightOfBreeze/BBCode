@@ -5,8 +5,8 @@ import com.intellij.psi.*
 import icu.windea.bbcode.*
 
 object BBCodeElementFactory {
-	@JvmStatic
-	fun createDummyFile(project: Project, text: String): BBCodeFile {
-		return PsiFileFactory.getInstance(project).createFileFromText(BBCodeLanguage, text) as BBCodeFile
-	}
+    @JvmStatic
+    fun createDummyFile(project: Project, text: String): BBCodeFile {
+        return PsiFileFactory.getInstance(project).createFileFromText(BBCodeLanguage, text) as BBCodeFile
+    }
 }

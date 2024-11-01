@@ -1,7 +1,6 @@
 package icu.windea.bbcode.psi
 
-import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiNameIdentifierOwner
+import com.intellij.psi.*
 
-interface BBCodeNamedElement: PsiNameIdentifierOwner, NavigatablePsiElement
+interface BBCodeNamedElement : PsiNameIdentifierOwner, NavigatablePsiElement
 

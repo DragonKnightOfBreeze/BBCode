@@ -1,12 +1,12 @@
 package icu.windea.bbcode.codeInsight.highlighting
 
-import com.intellij.codeInsight.highlighting.XmlAwareBraceMatcher
-import com.intellij.openapi.editor.highlighter.HighlighterIterator
-import com.intellij.openapi.fileTypes.FileType
+import com.intellij.codeInsight.highlighting.*
+import com.intellij.openapi.editor.highlighter.*
+import com.intellij.openapi.fileTypes.*
 import com.intellij.psi.*
 import com.intellij.psi.tree.*
-import com.intellij.util.containers.BidirectionalMap
-import icu.windea.bbcode.psi.BBCodeTypes
+import com.intellij.util.containers.*
+import icu.windea.bbcode.psi.*
 
 //see: com.intellij.xml.impl.XmlBraceMatcher
 

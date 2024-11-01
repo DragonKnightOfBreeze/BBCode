@@ -4,7 +4,6 @@ package icu.windea.bbcode.editor
 
 import com.intellij.openapi.fileTypes.*
 import com.intellij.openapi.options.colors.*
-import icons.BBCodeIcons
 import icu.windea.bbcode.*
 
 //see: com.intellij.openapi.options.colors.pages.XMLColorsPage

@@ -1,10 +1,9 @@
 package icu.windea.bbcode.lang.schema
 
-import com.fasterxml.jackson.databind.MapperFeature
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.intellij.openapi.components.Service
-import com.intellij.openapi.components.service
+import com.fasterxml.jackson.databind.*
+import com.fasterxml.jackson.dataformat.yaml.*
+import com.fasterxml.jackson.module.kotlin.*
+import com.intellij.openapi.components.*
 import icu.windea.bbcode.locationClass
 import icu.windea.bbcode.toUrl
 

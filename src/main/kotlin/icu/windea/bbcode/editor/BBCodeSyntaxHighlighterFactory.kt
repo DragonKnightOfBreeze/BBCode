@@ -1,8 +1,8 @@
 package icu.windea.bbcode.editor
 
-import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.fileTypes.*
+import com.intellij.openapi.project.*
+import com.intellij.openapi.vfs.*
 
 //see: com.intellij.lang.xml.XmlSyntaxHighlighterFactory
 

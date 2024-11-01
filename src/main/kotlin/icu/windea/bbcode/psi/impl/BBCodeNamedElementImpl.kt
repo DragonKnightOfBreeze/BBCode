@@ -1,8 +1,8 @@
 package icu.windea.bbcode.psi.impl
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
-import com.intellij.lang.ASTNode
-import icu.windea.bbcode.psi.BBCodeNamedElement
+import com.intellij.extapi.psi.*
+import com.intellij.lang.*
+import icu.windea.bbcode.psi.*
 
-abstract class BBCodeNamedElementImpl(node:ASTNode):ASTWrapperPsiElement(node) , BBCodeNamedElement
+abstract class BBCodeNamedElementImpl(node: ASTNode) : ASTWrapperPsiElement(node), BBCodeNamedElement
 
