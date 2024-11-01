@@ -17,9 +17,9 @@
       implementationClass="icu.windea.bbcode.psi.BBCodeParserDefinition"/>
     <lang.syntaxHighlighterFactory
       language="BBCode"
-      implementationClass="icu.windea.bbcode.highlighter.BBCodeSyntaxHighlighterFactory"/>
+      implementationClass="icu.windea.bbcode.editor.BBCodeSyntaxHighlighterFactory"/>
     <colorSettingsPage
-      implementation="icu.windea.bbcode.highlighter.BBCodeColorSettingsPage"/>
+      implementation="icu.windea.bbcode.editor.BBCodeColorSettingsPage"/>
     <spellchecker.support
       language="BBCode"
       implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>

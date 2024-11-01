@@ -1,5 +1,7 @@
 package icu.windea.bbcode
 
-val locationClass = BBCodeBundle::class.java
-
-val bbcodeDummyText = "/demoText/BBCode.txt".toUrl(locationClass).readText()
+object BBCodeConstants {
+    val locationClass = BBCodeBundle::class.java
+    
+    val sampleText = "/samples/BBCode.txt".toClasspathUrl(locationClass).readText()
+}
