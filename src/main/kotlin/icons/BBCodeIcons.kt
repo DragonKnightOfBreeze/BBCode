@@ -12,6 +12,6 @@ object BBCodeIcons {
 
     @JvmStatic
     fun loadIcon(path: String): Icon {
-        return IconManager.getInstance().getIcon(path, BBCodeIcons::class.java)
+        return IconManager.getInstance().getIcon(path, BBCodeIcons::class.java.classLoader)
     }
 }
