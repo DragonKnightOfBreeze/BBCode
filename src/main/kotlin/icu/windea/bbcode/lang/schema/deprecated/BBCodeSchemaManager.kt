@@ -1,4 +1,4 @@
-package icu.windea.bbcode.lang.schema
+package icu.windea.bbcode.lang.schema.deprecated
 
 import com.fasterxml.jackson.databind.*
 import com.fasterxml.jackson.dataformat.yaml.*

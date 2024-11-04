@@ -1,4 +1,4 @@
-package icu.windea.bbcode.lang.schema
+package icu.windea.bbcode.lang.schema.deprecated
 
 data class BBCodeAttributeSchema(
     val name: String,

@@ -6,6 +6,7 @@
   <vendor email="dk_breeze@qq.com" url="https://github.com/DragonKnightOfBreeze">DragonKnightOfBreeze</vendor>
 
   <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.xml</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileType name="BBCode" fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb" 
@@ -14,10 +15,9 @@
     <lang.syntaxHighlighterFactory language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeSyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="icu.windea.bbcode.editor.BBCodeColorSettingsPage"/>
     <elementDescriptionProvider implementation="icu.windea.bbcode.editor.BBCodeDescriptionProvider"/>
+    <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
     <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
-
-    <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
   </extensions>
 </idea-plugin>

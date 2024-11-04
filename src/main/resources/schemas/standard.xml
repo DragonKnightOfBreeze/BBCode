@@ -1,124 +1,125 @@
-<!-- https://www.bbcode.org/reference.php -->
-
-<tags>
-  <tag id="b">
-    <doc>Makes {text} bold</doc>
-    <url>https://www.bbcode.org/bold-strong-text-with-bbcode.php</url>
-  </tag>
-  <tag id="i">
-    <doc>Makes {text} italic</doc>
-    <url>https://www.bbcode.org/making-italic-text-with-bbcode.php</url>
-  </tag>
-  <tag id="u">
-    <doc>Underlines {text}</doc>
-    <url>https://www.bbcode.org/underlining-text-with-bbcode.php</url>
-  </tag>
-  <tag id="s">
-    <doc>Create a strikethrough on {text}</doc>
-    <url>https://www.bbcode.org/making-strikethrough-text-with-bbcode.php</url>
-  </tag>
-  <tag id="style">
-    <attributes>
-      <attribute id="size" type="number_px"/>
-      <attribute id="color" type="color"/>
-    </attributes>
-    <url>https://www.bbcode.org/changing-the-font-size-with-bbcode.php</url>
-    <url>https://www.bbcode.org/changing-the-text-color-with-bbcode.php</url>
-  </tag>
-  <tag id="size">
-    <attribute type="number"/>
-    <doc>Changes the font-size of {text}</doc>
-    <url>https://www.bbcode.org/changing-the-font-size-with-bbcode.php</url>
-  </tag>
-  <tag id="color">
-    <attribute type="color"/>
-    <doc>Changes the color of {text}</doc>
-    <url>https://www.bbcode.org/changing-the-text-color-with-bbcode.php</url>
-  </tag>
-  <tag id="center">
-    <doc>Centers {text} on screen</doc>
-    <url>https://www.bbcode.org/centering-text-with-bbcode.php</url>
-  </tag>
-  <tag id="left">
-    <doc>Left aligns {text} on screen</doc>
-    <url>https://www.bbcode.org/left-aligning-text-with-bbcode.php</url>
-  </tag>
-  <tag id="right">
-    <doc>Right aligns {text} on screen</doc>
-    <url>https://www.bbcode.org/right-aligning-text-with-bbcode.php</url>
-  </tag>
-  <tag id="quote">
-    <attribute type="string" optional="true"/>
-    <doc>Creates a quotation box containing {text}</doc>
-    <url>https://www.bbcode.org/posting-a-quote-with-bbcode.php</url>
-  </tag>
-  <tag id="spoiler">
-    <attribute type="string" optional="true"/>
-    <doc>
-      Creates a spoiler section (a box) that is by default collapsed until you click a button or the box itself
-      to expand it to show the {text}
-    </doc>
-    <url>https://www.bbcode.org/posting-a-spoiler-with-bbcode.php</url>
-  </tag>
-  <tag id="url">
-    <attribute type="url" optional="true" swap="true"/>
-    <doc>Makes a link to {url}</doc>
-    <url>https://www.bbcode.org/creating-links-with-bbcode.php</url>
-  </tag>
-  <tag id="image" text_type="url">
-    <attribute type="size" optional="true"/>
-    <attributes>
-      <attribute id="width" type="number"/>
-      <attribute id="height" type="number"/>
-      <attribute id="title" type="string" optional="true"/>
-      <attribute id="alt" type="string" optional="true"/>
-    </attributes>
-    <doc>Shows the image indicated by {url}</doc>
-    <url>https://www.bbcode.org/posting-images-with-bbcode.php</url>
-  </tag>
-  <tag id="ul" child_ids="li,*">
-    <doc>Displays a unordered list of {items}</doc>
-    <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
-  </tag>
-  <tag id="ol" child_ids="li,*">
-    <doc>Displays a ordered list of {items}</doc>
-    <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
-  </tag>
-  <tag id="li">
-    <url>Specifies an {item} within a list</url>
-    <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
-  </tag>
-  <tag id="*" type="one_line">
-    <doc>Specifies an {item} within a list (Shorthand)</doc>
-    <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
-  </tag>
-  <tag id="code">
-    <attribute type="language" optional="true"/>
-    <doc>Meant for rendering code snippets</doc>
-    <url>https://www.bbcode.org/showing-code-with-bbcode.php</url>
-  </tag>
-  <tag id="pre">
-    <doc>Renders the {text} while maintaining all white spacing</doc>
-    <url>https://www.bbcode.org/preformatted-text-with-bbcode.php</url>
-  </tag>
-  <tag id="table" child_ids="tr">
-    <doc>Show a table with {rows} in it</doc>
-    <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
-  </tag>
-  <tag id="tr" child_ids="th,td">
-    <doc>Renders a table row containing {cells}</doc>
-    <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
-  </tag>
-  <tag id="th">
-    <doc>Shows {content} in a table (heading) cell</doc>
-    <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
-  </tag>
-  <tag id="td">
-    <doc>Shows {content} in a table (heading) cell</doc>
-    <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
-  </tag>
-  <tag id="youtube" text_type="youtube_id">
-    <doc>Shows the youtube video indicated by {id}</doc>
-    <url>https://www.bbcode.org/posting-youtube-videos-with-bbcode.php</url>
-  </tag>
-</tags>
+<schema>
+  <referenceUrl>https://www.bbcode.org/reference.php</referenceUrl>
+  <tags>
+    <tag id="b">
+      <doc>Makes {text} bold</doc>
+      <url>https://www.bbcode.org/bold-strong-text-with-bbcode.php</url>
+    </tag>
+    <tag id="i">
+      <doc>Makes {text} italic</doc>
+      <url>https://www.bbcode.org/making-italic-text-with-bbcode.php</url>
+    </tag>
+    <tag id="u">
+      <doc>Underlines {text}</doc>
+      <url>https://www.bbcode.org/underlining-text-with-bbcode.php</url>
+    </tag>
+    <tag id="s">
+      <doc>Create a strikethrough on {text}</doc>
+      <url>https://www.bbcode.org/making-strikethrough-text-with-bbcode.php</url>
+    </tag>
+    <tag id="style">
+      <attributes>
+        <attribute id="size" type="numberPx"/>
+        <attribute id="color" type="color"/>
+      </attributes>
+      <url>https://www.bbcode.org/changing-the-font-size-with-bbcode.php</url>
+      <url>https://www.bbcode.org/changing-the-text-color-with-bbcode.php</url>
+    </tag>
+    <tag id="size">
+      <attribute type="number"/>
+      <doc>Changes the font-size of {text}</doc>
+      <url>https://www.bbcode.org/changing-the-font-size-with-bbcode.php</url>
+    </tag>
+    <tag id="color">
+      <attribute type="color"/>
+      <doc>Changes the color of {text}</doc>
+      <url>https://www.bbcode.org/changing-the-text-color-with-bbcode.php</url>
+    </tag>
+    <tag id="center">
+      <doc>Centers {text} on screen</doc>
+      <url>https://www.bbcode.org/centering-text-with-bbcode.php</url>
+    </tag>
+    <tag id="left">
+      <doc>Left aligns {text} on screen</doc>
+      <url>https://www.bbcode.org/left-aligning-text-with-bbcode.php</url>
+    </tag>
+    <tag id="right">
+      <doc>Right aligns {text} on screen</doc>
+      <url>https://www.bbcode.org/right-aligning-text-with-bbcode.php</url>
+    </tag>
+    <tag id="quote">
+      <attribute type="string" optional="true"/>
+      <doc>Creates a quotation box containing {text}</doc>
+      <url>https://www.bbcode.org/posting-a-quote-with-bbcode.php</url>
+    </tag>
+    <tag id="spoiler">
+      <attribute type="string" optional="true"/>
+      <doc>
+        Creates a spoiler section (a box) that is by default collapsed until you click a button or the box itself
+        to expand it to show the {text}
+      </doc>
+      <url>https://www.bbcode.org/posting-a-spoiler-with-bbcode.php</url>
+    </tag>
+    <tag id="url">
+      <attribute type="url" optional="true" swap="true"/>
+      <doc>Makes a link to {url}</doc>
+      <url>https://www.bbcode.org/creating-links-with-bbcode.php</url>
+    </tag>
+    <tag id="image" textType="url">
+      <attribute type="size" optional="true"/>
+      <attributes>
+        <attribute id="width" type="number"/>
+        <attribute id="height" type="number"/>
+        <attribute id="title" type="string" optional="true"/>
+        <attribute id="alt" type="string" optional="true"/>
+      </attributes>
+      <doc>Shows the image indicated by {url}</doc>
+      <url>https://www.bbcode.org/posting-images-with-bbcode.php</url>
+    </tag>
+    <tag id="ul" childIds="li,*">
+      <doc>Displays a unordered list of {items}</doc>
+      <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
+    </tag>
+    <tag id="ol" childIds="li,*">
+      <doc>Displays a ordered list of {items}</doc>
+      <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
+    </tag>
+    <tag id="li">
+      <url>Specifies an {item} within a list</url>
+      <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
+    </tag>
+    <tag id="*" inline="true">
+      <doc>Specifies an {item} within a list (Shorthand)</doc>
+      <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
+    </tag>
+    <tag id="code">
+      <attribute type="language" optional="true"/>
+      <doc>Meant for rendering code snippets</doc>
+      <url>https://www.bbcode.org/showing-code-with-bbcode.php</url>
+    </tag>
+    <tag id="pre">
+      <doc>Renders the {text} while maintaining all white spacing</doc>
+      <url>https://www.bbcode.org/preformatted-text-with-bbcode.php</url>
+    </tag>
+    <tag id="table" childIds="tr">
+      <doc>Show a table with {rows} in it</doc>
+      <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
+    </tag>
+    <tag id="tr" childIds="th,td">
+      <doc>Renders a table row containing {cells}</doc>
+      <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
+    </tag>
+    <tag id="th">
+      <doc>Shows {content} in a table (heading) cell</doc>
+      <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
+    </tag>
+    <tag id="td">
+      <doc>Shows {content} in a table (heading) cell</doc>
+      <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
+    </tag>
+    <tag id="youtube" textType="youtubeId">
+      <doc>Shows the youtube video indicated by {id}</doc>
+      <url>https://www.bbcode.org/posting-youtube-videos-with-bbcode.php</url>
+    </tag>
+  </tags>
+</schema>

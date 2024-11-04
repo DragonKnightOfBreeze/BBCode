@@ -1,4 +1,4 @@
-package icu.windea.bbcode.lang.schema
+package icu.windea.bbcode.lang.schema.deprecated
 
 data class BBCodeTagSchema(
     val name: String,
