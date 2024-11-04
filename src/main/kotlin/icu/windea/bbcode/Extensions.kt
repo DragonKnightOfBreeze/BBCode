@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package icu.windea.bbcode
 
 import java.io.*

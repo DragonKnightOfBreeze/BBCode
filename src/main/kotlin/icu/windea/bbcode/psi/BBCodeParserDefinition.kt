@@ -5,28 +5,20 @@ package icu.windea.bbcode.psi
 import com.intellij.lang.*
 import com.intellij.openapi.project.*
 import com.intellij.psi.*
-import com.intellij.psi.tree.*
 import icu.windea.bbcode.*
 
 class BBCodeParserDefinition : ParserDefinition {
-    companion object {
-        val WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE)
-        val COMMENTS = TokenSet.EMPTY
-        val STRINGS = TokenSet.create(BBCodeTypes.TEXT_TOKEN)
-        val FILE = IFileElementType(BBCodeLanguage)
-    }
-
     override fun createLexer(project: Project?) = BBCodeLexerAdapter()
-
-    override fun getWhitespaceTokens() = WHITE_SPACES
-
-    override fun getCommentTokens() = COMMENTS
-
-    override fun getStringLiteralElements() = STRINGS
 
     override fun createParser(project: Project?) = BBCodeParser()
 
-    override fun getFileNodeType() = FILE
+    override fun getFileNodeType() = BBCodeLanguage.FileElementType
+
+    override fun getWhitespaceTokens() = BBCodeTokenSets.WHITE_SPACES
+
+    override fun getCommentTokens() = BBCodeTokenSets.COMMENTS
+
+    override fun getStringLiteralElements() = BBCodeTokenSets.STRINGS
 
     override fun createFile(viewProvider: FileViewProvider) = BBCodeFile(viewProvider)
 
