@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.*
 import com.fasterxml.jackson.dataformat.yaml.*
 import com.fasterxml.jackson.module.kotlin.*
 import com.intellij.openapi.components.*
-import icu.windea.bbcode.locationClass
-import icu.windea.bbcode.toUrl
+import icu.windea.bbcode.*
 
 @Service(Service.Level.APP)
 class BBCodeSchemaManager {
@@ -14,24 +13,9 @@ class BBCodeSchemaManager {
         findAndRegisterModules()
     }
 
-    val schemaMap = mapper.readValue<List<BBCodeTagSchema>>("/schema/bbcode.yml".toUrl(locationClass))
+    val schemaMap = mapper.readValue<List<BBCodeTagSchema>>("/schema/bbcode.yml".toClasspathUrl(this::class.java))
         .associateBy { it.name }
-
-    fun isBlockTag(tagName: String): Boolean {
-        val schema = schemaMap[tagName] ?: return true
-        return schema.type == BBCodeTagType.Block
-    }
-
-    fun isPhraseTag(tagName: String): Boolean {
-        val schema = schemaMap[tagName] ?: return false
-        return schema.type == BBCodeTagType.Phrase
-    }
-
-    fun isLineTag(tagName: String): Boolean {
-        val schema = schemaMap[tagName] ?: return false
-        return schema.type == BBCodeTagType.Line
-    }
-
+    
     companion object {
         @JvmStatic
         fun getInstance() = service<BBCodeSchemaManager>()

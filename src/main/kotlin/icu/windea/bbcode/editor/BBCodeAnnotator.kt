@@ -6,7 +6,7 @@ import com.intellij.psi.*
 
 class BBCodeAnnotator : Annotator, DumbAware {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        //TODO
+        
     }
 }
 

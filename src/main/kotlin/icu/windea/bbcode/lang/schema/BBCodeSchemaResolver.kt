@@ -6,11 +6,11 @@ import com.intellij.psi.xml.*
 import icu.windea.bbcode.*
 
 object BBCodeSchemaResolver {
-    fun resolveFromXmlFile(file: PsiFile): BBCodeSchema? {
-        if (file !is XmlFile) return null
-        val schemaTag = file.rootTag?.takeIf { it.name == "schema" } ?: return null
+    fun resolve(xmlFile: PsiFile): BBCodeSchema? {
+        if (xmlFile !is XmlFile) return null
+        val schemaTag = xmlFile.rootTag?.takeIf { it.name == "schema" } ?: return null
 
-        val project = file.project
+        val project = xmlFile.project
         val subTags = schemaTag.subTags.groupBy { it.name }
         val referenceUrl = subTags["referenceUrl"]?.firstOrNull()?.value?.trimmedText ?: return null
         val tags = subTags["tags"]?.firstOrNull()?.subTags?.mapNotNull f@{ tagTag -> resolveTagSchema(tagTag, project) }.orEmpty()
@@ -25,8 +25,9 @@ object BBCodeSchemaResolver {
         val subTags = tag.subTags.groupBy { it.name }
         return BBCodeSchema.Tag(
             pointer = tag.createPointer(project),
-            id = attributes["id"] ?: return null,
-            childIds = attributes["childIds"]?.toCommaDelimitedStringSet().orEmpty(),
+            name = attributes["id"] ?: return null,
+            parentNames = attributes["parentNames"]?.toCommaDelimitedStringSet().orEmpty(),
+            childNames = attributes["childNames"]?.toCommaDelimitedStringSet().orEmpty(),
             textType = attributes["textType"],
             inline = attributes["inline"].toBoolean(),
             attribute = subTags["attribute"]?.firstOrNull()?.let { resolveSimpleAttributeSchema(it, project) },
@@ -49,7 +50,7 @@ object BBCodeSchemaResolver {
         val attributes = tag.attributes.associateBy({ it.name }, { it.value })
         return BBCodeSchema.Attribute(
             pointer = tag.createPointer(project),
-            id = attributes["id"] ?: return null,
+            name = attributes["id"] ?: return null,
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
             swap = attributes["swap"].toBoolean(),
