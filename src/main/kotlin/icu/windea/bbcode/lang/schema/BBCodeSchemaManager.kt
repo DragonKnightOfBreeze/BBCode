@@ -35,7 +35,7 @@ object BBCodeSchemaManager {
         val tagName = element.name ?: return null
         return schema.tagMap[tagName]
     }
-
+    
     fun resolveForAttribute(element: BBCodeAttribute): BBCodeSchema.Attribute? {
         return CachedValuesManager.getCachedValue(element, Keys.schemaForAttribute) {
             val tag = element.parentOfType<BBCodeTag>(withSelf = false)

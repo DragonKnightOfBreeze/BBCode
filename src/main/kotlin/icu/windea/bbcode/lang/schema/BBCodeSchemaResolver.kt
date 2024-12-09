@@ -39,21 +39,25 @@ object BBCodeSchemaResolver {
 
     private fun resolveSimpleAttributeSchema(tag: XmlTag, project: Project): BBCodeSchema.SimpleAttribute {
         val attributes = tag.attributes.associateBy({ it.name }, { it.value })
+        val subTags = tag.subTags.groupBy { it.name }
         return BBCodeSchema.SimpleAttribute(
             pointer = tag.createPointer(project),
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
+            doc = subTags["doc"]?.firstOrNull()?.value?.trimmedText,
         )
     }
 
     private fun resolveAttributeSchema(tag: XmlTag, project: Project): BBCodeSchema.Attribute? {
         val attributes = tag.attributes.associateBy({ it.name }, { it.value })
+        val subTags = tag.subTags.groupBy { it.name }
         return BBCodeSchema.Attribute(
             pointer = tag.createPointer(project),
             name = attributes["name"] ?: return null,
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
             swap = attributes["swap"].toBoolean(),
+            doc = subTags["doc"]?.firstOrNull()?.value?.trimmedText,
         )
     }
 }

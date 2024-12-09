@@ -2,6 +2,7 @@
 
 package icu.windea.bbcode
 
+import com.intellij.openapi.util.text.*
 import java.io.*
 import java.net.*
 
@@ -33,3 +34,5 @@ fun String.toCommaDelimitedStringSet(destination: MutableSet<String> = mutableSe
 fun String.toFileUrl(): URL = File(this).toURI().toURL()
 
 fun String.toClasspathUrl(locationClass: Class<*>): URL = locationClass.getResource(this)!!
+
+fun String.escapeXml() = if (this.isEmpty()) "" else StringUtil.escapeXmlEntities(this)

@@ -28,6 +28,7 @@ data class BBCodeSchema(
         val pointer: SmartPsiElementPointer<XmlTag>,
         val type: String,
         val optional: Boolean = false,
+        val doc: String? = null,
     )
 
     data class Attribute(
@@ -36,5 +37,6 @@ data class BBCodeSchema(
         val type: String,
         val optional: Boolean = false,
         val swap: Boolean = false,
+        val doc: String? = null,
     )
 }
