@@ -11,7 +11,7 @@ class BBCodeSchemaProvider(
     private val project: Project
 ) {
     val standardSchema by lazy {
-        val url = "schemas/standard.xml".toClasspathUrl(this::class.java)
+        val url = "/schemas/standard.xml".toClasspathUrl(this::class.java)
         val vFile = VfsUtil.findFileByURL(url) ?: return@lazy null
         val file = PsiUtilCore.getPsiFile(project, vFile)
         BBCodeSchemaResolver.resolve(file)

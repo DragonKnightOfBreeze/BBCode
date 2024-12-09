@@ -9,9 +9,6 @@ import com.intellij.psi.PsiLiteralValue;
 public interface BBCodeText extends PsiLiteralValue {
 
   @NotNull
-  PsiElement getTextToken();
-
-  @NotNull
   String getValue();
 
 }

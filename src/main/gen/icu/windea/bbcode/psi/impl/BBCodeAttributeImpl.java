@@ -9,6 +9,7 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
 import icu.windea.bbcode.psi.*;
+import com.intellij.psi.PsiReference;
 
 public class BBCodeAttributeImpl extends BBCodeNamedElementImpl implements BBCodeAttribute {
 
@@ -65,6 +66,12 @@ public class BBCodeAttributeImpl extends BBCodeNamedElementImpl implements BBCod
   @Nullable
   public String getValue() {
     return BBCodePsiImplUtil.getValue(this);
+  }
+
+  @Override
+  @NotNull
+  public PsiReference[] getReferences() {
+    return BBCodePsiImplUtil.getReferences(this);
   }
 
 }

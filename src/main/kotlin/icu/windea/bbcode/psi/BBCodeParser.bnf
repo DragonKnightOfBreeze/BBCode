@@ -9,6 +9,7 @@
 	tokenTypeClass="icu.windea.bbcode.psi.BBCodeTokenType"
 	elementTypeClass="icu.windea.bbcode.psi.BBCodeElementType"
 	psiImplUtilClass="icu.windea.bbcode.psi.impl.BBCodePsiImplUtil"
+	parserUtilClass="icu.windea.bbcode.psi.BBCodeParserUtil"
 
 	tokens=[
         TAG_NAME='regexp:[\w*\-_]+'
@@ -20,20 +21,25 @@
 
 root ::= (tag | text)*
 
-tag ::= tag_prefix tag_body? tag_suffix {
+tag ::= (tag_prefix tag_body tag_suffix) | tag_prefix_single {
   pin=1
-  recoverWhile="#auto"
   mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
-  implements="icu.windea.bbcode.psi.BBCodeNamedElement"
-  methods=[getIcon getName setName getNameIdentifier getTextOffset getTagName getAttributes getValue]
+  implements=[
+    "icu.windea.bbcode.psi.BBCodeNamedElement"
+    "com.intellij.psi.ContributedReferenceHost"
+  ]
+  methods=[getIcon getName setName getNameIdentifier getTextOffset getTagName getAttributes getValue getReferences]
 }
 
-private tag_prefix ::= TAG_PREFIX_START TAG_NAME attributes? TAG_PREFIX_END {
-  pin=1
+private tag_prefix ::= TAG_PREFIX_START <<pushTagName>> TAG_NAME attributes? TAG_PREFIX_END {
+  pin=3
 }
-private tag_body ::= (tag | text) +
-private tag_suffix ::= TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END {
-  pin=1
+private tag_body ::= (tag | text) *
+private tag_suffix ::= TAG_SUFFIX_START <<checkTagName>> TAG_NAME TAG_SUFFIX_END {
+  pin=3
+}
+private tag_prefix_single ::= TAG_PREFIX_START <<popTagName>>  TAG_NAME attributes? TAG_PREFIX_END {
+  pin=3
 }
 
 private attributes ::= simple_attribute | attribute_group
@@ -45,16 +51,18 @@ private attribute_group ::= attribute +
 attribute ::= ATTRIBUTE_NAME EQUAL_SIGN attribute_value {
   pin=1
   mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
-  implements="icu.windea.bbcode.psi.BBCodeNamedElement"
-  implements="com.intellij.psi.PsiLiteralValue"
-  methods=[getName setName getNameIdentifier getTextOffset getValue]
+  implements=[
+    "icu.windea.bbcode.psi.BBCodeNamedElement"
+    "com.intellij.psi.ContributedReferenceHost"
+  ]
+  methods=[getName setName getNameIdentifier getTextOffset getValue getReferences]
 }
 attribute_value ::= ATTRIBUTE_VALUE_TOKEN {
   implements="com.intellij.psi.PsiLiteralValue"
   methods=[getValue]
 }
 
-text ::= TEXT_TOKEN {
+text ::= TEXT_TOKEN + {
   implements="com.intellij.psi.PsiLiteralValue"
   methods=[getValue]
 }

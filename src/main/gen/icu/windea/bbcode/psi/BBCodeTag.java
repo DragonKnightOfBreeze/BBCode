@@ -4,10 +4,12 @@ package icu.windea.bbcode.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.ContributedReferenceHost;
 import com.intellij.openapi.util.Iconable.IconFlags;
+import com.intellij.psi.PsiReference;
 import javax.swing.Icon;
 
-public interface BBCodeTag extends BBCodeNamedElement {
+public interface BBCodeTag extends BBCodeNamedElement, ContributedReferenceHost {
 
   @NotNull
   List<BBCodeAttribute> getAttributeList();
@@ -43,5 +45,8 @@ public interface BBCodeTag extends BBCodeNamedElement {
 
   @Nullable
   String getValue();
+
+  @NotNull
+  PsiReference[] getReferences();
 
 }

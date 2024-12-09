@@ -3,8 +3,9 @@
 
 package icu.windea.bbcode.psi;
 
-import com.intellij.lexer.FlexLexer;
+import com.intellij.lexer.*;
 import com.intellij.psi.tree.IElementType;
+import java.util.*;
 
 import static com.intellij.psi.TokenType.*;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
@@ -38,7 +39,7 @@ public class BBCodeLexer implements FlexLexer {
    */
   private static final int ZZ_LEXSTATE[] = {
      0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7, 
-     8,  8,  9, 9
+     0,  0,  8, 8
   };
 
   /**
@@ -304,12 +305,12 @@ public class BBCodeLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\12\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\12\1\13\2\14\2\15\1\16\1\17"+
-    "\1\20\1\14\1\0\1\15\1\0";
+    "\11\0\1\1\1\2\1\3\1\1\1\4\1\5\1\6"+
+    "\1\7\1\10\1\11\1\12\2\13\2\14\1\15\1\16"+
+    "\1\17\1\13\1\0\1\14\1\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[32];
+    int [] result = new int[31];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -336,11 +337,11 @@ public class BBCodeLexer implements FlexLexer {
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\13\0\26\0\41\0\54\0\67\0\102\0\115"+
     "\0\130\0\143\0\156\0\171\0\204\0\217\0\232\0\217"+
-    "\0\217\0\245\0\217\0\217\0\217\0\260\0\273\0\306"+
-    "\0\321\0\334\0\217\0\217\0\217\0\347\0\217\0\362";
+    "\0\217\0\245\0\217\0\217\0\260\0\273\0\306\0\321"+
+    "\0\334\0\217\0\217\0\217\0\347\0\217\0\362";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[32];
+    int [] result = new int[31];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -363,20 +364,21 @@ public class BBCodeLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\13\2\14\4\13\1\15\1\13\1\16\1\13\1\16"+
-    "\2\14\1\16\1\17\4\16\1\20\2\16\2\14\6\16"+
-    "\1\21\2\16\2\14\1\16\1\22\1\16\1\23\2\16"+
-    "\1\20\2\16\2\14\1\16\1\22\4\16\1\24\2\16"+
-    "\2\14\3\16\1\25\2\16\1\24\1\16\1\26\2\14"+
-    "\1\27\2\26\2\16\1\26\1\24\1\26\1\30\2\14"+
-    "\1\31\2\30\2\16\1\30\1\24\1\30\14\16\2\14"+
-    "\1\16\1\32\4\16\1\33\1\16\1\13\2\0\4\13"+
-    "\1\0\1\13\1\0\1\13\1\0\2\14\15\0\1\34"+
-    "\24\0\1\17\12\0\1\22\6\0\1\26\2\0\3\26"+
-    "\2\0\1\26\1\0\1\26\3\27\1\35\4\27\1\36"+
-    "\2\27\1\30\2\0\3\30\2\0\1\30\1\0\1\30"+
-    "\3\31\1\37\4\31\1\40\2\31\4\0\1\32\6\0"+
-    "\2\27\1\0\7\27\1\0\2\31\1\0\7\31\1\0";
+    "\1\12\2\13\4\12\1\14\1\15\1\16\1\12\1\16"+
+    "\2\13\1\16\1\17\4\16\1\20\2\16\2\13\6\16"+
+    "\1\21\2\16\2\13\1\16\1\22\1\16\1\23\2\16"+
+    "\1\20\2\16\2\13\1\16\1\22\4\16\1\20\2\16"+
+    "\2\13\3\16\1\24\2\16\1\20\1\16\1\25\2\13"+
+    "\1\26\2\25\2\16\1\25\1\20\1\25\1\27\2\13"+
+    "\1\30\2\27\2\16\1\27\1\20\1\27\1\16\2\13"+
+    "\1\16\1\31\4\16\1\32\1\16\1\12\2\0\4\12"+
+    "\1\0\1\15\1\0\1\12\1\0\2\13\15\0\1\33"+
+    "\5\0\1\12\2\0\5\12\1\15\2\12\17\0\1\17"+
+    "\12\0\1\22\6\0\1\25\2\0\3\25\2\0\1\25"+
+    "\1\0\1\25\3\26\1\34\4\26\1\35\2\26\1\27"+
+    "\2\0\3\27\2\0\1\27\1\0\1\27\3\30\1\36"+
+    "\4\30\1\37\2\30\4\0\1\31\6\0\2\26\1\0"+
+    "\7\26\1\0\2\30\1\0\7\30\1\0";
 
   private static int [] zzUnpacktrans() {
     int [] result = new int[253];
@@ -417,11 +419,11 @@ public class BBCodeLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\12\0\3\1\1\11\1\1\2\11\1\1\3\11\5\1"+
+    "\11\0\4\1\1\11\1\1\2\11\1\1\2\11\5\1"+
     "\3\11\1\0\1\11\1\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[32];
+    int [] result = new int[31];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -492,7 +494,7 @@ public class BBCodeLexer implements FlexLexer {
   public BBCodeLexer() {
     this((java.io.Reader)null);
   }
-  private int tagStatus = 0; // 0/1/2/3 none/start_prefix/end_prefix/start_suffix 
+  private Deque<String> tagNames = new ArrayDeque<>(); 
 
 
   /**
@@ -740,82 +742,77 @@ public class BBCodeLexer implements FlexLexer {
             { return TEXT_TOKEN;
             }
           // fall through
-          case 17: break;
+          case 16: break;
           case 2:
             { return WHITE_SPACE;
             }
           // fall through
-          case 18: break;
+          case 17: break;
           case 3:
-            { tagStatus=1; yybegin(WAITING_TAG_PREFIX); return TAG_PREFIX_START;
+            { yybegin(WAITING_TAG_PREFIX); return TAG_PREFIX_START;
             }
           // fall through
-          case 19: break;
+          case 18: break;
           case 4:
             { return BAD_CHARACTER;
             }
           // fall through
-          case 20: break;
+          case 19: break;
           case 5:
             { yybegin(WAITING_ATTRIBUTES); return TAG_NAME;
             }
           // fall through
-          case 21: break;
+          case 20: break;
           case 6:
-            { tagStatus=2; yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END);
+            { yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END);
+            }
+          // fall through
+          case 21: break;
+          case 7:
+            { yybegin(WAITING_TAG_BODY); return TAG_PREFIX_END;
             }
           // fall through
           case 22: break;
-          case 7:
-            { tagStatus=2; yybegin(WAITING_TAG_BODY); return TAG_PREFIX_END;
-            }
-          // fall through
-          case 23: break;
           case 8:
             { yybegin(WAITING_EQUAL_SIGN); return ATTRIBUTE_NAME;
             }
           // fall through
-          case 24: break;
+          case 23: break;
           case 9:
             { yybegin(WAITING_SIMPLE_ATTRIBUTE_VALUE); return EQUAL_SIGN;
             }
           // fall through
-          case 25: break;
+          case 24: break;
           case 10:
-            { yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END);
-            }
-          // fall through
-          case 26: break;
-          case 11:
             { yybegin(WAITING_ATTRIBUTE_VALUE); return EQUAL_SIGN;
             }
           // fall through
-          case 27: break;
-          case 12:
+          case 25: break;
+          case 11:
             { yybegin(WAITING_ATTRIBUTE_NAME); return ATTRIBUTE_VALUE_TOKEN;
             }
           // fall through
-          case 28: break;
-          case 13:
+          case 26: break;
+          case 12:
             { yybegin(WAITING_TAG_PREFIX_END); return ATTRIBUTE_VALUE_TOKEN;
             }
           // fall through
-          case 29: break;
-          case 14:
+          case 27: break;
+          case 13:
             { return TAG_NAME;
             }
           // fall through
-          case 30: break;
+          case 28: break;
+          case 14:
+            { yybegin(YYINITIAL); return TAG_SUFFIX_END;
+            }
+          // fall through
+          case 29: break;
           case 15:
-            { tagStatus=0; yybegin(YYINITIAL); return TAG_SUFFIX_END;
+            { yybegin(WAITING_TAG_SUFFIX); return TAG_SUFFIX_START;
             }
           // fall through
-          case 31: break;
-          case 16:
-            { tagStatus=3; yybegin(WAITING_TAG_SUFFIX); return TAG_SUFFIX_START;
-            }
-          // fall through
-          case 32: break;
+          case 30: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

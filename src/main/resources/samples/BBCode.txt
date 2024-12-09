@@ -12,6 +12,8 @@ Text
 
 [color=red]Red Text[/color]
 
+[style size=16px]Some Text[/style]
+
 [list]
 [*] List Item 1
 [*] List Item 2

@@ -3,9 +3,11 @@
 package icu.windea.bbcode.psi
 
 import com.intellij.lang.*
+import com.intellij.lang.ParserDefinition.*
 import com.intellij.openapi.project.*
 import com.intellij.psi.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.psi.BBCodeTypes.*
 
 class BBCodeParserDefinition : ParserDefinition {
     override fun createLexer(project: Project?) = BBCodeLexerAdapter()
@@ -22,13 +24,14 @@ class BBCodeParserDefinition : ParserDefinition {
 
     override fun createFile(viewProvider: FileViewProvider) = BBCodeFile(viewProvider)
 
-    override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
+    override fun spaceExistenceTypeBetweenTokens(left: ASTNode, right: ASTNode): SpaceRequirements {
         return when {
-            left?.elementType == BBCodeTypes.TAG_NAME && right?.elementType == BBCodeTypes.ATTRIBUTE -> ParserDefinition.SpaceRequirements.MUST
-            left?.elementType == BBCodeTypes.ATTRIBUTE && right?.elementType == BBCodeTypes.ATTRIBUTE -> ParserDefinition.SpaceRequirements.MUST
-            else -> ParserDefinition.SpaceRequirements.MAY
+            left.elementType == ATTRIBUTE_VALUE_TOKEN || right.elementType == ATTRIBUTE_VALUE_TOKEN -> SpaceRequirements.MUST_NOT
+            left.elementType == TAG_NAME && right.elementType == ATTRIBUTE -> SpaceRequirements.MUST
+            left.elementType == ATTRIBUTE && right.elementType == ATTRIBUTE -> SpaceRequirements.MUST
+            else -> SpaceRequirements.MAY
         }
     }
-
-    override fun createElement(node: ASTNode?) = BBCodeTypes.Factory.createElement(node)
+    
+    override fun createElement(node: ASTNode?) = Factory.createElement(node)
 }

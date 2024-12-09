@@ -4,7 +4,7 @@ package icu.windea.bbcode.psi;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static icu.windea.bbcode.psi.BBCodeParserUtil.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.TokenSet;
@@ -105,10 +105,8 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   private static boolean root_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "root_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = tag(b, l + 1);
     if (!r) r = text(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -127,100 +125,129 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // tag_prefix tag_body? tag_suffix
+  // (tag_prefix tag_body tag_suffix) | tag_prefix_single
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, TAG, "<tag>");
-    r = tag_prefix(b, l + 1);
-    p = r; // pin = 1
-    r = r && report_error_(b, tag_1(b, l + 1));
-    r = p && tag_suffix(b, l + 1) && r;
-    exit_section_(b, l, m, r, p, tag_auto_recover_);
-    return r || p;
+    if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = tag_0(b, l + 1);
+    if (!r) r = tag_prefix_single(b, l + 1);
+    exit_section_(b, m, TAG, r);
+    return r;
   }
 
-  // tag_body?
-  private static boolean tag_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_1")) return false;
-    tag_body(b, l + 1);
-    return true;
+  // tag_prefix tag_body tag_suffix
+  private static boolean tag_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = tag_prefix(b, l + 1);
+    r = r && tag_body(b, l + 1);
+    r = r && tag_suffix(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
-  // (tag | text) +
+  // (tag | text) *
   static boolean tag_body(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_body")) return false;
-    if (!nextTokenIs(b, "", TAG_PREFIX_START, TEXT_TOKEN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = tag_body_0(b, l + 1);
-    while (r) {
+    while (true) {
       int c = current_position_(b);
       if (!tag_body_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "tag_body", c)) break;
     }
-    exit_section_(b, m, null, r);
-    return r;
+    return true;
   }
 
   // tag | text
   private static boolean tag_body_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_body_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = tag(b, l + 1);
     if (!r) r = text(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // TAG_PREFIX_START TAG_NAME attributes? TAG_PREFIX_END
+  // TAG_PREFIX_START <<pushTagName>> TAG_NAME attributes? TAG_PREFIX_END
   static boolean tag_prefix(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_prefix")) return false;
     if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
-    r = consumeTokens(b, 1, TAG_PREFIX_START, TAG_NAME);
-    p = r; // pin = 1
-    r = r && report_error_(b, tag_prefix_2(b, l + 1));
+    r = consumeToken(b, TAG_PREFIX_START);
+    r = r && pushTagName(b, l + 1);
+    r = r && consumeToken(b, TAG_NAME);
+    p = r; // pin = 3
+    r = r && report_error_(b, tag_prefix_3(b, l + 1));
     r = p && consumeToken(b, TAG_PREFIX_END) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
   // attributes?
-  private static boolean tag_prefix_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_prefix_2")) return false;
+  private static boolean tag_prefix_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_prefix_3")) return false;
     attributes(b, l + 1);
     return true;
   }
 
   /* ********************************************************** */
-  // TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END
+  // TAG_PREFIX_START <<popTagName>>  TAG_NAME attributes? TAG_PREFIX_END
+  static boolean tag_prefix_single(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_prefix_single")) return false;
+    if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = consumeToken(b, TAG_PREFIX_START);
+    r = r && popTagName(b, l + 1);
+    r = r && consumeToken(b, TAG_NAME);
+    p = r; // pin = 3
+    r = r && report_error_(b, tag_prefix_single_3(b, l + 1));
+    r = p && consumeToken(b, TAG_PREFIX_END) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // attributes?
+  private static boolean tag_prefix_single_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_prefix_single_3")) return false;
+    attributes(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // TAG_SUFFIX_START <<checkTagName>> TAG_NAME TAG_SUFFIX_END
   static boolean tag_suffix(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_suffix")) return false;
     if (!nextTokenIs(b, TAG_SUFFIX_START)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
-    r = consumeTokens(b, 1, TAG_SUFFIX_START, TAG_NAME, TAG_SUFFIX_END);
-    p = r; // pin = 1
+    r = consumeToken(b, TAG_SUFFIX_START);
+    r = r && checkTagName(b, l + 1);
+    r = r && consumeTokens(b, 1, TAG_NAME, TAG_SUFFIX_END);
+    p = r; // pin = 3
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
   /* ********************************************************** */
-  // TEXT_TOKEN
+  // TEXT_TOKEN +
   public static boolean text(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "text")) return false;
     if (!nextTokenIs(b, TEXT_TOKEN)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, TEXT_TOKEN);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, TEXT_TOKEN)) break;
+      if (!empty_element_parsed_guard_(b, "text", c)) break;
+    }
     exit_section_(b, m, TEXT, r);
     return r;
   }
 
-  static final Parser tag_auto_recover_ = (b, l) -> !nextTokenIsFast(b, TAG_PREFIX_START, TAG_SUFFIX_START, TEXT_TOKEN);
 }

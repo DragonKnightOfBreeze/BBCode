@@ -19,7 +19,6 @@
     <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
-    
     <psi.referenceContributor language="BBCode" implementation="icu.windea.bbcode.references.BBCodeSchemaBasedReferenceContributor"/>
   </extensions>
 </idea-plugin>

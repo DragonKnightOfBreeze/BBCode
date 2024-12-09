@@ -29,12 +29,6 @@ public class BBCodeTextImpl extends ASTWrapperPsiElement implements BBCodeText {
 
   @Override
   @NotNull
-  public PsiElement getTextToken() {
-    return findNotNullChildByType(TEXT_TOKEN);
-  }
-
-  @Override
-  @NotNull
   public String getValue() {
     return BBCodePsiImplUtil.getValue(this);
   }

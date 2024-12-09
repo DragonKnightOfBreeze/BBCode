@@ -5,11 +5,13 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralValue;
+import com.intellij.psi.ContributedReferenceHost;
 
 public class BBCodeVisitor extends PsiElementVisitor {
 
   public void visitAttribute(@NotNull BBCodeAttribute o) {
     visitNamedElement(o);
+    // visitContributedReferenceHost(o);
   }
 
   public void visitAttributeValue(@NotNull BBCodeAttributeValue o) {
@@ -18,6 +20,7 @@ public class BBCodeVisitor extends PsiElementVisitor {
 
   public void visitTag(@NotNull BBCodeTag o) {
     visitNamedElement(o);
+    // visitContributedReferenceHost(o);
   }
 
   public void visitText(@NotNull BBCodeText o) {

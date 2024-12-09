@@ -25,13 +25,13 @@ object BBCodeSchemaResolver {
         val subTags = tag.subTags.groupBy { it.name }
         return BBCodeSchema.Tag(
             pointer = tag.createPointer(project),
-            name = attributes["id"] ?: return null,
+            name = attributes["name"] ?: return null,
             parentNames = attributes["parentNames"]?.toCommaDelimitedStringSet().orEmpty(),
             childNames = attributes["childNames"]?.toCommaDelimitedStringSet().orEmpty(),
             textType = attributes["textType"],
             inline = attributes["inline"].toBoolean(),
             attribute = subTags["attribute"]?.firstOrNull()?.let { resolveSimpleAttributeSchema(it, project) },
-            attributes = subTags["attributes"]?.mapNotNull { resolveAttributeSchema(it, project) }.orEmpty(),
+            attributes = subTags["attributes"]?.firstOrNull()?.subTags?.mapNotNull { resolveAttributeSchema(it, project) }.orEmpty(),
             doc = subTags["doc"]?.firstOrNull()?.value?.trimmedText,
             urls = subTags["url"]?.mapNotNullTo(mutableSetOf()) { it.value.trimmedText }.orEmpty(),
         )
@@ -50,7 +50,7 @@ object BBCodeSchemaResolver {
         val attributes = tag.attributes.associateBy({ it.name }, { it.value })
         return BBCodeSchema.Attribute(
             pointer = tag.createPointer(project),
-            name = attributes["id"] ?: return null,
+            name = attributes["name"] ?: return null,
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
             swap = attributes["swap"].toBoolean(),

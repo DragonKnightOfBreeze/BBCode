@@ -10,6 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
 import icu.windea.bbcode.psi.*;
 import com.intellij.openapi.util.Iconable.IconFlags;
+import com.intellij.psi.PsiReference;
 import javax.swing.Icon;
 
 public class BBCodeTagImpl extends BBCodeNamedElementImpl implements BBCodeTag {
@@ -97,6 +98,12 @@ public class BBCodeTagImpl extends BBCodeNamedElementImpl implements BBCodeTag {
   @Nullable
   public String getValue() {
     return BBCodePsiImplUtil.getValue(this);
+  }
+
+  @Override
+  @NotNull
+  public PsiReference[] getReferences() {
+    return BBCodePsiImplUtil.getReferences(this);
   }
 
 }

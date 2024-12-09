@@ -4,8 +4,10 @@ package icu.windea.bbcode.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.ContributedReferenceHost;
+import com.intellij.psi.PsiReference;
 
-public interface BBCodeAttribute extends BBCodeNamedElement {
+public interface BBCodeAttribute extends BBCodeNamedElement, ContributedReferenceHost {
 
   @Nullable
   BBCodeAttributeValue getAttributeValue();
@@ -26,5 +28,8 @@ public interface BBCodeAttribute extends BBCodeNamedElement {
 
   @Nullable
   String getValue();
+
+  @NotNull
+  PsiReference[] getReferences();
 
 }

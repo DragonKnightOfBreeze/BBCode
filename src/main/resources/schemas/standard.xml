@@ -1,6 +1,27 @@
 <schema>
   <referenceUrl>https://www.bbcode.org/reference.php</referenceUrl>
   <tags>
+    <tag name="h1">
+      <doc>Heading 1</doc>
+    </tag>
+    <tag name="h2">
+      <doc>Heading 2</doc>
+    </tag>
+    <tag name="h3">
+      <doc>Heading 3</doc>
+    </tag>
+    <tag name="h4">
+      <doc>Heading 4</doc>
+    </tag>
+    <tag name="h5">
+      <doc>Heading 5</doc>
+    </tag>
+    <tag name="h6">
+      <doc>Heading 6</doc>
+    </tag>
+    <tag name="line" inline="true">
+      <doc>Horizontal line</doc>
+    </tag>
     <tag name="b">
       <doc>Makes {text} bold</doc>
       <url>https://www.bbcode.org/bold-strong-text-with-bbcode.php</url>
@@ -84,11 +105,15 @@
       <doc>Displays a ordered list of {items}</doc>
       <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
     </tag>
-    <tag name="li" parentNames="ul,ol">
+    <tag name="list" childNames="li,*">
+      <doc>Displays a ordered list of {items}</doc>
+      <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
+    </tag>
+    <tag name="li" parentNames="ul,ol,list">
       <url>Specifies an {item} within a list</url>
       <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
     </tag>
-    <tag name="*" parentNames="ul,ol" inline="true">
+    <tag name="*" parentNames="ul,ol,list" inline="true">
       <doc>Specifies an {item} within a list (Shorthand)</doc>
       <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
     </tag>

@@ -90,7 +90,12 @@ object BBCodePsiImplUtil {
     //region BBCodeText
     @JvmStatic
     fun getValue(element: BBCodeText): String {
-        return element.textToken.text
+        return element.text.trim()
     }
     //endregion
+
+    @JvmStatic
+    fun getReferences(element: PsiElement): Array<out PsiReference> {
+        return PsiReferenceService.getService().getContributedReferences(element)
+    }
 }
