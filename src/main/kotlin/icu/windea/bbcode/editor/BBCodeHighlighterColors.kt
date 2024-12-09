@@ -1,6 +1,7 @@
 package icu.windea.bbcode.editor
 
 import com.intellij.openapi.editor.*
+import com.intellij.openapi.editor.colors.*
 import com.intellij.openapi.editor.colors.TextAttributesKey.*
 
 //see: com.intellij.openapi.editor.XmlHighlighterColors
@@ -18,4 +19,7 @@ object BBCodeHighlighterColors {
     val ATTRIBUTE_VALUE = createTextAttributesKey("BBCODE.ATTRIBUTE_VALUE", DefaultLanguageHighlighterColors.STRING)
     @JvmField
     val TAG_DATA = createTextAttributesKey("BBCODE.TAG_DATA", HighlighterColors.TEXT)
+
+    @JvmStatic
+    val MATCHED_TAG_NAME = createTextAttributesKey("BBCODE.MATCHED_TAG_NAME", CodeInsightColors.MATCHED_BRACE_ATTRIBUTES)
 }

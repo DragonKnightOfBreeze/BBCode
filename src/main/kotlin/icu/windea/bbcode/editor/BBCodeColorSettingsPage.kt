@@ -13,10 +13,16 @@ class BBCodeColorSettingsPage : ColorSettingsPage {
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.tag"), BBCodeHighlighterColors.TAG),
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.tagName"), BBCodeHighlighterColors.TAG_NAME),
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.customTagName"), BBCodeHighlighterColors.CUSTOM_TAG_NAME),
+        AttributesDescriptor(BBCodeBundle.message("bbcode.color.matchedTagName"), BBCodeHighlighterColors.MATCHED_TAG_NAME),
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.attributeName"), BBCodeHighlighterColors.ATTRIBUTE_NAME),
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.attributeValue"), BBCodeHighlighterColors.ATTRIBUTE_VALUE),
         AttributesDescriptor(BBCodeBundle.message("bbcode.color.tagData"), BBCodeHighlighterColors.TAG_DATA),
     )
+    
+    private val _tagToDescriptorMap = buildMap { 
+        this["custom_tag_name"] = BBCodeHighlighterColors.CUSTOM_TAG_NAME
+        this["matched"] = BBCodeHighlighterColors.MATCHED_TAG_NAME
+    }
 
     override fun getDisplayName() = BBCodeBundle.message("options.bbcode.displayName")
 
@@ -30,5 +36,5 @@ class BBCodeColorSettingsPage : ColorSettingsPage {
 
     override fun getDemoText() = BBCodeConstants.sampleText
 
-    override fun getAdditionalHighlightingTagToDescriptorMap() = null
+    override fun getAdditionalHighlightingTagToDescriptorMap() = _tagToDescriptorMap
 }
