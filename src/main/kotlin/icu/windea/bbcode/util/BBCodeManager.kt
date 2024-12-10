@@ -1,5 +1,7 @@
 package icu.windea.bbcode.util
 
+import com.intellij.openapi.components.*
+import com.intellij.openapi.project.ProjectManager
 import com.intellij.psi.*
 import com.intellij.psi.util.*
 import icu.windea.bbcode.*

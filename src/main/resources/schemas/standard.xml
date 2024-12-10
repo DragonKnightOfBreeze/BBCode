@@ -98,15 +98,15 @@
       <url>https://www.bbcode.org/posting-images-with-bbcode.php</url>
     </tag>
     <tag name="ul" childNames="li,*">
-      <doc>Displays a unordered list of {items}</doc>
+      <doc>Displays an unordered list of {items}</doc>
       <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
     </tag>
     <tag name="ol" childNames="li,*">
-      <doc>Displays a ordered list of {items}</doc>
+      <doc>Displays an ordered list of {items}</doc>
       <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
     </tag>
     <tag name="list" childNames="li,*">
-      <doc>Displays a ordered list of {items}</doc>
+      <doc>Displays an ordered list of {items}</doc>
       <url>https://www.bbcode.org/listing-items-with-bbcode.php</url>
     </tag>
     <tag name="li" parentNames="ul,ol,list">
@@ -143,7 +143,7 @@
       <url>https://www.bbcode.org/making-a-table-with-bbcode.php</url>
     </tag>
     <tag name="youtube" textType="youtubeId">
-      <doc>Shows the youtube video indicated by {id}</doc>
+      <doc>Shows the YouTube video indicated by {id}</doc>
       <url>https://www.bbcode.org/posting-youtube-videos-with-bbcode.php</url>
     </tag>
   </tags>

@@ -2,7 +2,6 @@ package icu.windea.bbcode.psi.impl
 
 import com.intellij.openapi.util.*
 import com.intellij.psi.*
-import com.intellij.psi.util.*
 import com.intellij.refactoring.suggested.*
 import com.intellij.util.*
 import icons.*
@@ -51,8 +50,8 @@ object BBCodePsiImplUtil {
 
     //region BBCodeAttribute
     @JvmStatic
-    fun getName(element: BBCodeAttribute): String? {
-        return element.attributeName.text
+    fun getName(element: BBCodeAttribute): String {
+        return element.attributeName.text.orEmpty()
     }
 
     @JvmStatic

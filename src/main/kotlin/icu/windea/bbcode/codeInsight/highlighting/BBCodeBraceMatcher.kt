@@ -7,7 +7,7 @@ import com.intellij.openapi.fileTypes.*
 import com.intellij.psi.*
 import com.intellij.psi.tree.*
 import com.intellij.util.containers.*
-import icu.windea.bbcode.psi.*
+import icu.windea.bbcode.psi.BBCodeTypes.*
 
 //see: com.intellij.xml.impl.XmlBraceMatcher
 
@@ -18,7 +18,8 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
         val PAIRING_TOKENS = BidirectionalMap<IElementType, IElementType>()
 
         init {
-            PAIRING_TOKENS.put(BBCodeTypes.TAG_PREFIX_START, BBCodeTypes.TAG_SUFFIX_END)
+            PAIRING_TOKENS[TAG_SUFFIX_END] = TAG_PREFIX_START
+            PAIRING_TOKENS[EMPTY_TAG_PREFIX_END] = TAG_PREFIX_START
         }
     }
 
@@ -44,7 +45,7 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
                 if (pair.leftBraceType === tokenType) return true
             }
         }
-        return tokenType == BBCodeTypes.TAG_PREFIX_START
+        return tokenType == TAG_PREFIX_START
     }
 
     override fun isRBraceToken(iterator: HighlighterIterator, fileText: CharSequence, fileType: FileType): Boolean {
@@ -56,7 +57,7 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
                 if (pair.rightBraceType === tokenType) return true
             }
         }
-        return tokenType == BBCodeTypes.TAG_SUFFIX_END
+        return tokenType == TAG_SUFFIX_END || tokenType == EMPTY_TAG_PREFIX_END
     }
 
     override fun isPairBraces(tokenType1: IElementType, tokenType2: IElementType): Boolean {
@@ -86,7 +87,7 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
                 ) return true
             }
         }
-        return tokenType == BBCodeTypes.TAG_PREFIX_START || tokenType == BBCodeTypes.TAG_SUFFIX_END
+        return tokenType == TAG_PREFIX_START || tokenType == TAG_SUFFIX_END
     }
 
     override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?): Boolean {
@@ -111,46 +112,46 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
         val tokenType = iterator.tokenType
         var name: String? = null
         when {
-            tokenType == BBCodeTypes.TAG_PREFIX_START -> {
+            tokenType == TAG_PREFIX_START -> {
                 iterator.advance()
                 var tokenType1 = if (iterator.atEnd()) null else iterator.tokenType
 
                 var wasWhiteSpace = false
-                if (isWhitespace(tokenType1)) {
+                if (tokenType1 === TokenType.WHITE_SPACE) {
                     wasWhiteSpace = true
                     iterator.advance()
                     tokenType1 = if (iterator.atEnd()) null else iterator.tokenType
                 }
 
-                if (tokenType1 === BBCodeTypes.TAG_NAME) {
+                if (tokenType1 === TAG_NAME) {
                     name = fileText.subSequence(iterator.start, iterator.end).toString()
                 }
                 if (wasWhiteSpace) iterator.retreat()
                 iterator.retreat()
             }
-            tokenType == BBCodeTypes.TAG_SUFFIX_END -> {
-                iterator.retreat()
-                var tokenType1 = if (iterator.atEnd()) null else iterator.tokenType
-
-                var wasWhiteSpace = false
-                if (isWhitespace(tokenType1)) {
-                    wasWhiteSpace = true
+            tokenType == TAG_SUFFIX_END || tokenType == EMPTY_TAG_PREFIX_END -> {
+                var balance = 0
+                var count = 0
+                var tokenType1 = iterator.tokenType
+                while (balance >= 0) {
                     iterator.retreat()
-                    tokenType1 = if (iterator.atEnd()) null else iterator.tokenType
-                }
+                    count++
+                    if (iterator.atEnd()) break
+                    tokenType1 = iterator.tokenType
 
-                if (tokenType1 === BBCodeTypes.TAG_NAME) {
+                    if (tokenType1 == TAG_SUFFIX_END || tokenType1 == EMPTY_TAG_PREFIX_END) {
+                        balance++
+                    } else if (tokenType1 === TAG_NAME) {
+                        balance--
+                    }
+                }
+                if (tokenType1 === TAG_NAME) {
                     name = fileText.subSequence(iterator.start, iterator.end).toString()
                 }
-                if (wasWhiteSpace) iterator.advance()
-                iterator.advance()
+                while (count-- > 0) iterator.advance()
             }
         }
         return name
-    }
-
-    private fun isWhitespace(tokenType1: IElementType?): Boolean {
-        return tokenType1 === TokenType.WHITE_SPACE
     }
 
     override fun getOppositeBraceTokenType(type: IElementType): IElementType? {

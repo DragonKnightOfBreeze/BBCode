@@ -40,7 +40,7 @@ public class BBCodeAttributeImpl extends BBCodeNamedElementImpl implements BBCod
   }
 
   @Override
-  @Nullable
+  @NotNull
   public String getName() {
     return BBCodePsiImplUtil.getName(this);
   }

@@ -15,7 +15,7 @@ public interface BBCodeAttribute extends BBCodeNamedElement, ContributedReferenc
   @NotNull
   PsiElement getAttributeName();
 
-  @Nullable
+  @NotNull
   String getName();
 
   @NotNull

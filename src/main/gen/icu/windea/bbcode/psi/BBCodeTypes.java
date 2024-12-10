@@ -15,6 +15,7 @@ public interface BBCodeTypes {
 
   IElementType ATTRIBUTE_NAME = new BBCodeTokenType("ATTRIBUTE_NAME");
   IElementType ATTRIBUTE_VALUE_TOKEN = new BBCodeTokenType("ATTRIBUTE_VALUE_TOKEN");
+  IElementType EMPTY_TAG_PREFIX_END = new BBCodeTokenType("EMPTY_TAG_PREFIX_END");
   IElementType EQUAL_SIGN = new BBCodeTokenType("EQUAL_SIGN");
   IElementType TAG_NAME = new BBCodeTokenType("TAG_NAME");
   IElementType TAG_PREFIX_END = new BBCodeTokenType("TAG_PREFIX_END");

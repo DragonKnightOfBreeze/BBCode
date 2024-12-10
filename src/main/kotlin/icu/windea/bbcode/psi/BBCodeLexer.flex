@@ -1,7 +1,7 @@
 package icu.windea.bbcode.psi;
 
 import com.intellij.lexer.*;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.IElementType;import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
 import java.util.*;
 
 import static com.intellij.psi.TokenType.*;
@@ -33,7 +33,7 @@ import static icu.windea.bbcode.psi.BBCodeTypes.*;
 %state WAITING_TAG_SUFFIX
 
 %{
-  private Deque<String> tagNames = new ArrayDeque<>(); 
+    private String tagName = null;
 %}
 
 EOL=\R
@@ -53,7 +53,7 @@ TEXT_TOKEN=([^\[\]\s]|\\\S)+
 }
 <WAITING_TAG_PREFIX> {
   {WHITE_SPACE} { return WHITE_SPACE; }
-  {TAG_NAME} { yybegin(WAITING_ATTRIBUTES); return TAG_NAME; }
+  {TAG_NAME} { tagName = yytext().toString(); yybegin(WAITING_ATTRIBUTES); return TAG_NAME; }
   "]" { yypushback(yylength()); yybegin(WAITING_TAG_PREFIX_END); }
 }
 <WAITING_ATTRIBUTES> {
@@ -84,7 +84,12 @@ TEXT_TOKEN=([^\[\]\s]|\\\S)+
 }
 <WAITING_TAG_PREFIX_END> {
   {WHITE_SPACE} { return WHITE_SPACE; }
-  "]" { yybegin(WAITING_TAG_BODY); return TAG_PREFIX_END; }
+  "]" { 
+      yybegin(WAITING_TAG_BODY);
+      boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
+      tagName = null;
+      return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
+  }
 }
 <WAITING_TAG_BODY> {
   {WHITE_SPACE} { return WHITE_SPACE; }

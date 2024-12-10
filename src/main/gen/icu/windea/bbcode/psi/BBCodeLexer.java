@@ -4,7 +4,7 @@
 package icu.windea.bbcode.psi;
 
 import com.intellij.lexer.*;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.IElementType;import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
 import java.util.*;
 
 import static com.intellij.psi.TokenType.*;
@@ -494,7 +494,7 @@ public class BBCodeLexer implements FlexLexer {
   public BBCodeLexer() {
     this((java.io.Reader)null);
   }
-  private Deque<String> tagNames = new ArrayDeque<>(); 
+    private String tagName = null;
 
 
   /**
@@ -759,7 +759,7 @@ public class BBCodeLexer implements FlexLexer {
           // fall through
           case 19: break;
           case 5:
-            { yybegin(WAITING_ATTRIBUTES); return TAG_NAME;
+            { tagName = yytext().toString(); yybegin(WAITING_ATTRIBUTES); return TAG_NAME;
             }
           // fall through
           case 20: break;
@@ -769,7 +769,10 @@ public class BBCodeLexer implements FlexLexer {
           // fall through
           case 21: break;
           case 7:
-            { yybegin(WAITING_TAG_BODY); return TAG_PREFIX_END;
+            { yybegin(WAITING_TAG_BODY);
+      boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
+      tagName = null;
+      return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
             }
           // fall through
           case 22: break;

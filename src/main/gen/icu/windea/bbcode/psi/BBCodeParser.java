@@ -10,6 +10,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.TokenSet;
 import com.intellij.lang.PsiParser;
 import com.intellij.lang.LightPsiParser;
+import static com.intellij.lang.WhitespacesBinders.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class BBCodeParser implements PsiParser, LightPsiParser {
@@ -105,8 +106,10 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   private static boolean root_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "root_0")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = tag(b, l + 1);
     if (!r) r = text(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -125,25 +128,36 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (tag_prefix tag_body tag_suffix) | tag_prefix_single
+  // tag_prefix (<<isEmptyTag>> | tag_body tag_suffix)
   public static boolean tag(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag")) return false;
     if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, TAG, null);
+    r = tag_prefix(b, l + 1);
+    p = r; // pin = 1
+    r = r && tag_1(b, l + 1);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // <<isEmptyTag>> | tag_body tag_suffix
+  private static boolean tag_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = tag_0(b, l + 1);
-    if (!r) r = tag_prefix_single(b, l + 1);
-    exit_section_(b, m, TAG, r);
+    r = isEmptyTag(b, l + 1);
+    if (!r) r = tag_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
-  // tag_prefix tag_body tag_suffix
-  private static boolean tag_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_0")) return false;
+  // tag_body tag_suffix
+  private static boolean tag_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_1_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = tag_prefix(b, l + 1);
-    r = r && tag_body(b, l + 1);
+    r = tag_body(b, l + 1);
     r = r && tag_suffix(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -165,70 +179,53 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
   private static boolean tag_body_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_body_0")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = tag(b, l + 1);
     if (!r) r = text(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // TAG_PREFIX_START <<pushTagName>> TAG_NAME attributes? TAG_PREFIX_END
+  // TAG_PREFIX_START TAG_NAME attributes? (TAG_PREFIX_END | EMPTY_TAG_PREFIX_END)
   static boolean tag_prefix(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_prefix")) return false;
     if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
-    r = consumeToken(b, TAG_PREFIX_START);
-    r = r && pushTagName(b, l + 1);
-    r = r && consumeToken(b, TAG_NAME);
-    p = r; // pin = 3
-    r = r && report_error_(b, tag_prefix_3(b, l + 1));
-    r = p && consumeToken(b, TAG_PREFIX_END) && r;
+    r = consumeTokens(b, 1, TAG_PREFIX_START, TAG_NAME);
+    p = r; // pin = 1
+    r = r && report_error_(b, tag_prefix_2(b, l + 1));
+    r = p && tag_prefix_3(b, l + 1) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
   // attributes?
+  private static boolean tag_prefix_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tag_prefix_2")) return false;
+    attributes(b, l + 1);
+    return true;
+  }
+
+  // TAG_PREFIX_END | EMPTY_TAG_PREFIX_END
   private static boolean tag_prefix_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_prefix_3")) return false;
-    attributes(b, l + 1);
-    return true;
+    boolean r;
+    r = consumeToken(b, TAG_PREFIX_END);
+    if (!r) r = consumeToken(b, EMPTY_TAG_PREFIX_END);
+    return r;
   }
 
   /* ********************************************************** */
-  // TAG_PREFIX_START <<popTagName>>  TAG_NAME attributes? TAG_PREFIX_END
-  static boolean tag_prefix_single(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_prefix_single")) return false;
-    if (!nextTokenIs(b, TAG_PREFIX_START)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_);
-    r = consumeToken(b, TAG_PREFIX_START);
-    r = r && popTagName(b, l + 1);
-    r = r && consumeToken(b, TAG_NAME);
-    p = r; // pin = 3
-    r = r && report_error_(b, tag_prefix_single_3(b, l + 1));
-    r = p && consumeToken(b, TAG_PREFIX_END) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // attributes?
-  private static boolean tag_prefix_single_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tag_prefix_single_3")) return false;
-    attributes(b, l + 1);
-    return true;
-  }
-
-  /* ********************************************************** */
-  // TAG_SUFFIX_START <<checkTagName>> TAG_NAME TAG_SUFFIX_END
+  // TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END
   static boolean tag_suffix(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tag_suffix")) return false;
     if (!nextTokenIs(b, TAG_SUFFIX_START)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
-    r = consumeToken(b, TAG_SUFFIX_START);
-    r = r && checkTagName(b, l + 1);
-    r = r && consumeTokens(b, 1, TAG_NAME, TAG_SUFFIX_END);
-    p = r; // pin = 3
+    r = consumeTokens(b, 1, TAG_SUFFIX_START, TAG_NAME, TAG_SUFFIX_END);
+    p = r; // pin = 1
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
@@ -246,6 +243,7 @@ public class BBCodeParser implements PsiParser, LightPsiParser {
       if (!consumeToken(b, TEXT_TOKEN)) break;
       if (!empty_element_parsed_guard_(b, "text", c)) break;
     }
+    register_hook_(b, WS_BINDERS, GREEDY_LEFT_BINDER, GREEDY_RIGHT_BINDER);
     exit_section_(b, m, TEXT, r);
     return r;
   }

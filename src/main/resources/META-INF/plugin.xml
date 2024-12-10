@@ -17,10 +17,10 @@
     <elementDescriptionProvider implementation="icu.windea.bbcode.editor.BBCodeDescriptionProvider"/>
     <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
     <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
-    <gotoDeclarationHandler implementation="icu.windea.bbcode.codeInsight.navigation.BBCodeSchemaBasedGotoDeclarationHandler"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
     
+    <psi.referenceContributor language="BBCode" implementation="icu.windea.bbcode.references.BBCodeSchemaBasedReferenceContributor"/>
     <platform.backend.documentation.psiTargetProvider implementation="icu.windea.bbcode.documentation.BBCodeSchemaBasedDocumentationTargetProvider"/>
   </extensions>
 </idea-plugin>

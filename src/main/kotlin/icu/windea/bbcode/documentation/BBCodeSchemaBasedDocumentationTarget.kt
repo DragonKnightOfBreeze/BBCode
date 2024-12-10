@@ -3,6 +3,7 @@
 package icu.windea.bbcode.documentation
 
 import com.intellij.model.*
+import com.intellij.openapi.application.*
 import com.intellij.platform.backend.documentation.*
 import com.intellij.platform.backend.presentation.*
 import com.intellij.pom.*
@@ -10,17 +11,19 @@ import com.intellij.psi.*
 import com.intellij.refactoring.suggested.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.lang.schema.*
-import icu.windea.bbcode.psi.BBCodeAttribute
-import icu.windea.bbcode.psi.BBCodeTag
+import icu.windea.bbcode.psi.*
 
 class BBCodeSchemaBasedDocumentationTarget(
-    val element: PsiElement
+    private val element: PsiElement,
+    private val elementForTarget: PsiElement,
 ) : DocumentationTarget {
     override fun createPointer(): Pointer<out DocumentationTarget> {
         val elementPtr = element.createSmartPointer()
+        val elementForTargetPtr = elementForTarget.createSmartPointer()
         return Pointer {
             val element = elementPtr.dereference() ?: return@Pointer null
-            BBCodeSchemaBasedDocumentationTarget(element)
+            val elementForTarget = elementForTargetPtr.dereference() ?: return@Pointer null
+            BBCodeSchemaBasedDocumentationTarget(element, elementForTarget)
         }
     }
 
@@ -28,28 +31,28 @@ class BBCodeSchemaBasedDocumentationTarget(
         get() = (element.navigationElement ?: element) as? Navigatable
 
     override fun computePresentation(): TargetPresentation {
-        return computeLocalPresentation(element) ?: TargetPresentation.builder("").presentation()
+        return computeLocalPresentation(elementForTarget) ?: TargetPresentation.builder("").presentation()
     }
 
     override fun computeDocumentationHint(): String? {
-        return computeLocalDocumentationHint(element)
+        return computeLocalDocumentationHint(elementForTarget)
     }
 
     override fun computeDocumentation(): DocumentationResult {
         return DocumentationResult.asyncDocumentation {
-            computeLocalDocumentation(element)
+            computeLocalDocumentation(elementForTarget)
         }
     }
 }
 
 private fun computeLocalPresentation(element: PsiElement): TargetPresentation? {
-    return when(element) {
+    return when (element) {
         is BBCodeTag -> {
-            val name = element.name ?: return null
+            val name = element.name.orNull() ?: return null
             return TargetPresentation.builder(name).containerText("Tag").presentation()
         }
         is BBCodeAttribute -> {
-            val name = element.name ?: return null
+            val name = element.name.orNull() ?: return null
             return TargetPresentation.builder(name).containerText("Attribute").presentation()
         }
         else -> null
@@ -57,9 +60,9 @@ private fun computeLocalPresentation(element: PsiElement): TargetPresentation? {
 }
 
 private fun computeLocalDocumentationHint(element: PsiElement): String? {
-    return when(element) {
+    return when (element) {
         is BBCodeTag -> {
-            val name = element.name ?: return null
+            val name = element.name.orNull() ?: return null
             buildDocumentation {
                 definition {
                     append("(tag) <b>").append(name.escapeXml()).append("</b>")
@@ -67,7 +70,7 @@ private fun computeLocalDocumentationHint(element: PsiElement): String? {
             }
         }
         is BBCodeAttribute -> {
-            val name = element.name ?: return null
+            val name = element.name.orNull() ?: return null
             buildDocumentation {
                 definition {
                     append("(attribute) <b>").append(name.escapeXml()).append("</b>")
@@ -78,36 +81,33 @@ private fun computeLocalDocumentationHint(element: PsiElement): String? {
     }
 }
 
-private fun computeLocalDocumentation(element: PsiElement): DocumentationResult.Documentation? {
-    return when(element) {
+private fun computeLocalDocumentation(element: PsiElement ): DocumentationResult.Documentation? {
+    return when (element) {
         is BBCodeTag -> {
-            val name = element.name ?: return null
-            val schema = BBCodeSchemaManager.resolveForTag(element)
+            val name = element.name.orNull() ?: return null
+            val schema = runReadAction { BBCodeSchemaManager.resolveForTag(element) }
             val html = buildDocumentation b@{
                 definition {
                     append("(tag) <b>").append(name.escapeXml()).append("</b>")
                 }
-                if(schema == null) return@b
-                if(!schema.doc.isNullOrEmpty()) {
-                    content { append(schema.doc) }
-                }
-                if(schema.urls.isNotEmpty()) {
-                    schema.urls.forEach { content { append("See also: ").appendLink(it, it) } }
+                if (schema == null) return@b
+                if (!schema.doc.isNullOrEmpty()) {
+                    content { append(schema.doc.replaceBr()) }
                 }
             }
             DocumentationResult.documentation(html)
         }
         is BBCodeAttribute -> {
-            val name = element.name ?: return null
-            val schema = BBCodeSchemaManager.resolveForAttribute(element)
+            val name = element.name.orNull() ?: return null
+            val schema = runReadAction { BBCodeSchemaManager.resolveForAttribute(element) }
             val html = buildDocumentation b@{
                 definition {
                     append("(attribute) <b>").append(name.escapeXml()).append("</b>")
                 }
-                if(schema == null) return@b
-                if(!schema.doc.isNullOrEmpty()) {
+                if (schema == null) return@b
+                if (!schema.doc.isNullOrEmpty()) {
                     content {
-                        append(schema.doc)
+                        append(schema.doc.replaceBr())
                     }
                 }
             }
@@ -117,7 +117,4 @@ private fun computeLocalDocumentation(element: PsiElement): DocumentationResult.
     }
 }
 
-private fun DocumentationBuilder.appendLink(url: String, text: String): DocumentationBuilder {
-    this.append("<a href=\"").append(url).append("\">").append(text).append("</a>")
-    return this
-}
+private fun String.replaceBr() = replace("\n", "<br/>")

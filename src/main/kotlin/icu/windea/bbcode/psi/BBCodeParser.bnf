@@ -1,27 +1,31 @@
 {
-	parserClass="icu.windea.bbcode.psi.BBCodeParser"
-	extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
-	psiClassPrefix="BBCode"
-	psiImplClassSuffix="Impl"
-	psiPackage="icu.windea.bbcode.psi"
-	psiImplPackage="icu.windea.bbcode.psi.impl"
-	elementTypeHolderClass="icu.windea.bbcode.psi.BBCodeTypes"
-	tokenTypeClass="icu.windea.bbcode.psi.BBCodeTokenType"
-	elementTypeClass="icu.windea.bbcode.psi.BBCodeElementType"
-	psiImplUtilClass="icu.windea.bbcode.psi.impl.BBCodePsiImplUtil"
-	parserUtilClass="icu.windea.bbcode.psi.BBCodeParserUtil"
+  parserClass="icu.windea.bbcode.psi.BBCodeParser"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="BBCode"
+  psiImplClassSuffix="Impl"
+  psiPackage="icu.windea.bbcode.psi"
+  psiImplPackage="icu.windea.bbcode.psi.impl"
+  elementTypeHolderClass="icu.windea.bbcode.psi.BBCodeTypes"
+  tokenTypeClass="icu.windea.bbcode.psi.BBCodeTokenType"
+  elementTypeClass="icu.windea.bbcode.psi.BBCodeElementType"
+  psiImplUtilClass="icu.windea.bbcode.psi.impl.BBCodePsiImplUtil"
+  parserUtilClass="icu.windea.bbcode.psi.BBCodeParserUtil"
 
-	tokens=[
-        TAG_NAME='regexp:[\w*\-_]+'
-        ATTRIBUTE_NAME='regexp:[\w*\-_]+'
-        ATTRIBUTE_VALUE_TOKEN='regexp:([^=\[\]\s"][^=\[\]\s]*)|("([^"\\]|\\.)*"?)'
-        TEXT_TOKEN='regexp:[^\[\]\s]+'
-	]
+  parserImports=[
+    "static com.intellij.lang.WhitespacesBinders.*"
+  ]
+
+  tokens=[
+    TAG_NAME='regexp:[\w*\-_]+'
+    ATTRIBUTE_NAME='regexp:[\w*\-_]+'
+    ATTRIBUTE_VALUE_TOKEN='regexp:([^=\[\]\s\"][^=\[\]\s]*)|(\"([^\"\\]|\\.)*\"?)'
+    TEXT_TOKEN='regexp:([^\[\]\s]|\\\S)+'
+  ]
 }
 
 root ::= (tag | text)*
 
-tag ::= (tag_prefix tag_body tag_suffix) | tag_prefix_single {
+tag ::= tag_prefix (<<isEmptyTag>> | tag_body tag_suffix) {
   pin=1
   mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
   implements=[
@@ -31,15 +35,12 @@ tag ::= (tag_prefix tag_body tag_suffix) | tag_prefix_single {
   methods=[getIcon getName setName getNameIdentifier getTextOffset getAttributes getValue getReferences]
 }
 
-private tag_prefix ::= TAG_PREFIX_START <<pushTagName>> TAG_NAME attributes? TAG_PREFIX_END {
-  pin=3
+private tag_prefix ::= TAG_PREFIX_START TAG_NAME attributes? (TAG_PREFIX_END | EMPTY_TAG_PREFIX_END) {
+  pin=1
 }
 private tag_body ::= (tag | text) *
-private tag_suffix ::= TAG_SUFFIX_START <<checkTagName>> TAG_NAME TAG_SUFFIX_END {
-  pin=3
-}
-private tag_prefix_single ::= TAG_PREFIX_START <<popTagName>>  TAG_NAME attributes? TAG_PREFIX_END {
-  pin=3
+private tag_suffix ::= TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END {
+  pin=1
 }
 
 private attributes ::= simple_attribute | attribute_group
@@ -65,4 +66,5 @@ attribute_value ::= ATTRIBUTE_VALUE_TOKEN {
 text ::= TEXT_TOKEN + {
   implements="com.intellij.psi.PsiLiteralValue"
   methods=[getValue]
+  hooks=[wsBinders="GREEDY_LEFT_BINDER, GREEDY_RIGHT_BINDER"]
 }
