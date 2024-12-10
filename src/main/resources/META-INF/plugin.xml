@@ -21,7 +21,6 @@
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
     
-    <psi.referenceContributor language="BBCode" implementation="icu.windea.bbcode.references.BBCodeSchemaBasedReferenceContributor"/>
     <platform.backend.documentation.psiTargetProvider implementation="icu.windea.bbcode.documentation.BBCodeSchemaBasedDocumentationTargetProvider"/>
   </extensions>
 </idea-plugin>
