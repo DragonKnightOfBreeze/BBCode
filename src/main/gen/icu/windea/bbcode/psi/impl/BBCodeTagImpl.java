@@ -60,7 +60,7 @@ public class BBCodeTagImpl extends BBCodeNamedElementImpl implements BBCodeTag {
   }
 
   @Override
-  @Nullable
+  @NotNull
   public String getName() {
     return BBCodePsiImplUtil.getName(this);
   }
@@ -80,12 +80,6 @@ public class BBCodeTagImpl extends BBCodeNamedElementImpl implements BBCodeTag {
   @Override
   public int getTextOffset() {
     return BBCodePsiImplUtil.getTextOffset(this);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getTagName() {
-    return BBCodePsiImplUtil.getTagName(this);
   }
 
   @Override

@@ -9,6 +9,7 @@ import com.intellij.openapi.project.*
 import com.intellij.openapi.util.*
 import com.intellij.openapi.vfs.*
 import com.intellij.psi.*
+import com.intellij.psi.util.*
 import com.intellij.util.*
 import icu.windea.bbcode.util.*
 import java.util.concurrent.*
@@ -54,56 +55,6 @@ inline fun <T, R> T.runCatchingCancelable(block: T.() -> R): Result<R> {
     return runCatching(block).onFailure { if (it is ProcessCanceledException) throw it }
 }
 
-private object EmptyPointer : SmartPsiElementPointer<PsiElement> {
-    override fun getElement() = null
-
-    override fun getContainingFile() = null
-
-    override fun getProject() = ProjectManager.getInstance().defaultProject
-
-    override fun getVirtualFile() = null
-
-    override fun getRange() = null
-
-    override fun getPsiRange() = null
-}
-
-fun <T : PsiElement> emptyPointer(): SmartPsiElementPointer<T> = EmptyPointer.cast()
-
-fun SmartPsiElementPointer<*>.isEmpty() = this === EmptyPointer
-
-fun <E : PsiElement> E.createPointer(project: Project = this.project): SmartPsiElementPointer<E> {
-    return try {
-        SmartPointerManager.getInstance(project).createSmartPsiElementPointer(this)
-    } catch (e: IllegalArgumentException) {
-        //Element from alien project - use empty pointer
-        emptyPointer()
-    }
-}
-
-fun <E : PsiElement> E.createPointer(file: PsiFile?, project: Project = this.project): SmartPsiElementPointer<E> {
-    return try {
-        SmartPointerManager.getInstance(project).createSmartPsiElementPointer(this, file)
-    } catch (e: IllegalArgumentException) {
-        //Element from alien project - use empty pointer
-        emptyPointer()
-    }
-}
-
-/** 将VirtualFile转化为指定类型的PsiFile。 */
-inline fun VirtualFile.toPsiFile(project: Project): PsiFile? {
-    return PsiManager.getInstance(project).findFile(this)
-}
-
-/** 将VirtualFile转化为指定类型的PsiDirectory。 */
-inline fun VirtualFile.toPsiDirectory(project: Project): PsiDirectory? {
-    return PsiManager.getInstance(project).findDirectory(this)
-}
-
-/** 将VirtualFile转化为指定类型的PsiFile或者PsiDirectory。 */
-inline fun VirtualFile.toPsiFileSystemItem(project: Project): PsiFileSystemItem? {
-    return if (this.isFile) PsiManager.getInstance(project).findFile(this) else PsiManager.getInstance(project).findDirectory(this)
-}
 
 inline fun <T> UserDataHolder.tryPutUserData(key: Key<T>, value: T?) {
     runCatchingCancelable { putUserData(key, value) }
@@ -178,4 +129,60 @@ inline operator fun <T> DataKey<T>.getValue(thisRef: DataContext, property: KPro
 
 inline operator fun <T> DataKey<T>.getValue(thisRef: AnActionEvent, property: KProperty<*>): T? {
     return thisRef.dataContext.getData(this)
+}
+
+
+private object EmptyPointer : SmartPsiElementPointer<PsiElement> {
+    override fun getElement() = null
+
+    override fun getContainingFile() = null
+
+    override fun getProject() = ProjectManager.getInstance().defaultProject
+
+    override fun getVirtualFile() = null
+
+    override fun getRange() = null
+
+    override fun getPsiRange() = null
+}
+
+fun <T : PsiElement> emptyPointer(): SmartPsiElementPointer<T> = EmptyPointer.cast()
+
+fun SmartPsiElementPointer<*>.isEmpty() = this === EmptyPointer
+
+fun <E : PsiElement> E.createPointer(project: Project = this.project): SmartPsiElementPointer<E> {
+    return try {
+        SmartPointerManager.getInstance(project).createSmartPsiElementPointer(this)
+    } catch (e: IllegalArgumentException) {
+        //Element from alien project - use empty pointer
+        emptyPointer()
+    }
+}
+
+fun <E : PsiElement> E.createPointer(file: PsiFile?, project: Project = this.project): SmartPsiElementPointer<E> {
+    return try {
+        SmartPointerManager.getInstance(project).createSmartPsiElementPointer(this, file)
+    } catch (e: IllegalArgumentException) {
+        //Element from alien project - use empty pointer
+        emptyPointer()
+    }
+}
+
+/** 将VirtualFile转化为指定类型的PsiFile。 */
+inline fun VirtualFile.toPsiFile(project: Project): PsiFile? {
+    return PsiManager.getInstance(project).findFile(this)
+}
+
+/** 将VirtualFile转化为指定类型的PsiDirectory。 */
+inline fun VirtualFile.toPsiDirectory(project: Project): PsiDirectory? {
+    return PsiManager.getInstance(project).findDirectory(this)
+}
+
+/** 将VirtualFile转化为指定类型的PsiFile或者PsiDirectory。 */
+inline fun VirtualFile.toPsiFileSystemItem(project: Project): PsiFileSystemItem? {
+    return if (this.isFile) PsiManager.getInstance(project).findFile(this) else PsiManager.getInstance(project).findDirectory(this)
+}
+
+fun PsiElement.children(forward: Boolean = true): Sequence<PsiElement> {
+    return if(forward) this.firstChild?.siblings(forward = true).orEmpty() else this.lastChild?.siblings(forward = false).orEmpty()
 }

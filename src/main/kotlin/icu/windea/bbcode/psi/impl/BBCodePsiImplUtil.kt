@@ -7,6 +7,7 @@ import com.intellij.refactoring.suggested.*
 import com.intellij.util.*
 import icons.*
 import icu.windea.bbcode.psi.*
+import icu.windea.bbcode.util.*
 import javax.swing.*
 
 @Suppress("UNUSED_PARAMETER")
@@ -18,8 +19,8 @@ object BBCodePsiImplUtil {
     }
 
     @JvmStatic
-    fun getName(element: BBCodeTag): String? {
-        return element.tagName?.text
+    fun getName(element: BBCodeTag): String {
+        return BBCodeManager.getStartTagNameElement(element)?.text.orEmpty()
     }
 
     @JvmStatic
@@ -29,17 +30,12 @@ object BBCodePsiImplUtil {
 
     @JvmStatic
     fun getNameIdentifier(element: BBCodeTag): PsiElement? {
-        return element.tagName
+        return BBCodeManager.getStartTagNameElement(element)
     }
 
     @JvmStatic
     fun getTextOffset(element: BBCodeTag): Int {
         return element.nameIdentifier?.startOffset ?: 1
-    }
-
-    @JvmStatic
-    fun getTagName(element: BBCodeTag): PsiElement? {
-        return element.firstChild?.siblings()?.find { it.elementType == BBCodeTypes.TAG_NAME }
     }
 
     @JvmStatic

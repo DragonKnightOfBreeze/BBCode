@@ -28,7 +28,7 @@ tag ::= (tag_prefix tag_body tag_suffix) | tag_prefix_single {
     "icu.windea.bbcode.psi.BBCodeNamedElement"
     "com.intellij.psi.ContributedReferenceHost"
   ]
-  methods=[getIcon getName setName getNameIdentifier getTextOffset getTagName getAttributes getValue getReferences]
+  methods=[getIcon getName setName getNameIdentifier getTextOffset getAttributes getValue getReferences]
 }
 
 private tag_prefix ::= TAG_PREFIX_START <<pushTagName>> TAG_NAME attributes? TAG_PREFIX_END {

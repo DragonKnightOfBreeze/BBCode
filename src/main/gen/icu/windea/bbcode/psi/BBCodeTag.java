@@ -26,7 +26,7 @@ public interface BBCodeTag extends BBCodeNamedElement, ContributedReferenceHost 
   @NotNull
   Icon getIcon(@IconFlags int flags);
 
-  @Nullable
+  @NotNull
   String getName();
 
   @NotNull
@@ -36,9 +36,6 @@ public interface BBCodeTag extends BBCodeNamedElement, ContributedReferenceHost 
   PsiElement getNameIdentifier();
 
   int getTextOffset();
-
-  @Nullable
-  PsiElement getTagName();
 
   @NotNull
   List<BBCodeAttribute> getAttributes();
