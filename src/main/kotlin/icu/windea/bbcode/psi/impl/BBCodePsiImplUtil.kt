@@ -36,12 +36,7 @@ object BBCodePsiImplUtil {
     fun getTextOffset(element: BBCodeTag): Int {
         return element.nameIdentifier?.startOffset ?: 1
     }
-
-    @JvmStatic
-    fun getAttributes(element: BBCodeTag): List<BBCodeAttribute> {
-        return element.attributeList
-    }
-
+    
     @JvmStatic
     fun getValue(element: BBCodeTag): String? {
         return element.attributeValue?.text

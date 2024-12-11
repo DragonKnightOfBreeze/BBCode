@@ -12,8 +12,8 @@ data class BBCodeSchema(
     data class Tag(
         val pointer: SmartPsiElementPointer<XmlTag>,
         val name: String,
-        val parentNames: Set<String> = emptySet(),
-        val childNames: Set<String> = emptySet(),
+        val parentNames: Set<String>? = null,
+        val childNames: Set<String>? = null,
         val textType: String? = null,
         val inline: Boolean = false,
         val attribute: SimpleAttribute? = null,
@@ -22,6 +22,7 @@ data class BBCodeSchema(
         val urls: Set<String> = emptySet(),
     ) {
         val attributeMap by lazy { attributes.associateBy { it.name } }
+        val requiredAttributeNames by lazy { attributes.filter { !it.optional }.mapTo(mutableSetOf()) { it.name } }
     }
 
     data class SimpleAttribute(

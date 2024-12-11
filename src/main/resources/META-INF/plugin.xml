@@ -24,5 +24,12 @@
     
     <psi.referenceContributor language="BBCode" implementation="icu.windea.bbcode.references.BBCodeSchemaBasedReferenceContributor"/>
     <platform.backend.documentation.psiTargetProvider implementation="icu.windea.bbcode.documentation.BBCodeSchemaBasedDocumentationTargetProvider"/>
+
+
+    <localInspection language="BBCode" shortName="BBCodeSchemaValidation"
+                     enabledByDefault="true" level="WARNING"
+                     bundle="messages.BBCodeBundle" key="inspection.bbcode.schemaValidation"
+                     groupBundle="messages.BBCodeBundle" groupKey="bbcode.inspections.group"
+                     implementationClass="icu.windea.bbcode.inspections.BBCodeSchemaValidationInspection"/>
   </extensions>
 </idea-plugin>

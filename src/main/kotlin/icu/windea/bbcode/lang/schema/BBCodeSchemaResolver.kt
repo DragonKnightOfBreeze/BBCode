@@ -26,8 +26,8 @@ object BBCodeSchemaResolver {
         return BBCodeSchema.Tag(
             pointer = tag.createPointer(project),
             name = attributes["name"] ?: return null,
-            parentNames = attributes["parentNames"]?.toCommaDelimitedStringSet().orEmpty(),
-            childNames = attributes["childNames"]?.toCommaDelimitedStringSet().orEmpty(),
+            parentNames = attributes["parentNames"]?.toCommaDelimitedStringSet(),
+            childNames = attributes["childNames"]?.toCommaDelimitedStringSet(),
             textType = attributes["textType"],
             inline = attributes["inline"].toBoolean(),
             attribute = subTags["attribute"]?.firstOrNull()?.let { resolveSimpleAttributeSchema(it, project) },

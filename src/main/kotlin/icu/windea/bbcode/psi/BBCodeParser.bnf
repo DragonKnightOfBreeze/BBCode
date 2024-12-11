@@ -32,7 +32,7 @@ tag ::= tag_prefix (<<isEmptyTag>> | tag_body tag_suffix) {
     "icu.windea.bbcode.psi.BBCodeNamedElement"
     "com.intellij.psi.ContributedReferenceHost"
   ]
-  methods=[getIcon getName setName getNameIdentifier getTextOffset getAttributes getValue getReferences]
+  methods=[getIcon getName setName getNameIdentifier getTextOffset getValue getReferences]
 }
 
 private tag_prefix ::= TAG_PREFIX_START TAG_NAME attributes? (TAG_PREFIX_END | EMPTY_TAG_PREFIX_END) {

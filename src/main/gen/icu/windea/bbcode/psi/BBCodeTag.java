@@ -37,9 +37,6 @@ public interface BBCodeTag extends BBCodeNamedElement, ContributedReferenceHost 
 
   int getTextOffset();
 
-  @NotNull
-  List<BBCodeAttribute> getAttributes();
-
   @Nullable
   String getValue();
 

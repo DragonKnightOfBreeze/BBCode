@@ -83,12 +83,6 @@ public class BBCodeTagImpl extends BBCodeNamedElementImpl implements BBCodeTag {
   }
 
   @Override
-  @NotNull
-  public List<BBCodeAttribute> getAttributes() {
-    return BBCodePsiImplUtil.getAttributes(this);
-  }
-
-  @Override
   @Nullable
   public String getValue() {
     return BBCodePsiImplUtil.getValue(this);
