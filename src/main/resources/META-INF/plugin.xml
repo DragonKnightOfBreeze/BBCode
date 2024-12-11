@@ -18,6 +18,8 @@
     <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
     <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
+    <langCodeStyleSettingsProvider implementation="icu.windea.bbcode.formatter.BBCodeLanguageCodeStyleSettingsProvider"/>
+    <lang.formatter language="BBCode" implementationClass="icu.windea.bbcode.formatter.BBCodeFormattingModelBuilder"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
     
     <psi.referenceContributor language="BBCode" implementation="icu.windea.bbcode.references.BBCodeSchemaBasedReferenceContributor"/>
