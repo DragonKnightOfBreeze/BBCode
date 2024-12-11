@@ -40,8 +40,8 @@
     </tag>
     <tag name="style">
       <attributes>
-        <attribute name="size" type="numberPx"/>
-        <attribute name="color" type="color"/>
+        <attribute name="size" type="numberPx" optional="true"/>
+        <attribute name="color" type="color" optional="true"/>
       </attributes>
       <url>https://www.bbcode.org/changing-the-font-size-with-bbcode.php</url>
       <url>https://www.bbcode.org/changing-the-text-color-with-bbcode.php</url>
