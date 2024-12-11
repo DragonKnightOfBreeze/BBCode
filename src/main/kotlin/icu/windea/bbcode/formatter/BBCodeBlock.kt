@@ -8,7 +8,7 @@ import com.intellij.psi.codeStyle.*
 import com.intellij.psi.formatter.common.*
 import com.intellij.psi.tree.*
 import icu.windea.bbcode.*
-import icu.windea.bbcode.psi.*
+import icu.windea.bbcode.psi.BBCodeTypes.*
 
 //com.intellij.psi.formatter.xml.XmlBlock
 
@@ -17,7 +17,7 @@ class BBCodeBlock(
     private val settings: CodeStyleSettings
 ) : AbstractBlock(node, createWrap(), createAlignment()) {
     companion object {
-        private val TAG_NAME_END = TokenSet.create(BBCodeTypes.TAG_PREFIX_END, BBCodeTypes.EMPTY_TAG_PREFIX_END, BBCodeTypes.TAG_SUFFIX_END)
+        private val NOT_EMPTY_TAG_NAME_END = TokenSet.create(TAG_PREFIX_END, TAG_SUFFIX_END)
         
         private fun createWrap(): Wrap? {
             return null
@@ -30,9 +30,9 @@ class BBCodeBlock(
         private fun createSpacingBuilder(settings: CodeStyleSettings): SpacingBuilder {
             val customSettings = settings.getCustomSettings(BBCodeCodeStyleSettings::class.java)
             return SpacingBuilder(settings, BBCodeLanguage)
-                .around(BBCodeTypes.EQUAL_SIGN).spaceIf(customSettings.SPACE_AROUND_EQUALITY_IN_ATTRIBUTE)
-                .between(BBCodeTypes.TAG_NAME, TAG_NAME_END).spaceIf(customSettings.SPACE_AFTER_TAG_NAME)
-                .between(BBCodeTypes.TAG_NAME, BBCodeTypes.EMPTY_TAG_PREFIX_END).spaceIf(customSettings.SPACE_INSIDE_EMPTY_TAG)
+                .around(EQUAL_SIGN).spaceIf(customSettings.SPACE_AROUND_EQUALITY_IN_ATTRIBUTE)
+                .between(TAG_NAME, NOT_EMPTY_TAG_NAME_END).spaceIf(customSettings.SPACE_AFTER_TAG_NAME)
+                .between(TAG_NAME, EMPTY_TAG_PREFIX_END).spaceIf(customSettings.SPACE_AFTER_TAG_NAME || customSettings.SPACE_INSIDE_EMPTY_TAG)
         }
     }
 
@@ -50,10 +50,12 @@ class BBCodeBlock(
     }
 
     override fun getIndent(): Indent? {
-        //val elementType = myNode.elementType
+        val elementType = myNode.elementType
         val parentElementType = myNode.treeParent?.elementType
         return when {
-            parentElementType == BBCodeTypes.TAG -> Indent.getNormalIndent()
+            elementType == TAG_PREFIX_START -> Indent.getNoneIndent()
+            elementType == TAG_SUFFIX_START -> Indent.getNoneIndent()
+            parentElementType == TAG -> Indent.getNormalIndent()
             else -> Indent.getNoneIndent()
         }
     }
@@ -62,7 +64,7 @@ class BBCodeBlock(
         val elementType = myNode.elementType
         return when {
             elementType is IFileElementType -> Indent.getNoneIndent()
-            elementType == BBCodeTypes.TAG -> Indent.getNormalIndent()
+            elementType == TAG -> Indent.getNormalIndent()
             else -> null
         }
     }

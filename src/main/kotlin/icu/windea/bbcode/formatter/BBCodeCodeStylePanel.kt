@@ -16,6 +16,7 @@ import com.intellij.xml.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.editor.*
 import org.jetbrains.annotations.*
+import java.awt.*
 import java.util.*
 import javax.swing.*
 
@@ -25,10 +26,12 @@ class BBCodeCodeStylePanel(settings: CodeStyleSettings) : CodeStyleAbstractPanel
     private var myPanel: JPanel? = null
     private var myPreviewPanel: JPanel? = null
 
-    private val mySpacesAroundEquality: JCheckBox? = null
-    private val mySpacesAfterTagName: JCheckBox? = null
-    private val myInEmptyTag: JCheckBox? = null
-    private val myRightMarginForm: RightMarginForm? = null
+    private var mySpacesAroundEquality: JCheckBox? = null
+    private var mySpacesAfterTagName: JCheckBox? = null
+    private var myInEmptyTag: JCheckBox? = null
+    private var myJBScrollPane: JBScrollPane? = null
+    private var myRightMarginPanel: JPanel? = null
+    private var myRightMarginForm: RightMarginForm? = null
 
     init {
         installPreviewPanel(myPreviewPanel!!)
@@ -84,5 +87,17 @@ class BBCodeCodeStylePanel(settings: CodeStyleSettings) : CodeStyleAbstractPanel
 
     override fun getFileType(): FileType {
         return BBCodeFileType
+    }
+
+    @Suppress("unused")
+    private fun createUIComponents() {
+        myJBScrollPane = object : JBScrollPane() {
+            override fun getPreferredSize(): Dimension {
+                val prefSize = super.getPreferredSize()
+                return Dimension(prefSize.width + 15, prefSize.height)
+            }
+        }
+        myRightMarginForm = RightMarginForm(BBCodeLanguage, settings)
+        myRightMarginPanel = myRightMarginForm!!.topPanel
     }
 }
