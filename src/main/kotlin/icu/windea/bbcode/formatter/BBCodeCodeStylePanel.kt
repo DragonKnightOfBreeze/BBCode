@@ -89,7 +89,6 @@ class BBCodeCodeStylePanel(settings: CodeStyleSettings) : CodeStyleAbstractPanel
         return BBCodeFileType
     }
 
-    @Suppress("unused")
     private fun createUIComponents() {
         myJBScrollPane = object : JBScrollPane() {
             override fun getPreferredSize(): Dimension {

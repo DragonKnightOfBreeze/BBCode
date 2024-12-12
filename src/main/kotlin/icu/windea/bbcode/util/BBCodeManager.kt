@@ -1,9 +1,10 @@
+@file:Suppress("unused")
+
 package icu.windea.bbcode.util
 
 import com.intellij.openapi.util.*
 import com.intellij.psi.*
 import com.intellij.psi.util.*
-import com.intellij.refactoring.suggested.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.psi.*
 import icu.windea.bbcode.psi.BBCodeTypes.*

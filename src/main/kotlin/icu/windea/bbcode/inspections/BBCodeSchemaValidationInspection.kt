@@ -7,7 +7,6 @@ import com.intellij.openapi.project.*
 import com.intellij.profile.codeInspection.*
 import com.intellij.psi.*
 import com.intellij.psi.util.*
-import com.intellij.refactoring.suggested.*
 import com.intellij.util.containers.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.lang.schema.*

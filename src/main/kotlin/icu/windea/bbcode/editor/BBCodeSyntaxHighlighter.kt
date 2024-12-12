@@ -1,5 +1,3 @@
-@file:Suppress("HasPlatformType")
-
 package icu.windea.bbcode.editor
 
 import com.intellij.openapi.editor.*

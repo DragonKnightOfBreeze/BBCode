@@ -1,13 +1,12 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 
 package icu.windea.bbcode.util
 
 import com.google.common.cache.*
 import com.google.common.collect.*
 import com.intellij.openapi.util.*
-import java.util.concurrent.*
-
 import icu.windea.bbcode.*
+import java.util.concurrent.*
 
 //region Extensions
 

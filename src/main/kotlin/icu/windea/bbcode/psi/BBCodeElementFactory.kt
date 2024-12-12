@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package icu.windea.bbcode.psi
 
 import com.intellij.openapi.project.*

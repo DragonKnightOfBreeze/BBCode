@@ -1,10 +1,10 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 
 package icu.windea.bbcode.documentation
 
 import com.intellij.lang.documentation.*
-import icu.windea.bbcode.util.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.util.*
 
 inline fun buildDocumentation(builderAction: DocumentationBuilder.() -> Unit): String {
     val builder = DocumentationBuilder()

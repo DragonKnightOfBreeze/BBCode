@@ -1,11 +1,11 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "unused")
 
 package icu.windea.bbcode.util
 
 import com.intellij.openapi.util.*
+import icu.windea.bbcode.*
 import java.util.concurrent.*
 import kotlin.reflect.*
-import icu.windea.bbcode.*
 
 class KeyWithFactory<T, in THIS>(name: String, val factory: THIS.() -> T) : Key<T>(name)
 

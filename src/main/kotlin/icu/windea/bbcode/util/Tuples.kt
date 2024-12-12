@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package icu.windea.bbcode.util
 
 typealias Tuple2<A, B> = Pair<A, B>

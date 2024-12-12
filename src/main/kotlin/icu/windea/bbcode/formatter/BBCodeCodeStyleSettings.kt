@@ -5,6 +5,7 @@ import com.intellij.psi.codeStyle.*
 
 //com.intellij.psi.formatter.xml.XmlCodeStyleSettings
 
+@Suppress("PropertyName")
 class BBCodeCodeStyleSettings(container: CodeStyleSettings): CustomCodeStyleSettings("BBCode", container) {
     @Property(externalName = "space_around_equals_in_attribute")
     @JvmField

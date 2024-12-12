@@ -2,7 +2,7 @@ package icu.windea.bbcode.psi.impl
 
 import com.intellij.openapi.util.*
 import com.intellij.psi.*
-import com.intellij.refactoring.suggested.*
+import com.intellij.psi.util.*
 import com.intellij.util.*
 import icons.*
 import icu.windea.bbcode.psi.*
