@@ -19,7 +19,7 @@ class BBCodeLanguageCodeStyleSettingsProvider: LanguageCodeStyleSettingsProvider
     override fun createCustomSettings(settings: CodeStyleSettings): CustomCodeStyleSettings {
         return BBCodeCodeStyleSettings(settings)
     }
-    
+
     override fun getLanguage(): Language {
         return BBCodeLanguage
     }
@@ -29,11 +29,11 @@ class BBCodeLanguageCodeStyleSettingsProvider: LanguageCodeStyleSettingsProvider
     }
 
     override fun customizeSettings(consumer: CodeStyleSettingsCustomizable, settingsType: SettingsType) {
-        
+
     }
 
     override fun customizeDefaults(commonSettings: CommonCodeStyleSettings, indentOptions: CommonCodeStyleSettings.IndentOptions) {
-        
+        indentOptions.INDENT_SIZE = 0
     }
 
     override fun getIndentOptionsEditor(): IndentOptionsEditor {
