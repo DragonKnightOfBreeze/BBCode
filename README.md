@@ -10,3 +10,5 @@
 BBCode语言支持。
 
 [BBCode](https://www.bbcode.org/)（Bulletin Board Code）是一种用于论坛网站的标记语言。
+
+备注：插件默认为BBCode注册的文件名模式是`*.bbcode`，可以在`Settings -> Editor -> File Types`中配置。

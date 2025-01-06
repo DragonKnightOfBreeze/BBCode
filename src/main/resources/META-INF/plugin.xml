@@ -9,7 +9,7 @@
   <depends>com.intellij.modules.xml</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <fileType name="BBCode" fieldName="INSTANCE" language="BBCode" extensions="bbcode;bb" 
+    <fileType name="BBCode" fieldName="INSTANCE" language="BBCode" extensions="bbcode"
               implementationClass="icu.windea.bbcode.BBCodeFileType"/>
     <lang.parserDefinition language="BBCode" implementationClass="icu.windea.bbcode.psi.BBCodeParserDefinition"/>
     <lang.syntaxHighlighterFactory language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeSyntaxHighlighterFactory"/>
@@ -21,10 +21,11 @@
     <langCodeStyleSettingsProvider implementation="icu.windea.bbcode.formatter.BBCodeLanguageCodeStyleSettingsProvider"/>
     <lang.formatter language="BBCode" implementationClass="icu.windea.bbcode.formatter.BBCodeFormattingModelBuilder"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
-    
+
     <psi.referenceContributor language="BBCode" implementation="icu.windea.bbcode.references.BBCodeSchemaBasedReferenceContributor"/>
     <platform.backend.documentation.psiTargetProvider implementation="icu.windea.bbcode.documentation.BBCodeSchemaBasedDocumentationTargetProvider"/>
 
+    <iconMapper mappingFile="BBCodeIconMappings.json"/>
 
     <localInspection language="BBCode" shortName="BBCodeSchemaValidation"
                      enabledByDefault="true" level="WARNING"

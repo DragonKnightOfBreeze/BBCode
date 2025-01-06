@@ -1,0 +1,9 @@
+{
+  "icons": {
+    "expui": {
+      "nodes": {
+        "bbcode.svg": "icons/bbcode.svg",
+      }
+    }
+  }
+}
