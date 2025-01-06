@@ -1,4 +1,4 @@
-package icu.windea.bbcode.formatter
+package icu.windea.bbcode.codeStyle
 
 import com.intellij.application.options.*
 import com.intellij.lang.*

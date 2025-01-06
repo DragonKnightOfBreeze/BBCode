@@ -8,6 +8,7 @@ import com.intellij.psi.codeStyle.*
 import com.intellij.psi.formatter.common.*
 import com.intellij.psi.tree.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.codeStyle.*
 import icu.windea.bbcode.psi.BBCodeTypes.*
 
 //com.intellij.psi.formatter.xml.XmlBlock
@@ -18,7 +19,7 @@ class BBCodeBlock(
 ) : AbstractBlock(node, createWrap(), createAlignment()) {
     companion object {
         private val NOT_EMPTY_TAG_NAME_END = TokenSet.create(TAG_PREFIX_END, TAG_SUFFIX_END)
-        
+
         private fun createWrap(): Wrap? {
             return null
         }
