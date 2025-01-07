@@ -17,7 +17,7 @@ class BBCodeSchemaProvider(
 
     private fun doGetSchema(path: String): BBCodeSchema? {
         val file = doGetSchemaFile(path) ?: return null
-        return BBCodeSchemaResolver.resolve(file)
+        return runReadAction { BBCodeSchemaResolver.resolve(file) }
     }
 
     private fun doGetSchemaFile(path: String): PsiFile? {
@@ -27,6 +27,6 @@ class BBCodeSchemaProvider(
             return PsiFileFactory.getInstance(project).createFileFromText(XMLLanguage.INSTANCE, text)
         }
         val vFile = VfsUtil.findFileByURL(url) ?: return null
-        return PsiUtilCore.getPsiFile(project, vFile)
+        return runReadAction { PsiUtilCore.getPsiFile(project, vFile) }
     }
 }

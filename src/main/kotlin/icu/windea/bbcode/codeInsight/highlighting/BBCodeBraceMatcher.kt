@@ -89,7 +89,7 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
     }
 
     override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?): Boolean {
-        return true
+        return false //avoid auto-completion for right braces
     }
 
     override fun isStrictTagMatching(fileType: FileType, braceGroupId: Int): Boolean {

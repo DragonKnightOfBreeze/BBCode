@@ -4,8 +4,8 @@ import com.intellij.psi.*
 import com.intellij.psi.xml.*
 
 data class BBCodeSchema(
-    val description: String,
-    val url: String,
+    val description: String? = null,
+    val url: String? = null,
     val tags: List<Tag>,
 ) {
     val tagMap by lazy { tags.associateBy { it.name } }

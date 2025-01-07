@@ -12,8 +12,8 @@ object BBCodeSchemaResolver {
 
         val project = xmlFile.project
         val subTags = schemaTag.subTags.groupBy { it.name }
-        val description = subTags["description"]?.firstOrNull()?.value?.trimmedText ?: return null
-        val url = subTags["url"]?.firstOrNull()?.value?.trimmedText ?: return null
+        val description = subTags["description"]?.firstOrNull()?.value?.trimmedText
+        val url = subTags["url"]?.firstOrNull()?.value?.trimmedText
         val tags = subTags["tags"]?.firstOrNull()?.subTags?.mapNotNull f@{ tagTag -> resolveTagSchema(tagTag, project) }.orEmpty()
         return BBCodeSchema(
             description = description,

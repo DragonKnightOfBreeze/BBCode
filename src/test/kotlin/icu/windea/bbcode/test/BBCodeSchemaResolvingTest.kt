@@ -14,6 +14,7 @@ class BBCodeSchemaResolvingTest : BasePlatformTestCase() {
         val schema = BBCodeSchemaManager.getStandardSchema(project)
         assert(schema != null)
         schema!!
+        assert(schema.url == "https://www.bbcode.org/reference.php")
         assert(schema.tags.isNotEmpty())
         assert(schema.tagMap["line"]?.inline == true)
     }
