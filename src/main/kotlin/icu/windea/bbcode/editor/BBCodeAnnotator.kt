@@ -38,7 +38,7 @@ class BBCodeAnnotator : Annotator {
         val endText = endElement.text
         val renameEndAction = RenameTagBeginOrEndIntentionAction(tagName, endText, false)
         val renameStartAction = RenameTagBeginOrEndIntentionAction(endText, tagName, true)
-        holder.newAnnotation(HighlightSeverity.ERROR, BBCodeBundle.message("bbcode.inspections.tag.has.wrong.closing.tag.name"))
+        holder.newAnnotation(HighlightSeverity.ERROR, BBCodeBundle.message("bbcode.inspection.tag.has.wrong.closing.tag.name"))
             .range(startElement).withFix(renameEndAction).withFix(renameStartAction)
             .create()
     }
@@ -49,7 +49,7 @@ class BBCodeAnnotator : Annotator {
         val removeSuffixAction = RemoveExtraClosingTagIntentionAction()
         val renameEndAction = RenameTagBeginOrEndIntentionAction(tagName, endText, false)
         val renameStartAction = RenameTagBeginOrEndIntentionAction(endText, tagName, true)
-        holder.newAnnotation(HighlightSeverity.ERROR, BBCodeBundle.message("bbcode.inspections.wrong.closing.tag.name"))
+        holder.newAnnotation(HighlightSeverity.ERROR, BBCodeBundle.message("bbcode.inspection.wrong.closing.tag.name"))
             .range(endElement).withFix(removeSuffixAction).withFix(renameEndAction).withFix(renameStartAction)
             .create()
     }

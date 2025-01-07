@@ -29,11 +29,11 @@ object BBCodeManager {
         return element.children().find { it.elementType == ATTRIBUTE_NAME }
     }
 
-    fun isStartTagNameToken(element: PsiElement): Boolean {
-        return element.elementType.let { it == TAG_PREFIX_START || it == TAG_NAME || it == TAG_PREFIX_END }
+    fun isTagPrefixToken(element: PsiElement): Boolean {
+        return element.elementType.let { it == TAG_PREFIX_START || it == TAG_NAME || it == TAG_PREFIX_END || it == EMPTY_TAG_PREFIX_END }
     }
 
-    fun isEndTagNameToken(element: PsiElement): Boolean {
+    fun isTagSuffixToken(element: PsiElement): Boolean {
         return element.elementType.let { it == TAG_SUFFIX_START || it == TAG_NAME || it == TAG_SUFFIX_END }
     }
 

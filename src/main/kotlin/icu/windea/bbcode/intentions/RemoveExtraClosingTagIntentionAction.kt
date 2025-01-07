@@ -26,7 +26,7 @@ class RemoveExtraClosingTagIntentionAction : LocalQuickFix, IntentionAction {
     override fun isAvailable(project: Project, editor: Editor, file: PsiFile): Boolean {
         val element = file.findElementAt(editor.caretModel.offset) ?: return false
         if (element.parent.let { it !is BBCodeTag && it !is PsiErrorElement }) return false
-        if (!BBCodeManager.isEndTagNameToken(element)) return false
+        if (!BBCodeManager.isTagSuffixToken(element)) return false
         return true
     }
 
@@ -40,7 +40,7 @@ class RemoveExtraClosingTagIntentionAction : LocalQuickFix, IntentionAction {
     }
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val element = descriptor.psiElement?.takeIf { BBCodeManager.isEndTagNameToken(it) } ?: return
+        val element = descriptor.psiElement?.takeIf { BBCodeManager.isTagSuffixToken(it) } ?: return
         val parent = element.parent
         doFix(parent)
     }

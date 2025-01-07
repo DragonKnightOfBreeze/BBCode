@@ -29,8 +29,33 @@
 
     <localInspection language="BBCode" shortName="BBCodeSchemaValidation"
                      enabledByDefault="true" level="WARNING"
-                     bundle="messages.BBCodeBundle" key="inspection.bbcode.schemaValidation"
-                     groupBundle="messages.BBCodeBundle" groupKey="bbcode.inspections.group"
+                     bundle="messages.BBCodeBundle" key="bbcode.inspection.schemaValidation"
+                     groupBundle="messages.BBCodeBundle" groupKey="bbcode.inspection.group"
                      implementationClass="icu.windea.bbcode.inspections.BBCodeSchemaValidationInspection"/>
+
+    <intentionAction>
+      <language>BBCode</language>
+      <categoryKey>bbcode.category</categoryKey>
+      <bundleName>messages.BBCodeBundle</bundleName>
+      <className>icu.windea.bbcode.intentions.RemoveTagIntentionFix</className>
+    </intentionAction>
+    <intentionAction>
+      <language>BBCode</language>
+      <categoryKey>bbcode.category</categoryKey>
+      <bundleName>messages.BBCodeBundle</bundleName>
+      <className>icu.windea.bbcode.intentions.RemoveTagAndPromoteChildrenIntentionAction</className>
+    </intentionAction>
+    <intentionAction>
+      <language>BBCode</language>
+      <categoryKey>bbcode.category</categoryKey>
+      <bundleName>messages.BBCodeBundle</bundleName>
+      <className>icu.windea.bbcode.intentions.RemoveSimpleAttributeIntentionFix</className>
+    </intentionAction>
+    <intentionAction>
+      <language>BBCode</language>
+      <categoryKey>bbcode.category</categoryKey>
+      <bundleName>messages.BBCodeBundle</bundleName>
+      <className>icu.windea.bbcode.intentions.RemoveAttributeIntentionFix</className>
+    </intentionAction>
   </extensions>
 </idea-plugin>
