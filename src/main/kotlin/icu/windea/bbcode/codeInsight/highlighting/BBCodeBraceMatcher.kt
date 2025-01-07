@@ -82,12 +82,10 @@ class BBCodeBraceMatcher : XmlAwareBraceMatcher {
         if (matcher != null) {
             val pairs = matcher.pairs
             for (pair in pairs) {
-                if ((pair.leftBraceType === tokenType || pair.rightBraceType === tokenType) &&
-                    pair.isStructural
-                ) return true
+                if ((pair.leftBraceType === tokenType || pair.rightBraceType === tokenType) && pair.isStructural) return true
             }
         }
-        return tokenType == TAG_PREFIX_START || tokenType == TAG_SUFFIX_END
+        return tokenType == TAG_PREFIX_START || tokenType == TAG_SUFFIX_END || tokenType == EMPTY_TAG_PREFIX_END
     }
 
     override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?): Boolean {
