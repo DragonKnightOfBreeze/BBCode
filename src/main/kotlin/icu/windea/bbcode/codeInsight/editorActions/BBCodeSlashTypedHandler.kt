@@ -10,7 +10,7 @@ import icu.windea.bbcode.*
 import icu.windea.bbcode.psi.*
 
 //自动补全标签后缀
-//see: com.intellij.codeInsight.editorActions.XmlSlashTypedHandler
+//com.intellij.codeInsight.editorActions.XmlSlashTypedHandler
 
 class BBCodeSlashTypedHandler : TypedHandlerDelegate() {
     override fun charTyped(c: Char, project: Project, editor: Editor, editedFile: PsiFile): Result {

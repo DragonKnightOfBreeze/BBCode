@@ -18,6 +18,7 @@
     <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
     <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
+    <lang.unwrapDescriptor language="BBCode" implementationClass="icu.windea.bbcode.codeInsight.unwrap.BBCodeUnwrapDescriptor"/>
     <langCodeStyleSettingsProvider implementation="icu.windea.bbcode.codeStyle.BBCodeLanguageCodeStyleSettingsProvider"/>
     <lang.formatter language="BBCode" implementationClass="icu.windea.bbcode.formatter.BBCodeFormattingModelBuilder"/>
     <spellchecker.support language="BBCode" implementationClass="icu.windea.bbcode.BBCodeSpellchecker"/>
@@ -33,12 +34,6 @@
                      groupBundle="messages.BBCodeBundle" groupKey="bbcode.inspection.group"
                      implementationClass="icu.windea.bbcode.inspections.BBCodeSchemaValidationInspection"/>
 
-    <intentionAction>
-      <language>BBCode</language>
-      <categoryKey>bbcode.category</categoryKey>
-      <bundleName>messages.BBCodeBundle</bundleName>
-      <className>icu.windea.bbcode.intentions.RemoveTagIntentionFix</className>
-    </intentionAction>
     <intentionAction>
       <language>BBCode</language>
       <categoryKey>bbcode.category</categoryKey>

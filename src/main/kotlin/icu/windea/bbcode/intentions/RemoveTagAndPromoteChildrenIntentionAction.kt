@@ -2,13 +2,14 @@
 package icu.windea.bbcode.intentions
 
 import com.intellij.codeInsight.intention.*
-import com.intellij.lang.xml.*
 import com.intellij.openapi.editor.*
 import com.intellij.openapi.project.*
 import com.intellij.psi.*
 import com.intellij.psi.util.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.codeInsight.unwrap.*
 import icu.windea.bbcode.psi.*
+import icu.windea.bbcode.psi.BBCodeTypes.*
 import icu.windea.bbcode.util.*
 
 //com.intellij.codeInsight.daemon.impl.analysis.RemoveTagAndPromoteChildrenIntentionAction
@@ -26,16 +27,15 @@ class RemoveTagAndPromoteChildrenIntentionAction : IntentionAction {
         val tag = getTag(editor, file) ?: return false
         if(BBCodeManager.isInlineTag(tag)) return false
         val offset = editor.caretModel.offset
-        val startEnd = tag.children().find { it.elementType == BBCodeTypes.TAG_PREFIX_END }
+        val startEnd = tag.children().find { it.elementType == TAG_PREFIX_END }
         if (startEnd == null || offset <= startEnd.startOffset) return true
-        val endStart = tag.children().find { it.elementType == BBCodeTypes.TAG_SUFFIX_START }
+        val endStart = tag.children().find { it.elementType == TAG_SUFFIX_START }
         if (endStart == null || offset >= startEnd.startOffset) return true
         return false
     }
 
     override fun invoke(project: Project, editor: Editor, file: PsiFile) {
-        //TODO 2.1
-        //XmlEnclosingTagUnwrapper().unwrap(editor, getTag(editor, file)!!)
+        BBCodeEnclosingTagUnwrapper().unwrap(editor, getTag(editor, file)!!)
     }
 
     override fun startInWriteAction(): Boolean {

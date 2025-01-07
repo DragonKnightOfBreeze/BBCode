@@ -8,6 +8,7 @@ import com.intellij.psi.*
 import com.intellij.psi.util.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.psi.*
+import icu.windea.bbcode.psi.BBCodeTypes.*
 
 class RemoveSimpleAttributeIntentionFix @JvmOverloads constructor(
     private val isFix: Boolean = false
@@ -44,13 +45,13 @@ class RemoveSimpleAttributeIntentionFix @JvmOverloads constructor(
     }
 
     private fun existsSimpleAttribute(element: BBCodeTag): Boolean {
-        val e1 = element.children().find { it.elementType == BBCodeTypes.ATTRIBUTE_VALUE }
+        val e1 = element.children().find { it.elementType == ATTRIBUTE_VALUE }
         return e1 != null
     }
 
     private fun removeSimpleAttribute(element: BBCodeTag, editor: Editor?) {
-        val e1 = element.children().find { it.elementType == BBCodeTypes.ATTRIBUTE_VALUE }
-        val e2 = element.children().find { it.elementType == BBCodeTypes.EQUAL_SIGN }
+        val e1 = element.children().find { it.elementType == ATTRIBUTE_VALUE }
+        val e2 = element.children().find { it.elementType == EQUAL_SIGN }
         element.deleteChildRange(e2, e1)
 
         editor?.caretModel?.moveToOffset(element.nameIdentifier?.endOffset ?: element.startOffset)
