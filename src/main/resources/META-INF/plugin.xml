@@ -16,6 +16,7 @@
     <colorSettingsPage implementation="icu.windea.bbcode.editor.BBCodeColorSettingsPage"/>
     <elementDescriptionProvider implementation="icu.windea.bbcode.editor.BBCodeDescriptionProvider"/>
     <annotator language="BBCode" implementationClass="icu.windea.bbcode.editor.BBCodeAnnotator"/>
+    <completion.contributor language="BBCode" implementationClass="icu.windea.bbcode.codeInsight.completion.BBCodeCompletionContributor"/>
     <braceMatcher filetype="BBCode" implementationClass="icu.windea.bbcode.codeInsight.highlighting.BBCodeBraceMatcher"/>
     <typedHandler implementation="icu.windea.bbcode.codeInsight.editorActions.BBCodeSlashTypedHandler"/>
     <lang.unwrapDescriptor language="BBCode" implementationClass="icu.windea.bbcode.codeInsight.unwrap.BBCodeUnwrapDescriptor"/>
