@@ -12,10 +12,12 @@ object BBCodeSchemaResolver {
 
         val project = xmlFile.project
         val subTags = schemaTag.subTags.groupBy { it.name }
-        val referenceUrl = subTags["referenceUrl"]?.firstOrNull()?.value?.trimmedText ?: return null
+        val description = subTags["description"]?.firstOrNull()?.value?.trimmedText ?: return null
+        val url = subTags["url"]?.firstOrNull()?.value?.trimmedText ?: return null
         val tags = subTags["tags"]?.firstOrNull()?.subTags?.mapNotNull f@{ tagTag -> resolveTagSchema(tagTag, project) }.orEmpty()
         return BBCodeSchema(
-            referenceUrl = referenceUrl,
+            description = description,
+            url = url,
             tags = tags,
         )
     }
@@ -32,8 +34,7 @@ object BBCodeSchemaResolver {
             inline = attributes["inline"].toBoolean(),
             attribute = subTags["attribute"]?.firstOrNull()?.let { resolveSimpleAttributeSchema(it, project) },
             attributes = subTags["attributes"]?.firstOrNull()?.subTags?.mapNotNull { resolveAttributeSchema(it, project) }.orEmpty(),
-            doc = subTags["doc"]?.firstOrNull()?.value?.trimmedText,
-            urls = subTags["url"]?.mapNotNullTo(mutableSetOf()) { it.value.trimmedText }.orEmpty(),
+            description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
         )
     }
 
@@ -44,7 +45,7 @@ object BBCodeSchemaResolver {
             pointer = tag.createPointer(project),
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
-            doc = subTags["doc"]?.firstOrNull()?.value?.trimmedText,
+            description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
         )
     }
 
@@ -57,7 +58,7 @@ object BBCodeSchemaResolver {
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
             swap = attributes["swap"].toBoolean(),
-            doc = subTags["doc"]?.firstOrNull()?.value?.trimmedText,
+            description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
         )
     }
 }

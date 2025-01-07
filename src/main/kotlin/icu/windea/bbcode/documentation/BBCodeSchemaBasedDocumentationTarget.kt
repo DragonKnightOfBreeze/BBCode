@@ -90,8 +90,8 @@ private fun computeLocalDocumentation(element: PsiElement ): DocumentationResult
                     append("(tag) <b>").append(name.escapeXml()).append("</b>")
                 }
                 if (schema == null) return@b
-                if (!schema.doc.isNullOrEmpty()) {
-                    content { append(schema.doc.replaceBr()) }
+                if (!schema.description.isNullOrEmpty()) {
+                    content { append(schema.description.replaceBr()) }
                 }
             }
             DocumentationResult.documentation(html)
@@ -104,9 +104,9 @@ private fun computeLocalDocumentation(element: PsiElement ): DocumentationResult
                     append("(attribute) <b>").append(name.escapeXml()).append("</b>")
                 }
                 if (schema == null) return@b
-                if (!schema.doc.isNullOrEmpty()) {
+                if (!schema.description.isNullOrEmpty()) {
                     content {
-                        append(schema.doc.replaceBr())
+                        append(schema.description.replaceBr())
                     }
                 }
             }

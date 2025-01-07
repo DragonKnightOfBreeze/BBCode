@@ -1,0 +1,18 @@
+<!ELEMENT schema (description|url|tags)*>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT tags (tag)*>
+<!ELEMENT tag (description|attributes|attribute)*>
+<!ATTLIST tag
+    childNames CDATA #IMPLIED
+    inline CDATA #IMPLIED
+    name CDATA #REQUIRED
+    parentNames CDATA #IMPLIED
+    textType CDATA #IMPLIED>
+<!ELEMENT attributes (attribute)*>
+<!ELEMENT attribute (#PCDATA)>
+<!ATTLIST attribute
+    name CDATA #IMPLIED
+    optional CDATA #IMPLIED
+    swap CDATA #IMPLIED
+    type CDATA #REQUIRED>
