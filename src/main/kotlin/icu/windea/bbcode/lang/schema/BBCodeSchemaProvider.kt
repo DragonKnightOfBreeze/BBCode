@@ -1,8 +1,11 @@
 package icu.windea.bbcode.lang.schema
 
+import com.intellij.lang.xml.*
+import com.intellij.openapi.application.*
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.*
 import com.intellij.openapi.vfs.*
+import com.intellij.psi.*
 import com.intellij.psi.util.*
 import icu.windea.bbcode.*
 
@@ -10,10 +13,20 @@ import icu.windea.bbcode.*
 class BBCodeSchemaProvider(
     private val project: Project
 ) {
-    val standardSchema by lazy {
-        val url = "/schemas/standard.xml".toClasspathUrl(this::class.java)
-        val vFile = VfsUtil.findFileByURL(url) ?: return@lazy null
-        val file = PsiUtilCore.getPsiFile(project, vFile)
-        BBCodeSchemaResolver.resolve(file)
+    val standardSchema by lazy { doGetSchema("/schemas/standard.xml") }
+
+    private fun doGetSchema(path: String): BBCodeSchema? {
+        val file = doGetSchemaFile(path) ?: return null
+        return BBCodeSchemaResolver.resolve(file)
+    }
+
+    private fun doGetSchemaFile(path: String): PsiFile? {
+        val url = path.toClasspathUrl(this::class.java)
+        if (ApplicationManager.getApplication().isUnitTestMode) {
+            val text = url.readText()
+            return PsiFileFactory.getInstance(project).createFileFromText(XMLLanguage.INSTANCE, text)
+        }
+        val vFile = VfsUtil.findFileByURL(url) ?: return null
+        return PsiUtilCore.getPsiFile(project, vFile)
     }
 }

@@ -131,13 +131,18 @@ inline operator fun <T> DataKey<T>.getValue(thisRef: AnActionEvent, property: KP
     return thisRef.dataContext.getData(this)
 }
 
+//compatible with test cases
+private var defaultProject0: Project? = null
+var defaultProject: Project
+    get() = run { defaultProject0 ?: ProjectManager.getInstance().defaultProject }
+    set(value) = run { defaultProject0 = value }
 
 private object EmptyPointer : SmartPsiElementPointer<PsiElement> {
     override fun getElement() = null
 
     override fun getContainingFile() = null
 
-    override fun getProject() = ProjectManager.getInstance().defaultProject
+    override fun getProject() = defaultProject
 
     override fun getVirtualFile() = null
 
