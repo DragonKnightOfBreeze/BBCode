@@ -47,7 +47,7 @@ class BBCodeSchemaValidationInspection : LocalInspectionTool() {
                 }
 
                 //check whether tag is unexpected
-                val parentTag = element.parentOfType<BBCodeTag>(withSelf = false)
+                val parentTag = element.parent?.castOrNull<BBCodeTag>()
                 val parentTagName = parentTag?.name
                 val parentSchema = parentTag?.let { BBCodeSchemaManager.resolveForTag(it) }
                 val parentFrom = schema.parentNames

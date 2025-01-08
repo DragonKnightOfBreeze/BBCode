@@ -4,8 +4,8 @@
 package icu.windea.bbcode.psi;
 
 import com.intellij.lexer.*;
-import com.intellij.psi.tree.IElementType;import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
-import java.util.*;
+import com.intellij.psi.tree.IElementType;
+import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
 
 import static com.intellij.psi.TokenType.*;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
@@ -305,12 +305,12 @@ public class BBCodeLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\11\0\1\1\1\2\1\3\1\1\1\4\1\5\1\6"+
-    "\1\7\1\10\1\11\1\12\2\13\2\14\1\15\1\16"+
-    "\1\17\1\13\1\0\1\14\1\0";
+    "\11\0\1\1\1\2\1\3\1\1\1\4\1\5\1\3"+
+    "\1\6\1\7\1\10\1\11\1\12\2\13\2\14\1\15"+
+    "\1\16\1\17\1\13\1\0\1\14\1\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[31];
+    int [] result = new int[32];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -337,11 +337,11 @@ public class BBCodeLexer implements FlexLexer {
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\13\0\26\0\41\0\54\0\67\0\102\0\115"+
     "\0\130\0\143\0\156\0\171\0\204\0\217\0\232\0\217"+
-    "\0\217\0\245\0\217\0\217\0\260\0\273\0\306\0\321"+
-    "\0\334\0\217\0\217\0\217\0\347\0\217\0\362";
+    "\0\217\0\217\0\245\0\217\0\217\0\260\0\273\0\306"+
+    "\0\321\0\334\0\217\0\217\0\217\0\347\0\217\0\362";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[31];
+    int [] result = new int[32];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -365,20 +365,22 @@ public class BBCodeLexer implements FlexLexer {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\12\2\13\4\12\1\14\1\15\1\16\1\12\1\16"+
-    "\2\13\1\16\1\17\4\16\1\20\2\16\2\13\6\16"+
-    "\1\21\2\16\2\13\1\16\1\22\1\16\1\23\2\16"+
-    "\1\20\2\16\2\13\1\16\1\22\4\16\1\20\2\16"+
-    "\2\13\3\16\1\24\2\16\1\20\1\16\1\25\2\13"+
-    "\1\26\2\25\2\16\1\25\1\20\1\25\1\27\2\13"+
-    "\1\30\2\27\2\16\1\27\1\20\1\27\1\16\2\13"+
-    "\1\16\1\31\4\16\1\32\1\16\1\12\2\0\4\12"+
-    "\1\0\1\15\1\0\1\12\1\0\2\13\15\0\1\33"+
-    "\5\0\1\12\2\0\5\12\1\15\2\12\17\0\1\17"+
-    "\12\0\1\22\6\0\1\25\2\0\3\25\2\0\1\25"+
-    "\1\0\1\25\3\26\1\34\4\26\1\35\2\26\1\27"+
-    "\2\0\3\27\2\0\1\27\1\0\1\27\3\30\1\36"+
-    "\4\30\1\37\2\30\4\0\1\31\6\0\2\26\1\0"+
-    "\7\26\1\0\2\30\1\0\7\30\1\0";
+    "\2\13\1\16\1\17\2\16\1\20\1\16\1\21\2\16"+
+    "\2\13\4\16\1\20\1\16\1\22\2\16\2\13\1\16"+
+    "\1\23\1\16\1\24\1\20\1\16\1\21\2\16\2\13"+
+    "\1\16\1\23\2\16\1\20\1\16\1\21\2\16\2\13"+
+    "\3\16\1\25\1\20\1\16\1\21\1\16\1\26\2\13"+
+    "\1\27\2\26\1\16\1\20\1\26\1\21\1\26\1\30"+
+    "\2\13\1\31\2\30\1\16\1\20\1\30\1\21\1\30"+
+    "\1\16\2\13\1\16\1\32\2\16\1\20\1\16\1\33"+
+    "\1\16\1\12\2\0\4\12\1\0\1\15\1\0\1\12"+
+    "\1\0\2\13\15\0\1\34\5\0\1\12\2\0\5\12"+
+    "\1\15\2\12\17\0\1\17\12\0\1\23\6\0\1\26"+
+    "\2\0\3\26\2\0\1\26\1\0\1\26\3\27\1\35"+
+    "\4\27\1\36\2\27\1\30\2\0\3\30\2\0\1\30"+
+    "\1\0\1\30\3\31\1\37\4\31\1\40\2\31\4\0"+
+    "\1\32\6\0\2\27\1\0\7\27\1\0\2\31\1\0"+
+    "\7\31\1\0";
 
   private static int [] zzUnpacktrans() {
     int [] result = new int[253];
@@ -419,11 +421,11 @@ public class BBCodeLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\11\0\4\1\1\11\1\1\2\11\1\1\2\11\5\1"+
+    "\11\0\4\1\1\11\1\1\3\11\1\1\2\11\5\1"+
     "\3\11\1\0\1\11\1\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[31];
+    int [] result = new int[32];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -770,9 +772,9 @@ public class BBCodeLexer implements FlexLexer {
           case 21: break;
           case 7:
             { yybegin(WAITING_TAG_BODY);
-      boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
-      tagName = null;
-      return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
+        boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isInlineTag(tagName);
+        tagName = null;
+        return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
             }
           // fall through
           case 22: break;

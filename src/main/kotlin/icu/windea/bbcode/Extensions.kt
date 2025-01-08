@@ -36,3 +36,11 @@ fun String.toFileUrl(): URL = File(this).toURI().toURL()
 fun String.toClasspathUrl(locationClass: Class<*>): URL = locationClass.getResource(this)!!
 
 fun String.escapeXml() = if (this.isEmpty()) "" else StringUtil.escapeXmlEntities(this)
+
+fun CharSequence.nextCharOffsetSkippingWhiteSpace(index: Int): Int {
+    var offset = 0
+    while (this.getOrNull(index + offset)?.isWhitespace() == true) {
+        offset++
+    }
+    return offset
+}

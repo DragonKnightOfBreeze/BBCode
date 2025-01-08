@@ -92,6 +92,7 @@ private fun computeLocalDocumentation(element: PsiElement ): DocumentationResult
                 if (schema == null) return@b
                 if (!schema.description.isNullOrEmpty()) {
                     content { append(schema.description.replaceBr()) }
+                    append("<br/>")
                 }
             }
             DocumentationResult.documentation(html)
@@ -107,6 +108,7 @@ private fun computeLocalDocumentation(element: PsiElement ): DocumentationResult
                 if (!schema.description.isNullOrEmpty()) {
                     content {
                         append(schema.description.replaceBr())
+                        append("<br/>")
                     }
                 }
             }
