@@ -36,6 +36,8 @@ fun String.toChangeLogText(): String {
 
 intellijPlatform {
     pluginConfiguration {
+        id.set(providers.gradleProperty("pluginId"))
+        name.set(providers.gradleProperty("pluginName"))
         version.set(providers.gradleProperty("pluginVersion"))
         description.set(projectDir.resolve("DESCRIPTION.md").readText())
         changeNotes.set(projectDir.resolve("CHANGELOG.md").readText().toChangeLogText())

@@ -1,7 +1,6 @@
 <idea-plugin>
-  <id>icu.windea.bbcode</id>
-  <name>BBCode</name>
   <category>Languages</category>
+  <resource-bundle>messages.BBCodeBundle</resource-bundle>
 
   <vendor email="dk_breeze@qq.com" url="https://github.com/DragonKnightOfBreeze">DragonKnightOfBreeze</vendor>
 
