@@ -38,7 +38,7 @@ public class BBCodeLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = {
-     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7, 
+     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7,
      0,  0,  8, 8
   };
 
@@ -772,7 +772,7 @@ public class BBCodeLexer implements FlexLexer {
           case 21: break;
           case 7:
             { yybegin(WAITING_TAG_BODY);
-        boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isInlineTag(tagName);
+        boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
         tagName = null;
         return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
             }

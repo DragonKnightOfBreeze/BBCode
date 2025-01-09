@@ -45,6 +45,7 @@ object BBCodeSchemaResolver {
             pointer = tag.createPointer(project),
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
+            swap = attributes["swap"].toBoolean(),
             description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
         )
     }
@@ -57,7 +58,6 @@ object BBCodeSchemaResolver {
             name = attributes["name"] ?: return null,
             type = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
-            swap = attributes["swap"].toBoolean(),
             description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
         )
     }

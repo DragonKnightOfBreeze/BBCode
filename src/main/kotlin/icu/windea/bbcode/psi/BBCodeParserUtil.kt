@@ -8,10 +8,13 @@ import icu.windea.bbcode.psi.BBCodeTypes.*
 @Suppress("UNUSED_PARAMETER")
 object BBCodeParserUtil : GeneratedParserUtilBase() {
     @JvmStatic
-    fun isEmptyTag(b: PsiBuilder, l: Int): Boolean {
+    fun isEmptyOrIncompleteTag(b: PsiBuilder, l: Int): Boolean {
         var prevTokenType = b.rawLookup(-1)
-        if(prevTokenType == TokenType.WHITE_SPACE) prevTokenType = b.rawLookup(-2)
-        if(prevTokenType == EMPTY_TAG_PREFIX_END) return true
-        return false
+        if (prevTokenType == TokenType.WHITE_SPACE) prevTokenType = b.rawLookup(-2)
+        return when (prevTokenType) {
+            TAG_PREFIX_END -> false
+            EMPTY_TAG_PREFIX_END -> true
+            else -> true
+        }
     }
 }

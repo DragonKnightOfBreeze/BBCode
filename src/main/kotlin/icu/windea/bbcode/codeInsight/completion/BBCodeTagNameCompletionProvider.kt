@@ -59,7 +59,10 @@ class BBCodeTagNameCompletionProvider : CompletionProvider<CompletionParameters>
                     if(nextChar == ']') {
                         //move caret to the right bound of "]"
                         EditorModificationUtil.moveCaretRelatively(editor, 1 + nextCharOffset)
-                    } else if(!tagSchema.inline) { //skip inline tags
+                    } else if(tagSchema.inline) {
+                        //insert "]" and move caret to the right bound
+                        EditorModificationUtil.insertStringAtCaret(editor, "]", false, 1)
+                    } else {
                         //insert "]" and move caret to the right bound, and then insert "[/<tag name>]"
                         EditorModificationUtil.insertStringAtCaret(editor, "][/${tagSchema.name}]", false, 1)
                     }

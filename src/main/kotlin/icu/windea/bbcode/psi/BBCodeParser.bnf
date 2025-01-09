@@ -23,9 +23,9 @@
   ]
 }
 
-root ::= (tag | text)*
+root ::= (tag | text) *
 
-tag ::= tag_prefix (<<isEmptyTag>> | tag_body tag_suffix) {
+tag ::= tag_prefix (<<isEmptyOrIncompleteTag>> | tag_body tag_suffix) ? {
   pin=1
   mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
   implements=[

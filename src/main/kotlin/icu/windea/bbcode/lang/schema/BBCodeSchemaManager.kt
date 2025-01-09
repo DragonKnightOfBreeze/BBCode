@@ -52,7 +52,7 @@ object BBCodeSchemaManager {
         return tagSchema.attributeMap[attributeName]
     }
 
-    fun isInlineTag(tagName: String?): Boolean {
+    fun isEmptyTag(tagName: String?): Boolean {
         if (tagName.isNullOrEmpty()) return false
         val schema = getSchema(defaultProject) ?: return false
         val tagSchema = schema.tagMap[tagName] ?: return false
