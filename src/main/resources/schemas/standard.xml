@@ -75,7 +75,7 @@
       <attribute type="url" optional="true" swap="true"/>
       <description>Makes a link to {url}</description>
     </tag>
-    <tag name="image" textType="url">
+    <tag name="img" textType="url">
       <attribute type="size" optional="true"/>
       <attributes>
         <attribute name="width" type="number"/>

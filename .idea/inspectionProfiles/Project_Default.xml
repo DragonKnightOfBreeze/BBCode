@@ -87,6 +87,7 @@
       <option name="insideTryAllowed" value="false" />
     </inspection_tool>
     <inspection_tool class="HighlightVisitorInternal" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="HtmlRequiredLangAttribute" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="HtmlTagCanBeJavadocTag" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="HttpUrlsUsage" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="IOResource" enabled="true" level="WARNING" enabled_by_default="true">
@@ -350,5 +351,6 @@
     <inspection_tool class="WarningOnMainUnusedParameterMigration" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="WhenWithOnlyElse" enabled="true" level="INFORMATION" enabled_by_default="true" />
     <inspection_tool class="WhileCanBeForeach" enabled="true" level="INFORMATION" enabled_by_default="true" />
+    <inspection_tool class="ktPropBy" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

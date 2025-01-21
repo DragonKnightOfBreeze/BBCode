@@ -2,6 +2,11 @@
 
 ## TODO
 
+## 2.2
+
+* [X] #2 `[img]` and custom tags do not work
+* [X] #3 `[list]` with only one `[*]` is detected as an error
+
 ## 2.1
 
 * [X] 参照XML与HTML，补充一些意向操作
