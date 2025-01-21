@@ -38,7 +38,7 @@ public class BBCodeLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = {
-     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7,
+     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7, 
      0,  0,  8, 8
   };
 
@@ -376,8 +376,8 @@ public class BBCodeLexer implements FlexLexer {
     "\1\16\1\12\2\0\4\12\1\0\1\15\1\0\1\12"+
     "\1\0\2\13\15\0\1\34\5\0\1\12\2\0\5\12"+
     "\1\15\2\12\17\0\1\17\12\0\1\23\6\0\1\26"+
-    "\2\0\3\26\2\0\1\26\1\0\1\26\3\27\1\35"+
-    "\4\27\1\36\2\27\1\30\2\0\3\30\2\0\1\30"+
+    "\2\0\4\26\1\0\1\26\1\0\1\26\3\27\1\35"+
+    "\4\27\1\36\2\27\1\30\2\0\4\30\1\0\1\30"+
     "\1\0\1\30\3\31\1\37\4\31\1\40\2\31\4\0"+
     "\1\32\6\0\2\27\1\0\7\27\1\0\2\31\1\0"+
     "\7\31\1\0";
@@ -493,10 +493,10 @@ public class BBCodeLexer implements FlexLexer {
   private boolean zzEOFDone;
 
   /* user code: */
-  public BBCodeLexer() {
+public BBCodeLexer() {
     this((java.io.Reader)null);
-  }
-    private String tagName = null;
+}
+  private String tagName = null;
 
 
   /**
@@ -772,9 +772,9 @@ public class BBCodeLexer implements FlexLexer {
           case 21: break;
           case 7:
             { yybegin(WAITING_TAG_BODY);
-        boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
-        tagName = null;
-        return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
+      boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
+      tagName = null;
+      return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
             }
           // fall through
           case 22: break;
