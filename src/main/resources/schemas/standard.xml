@@ -22,7 +22,7 @@
     <tag name="h6">
       <description>Heading 6</description>
     </tag>
-    <tag name="line" inline="true">
+    <tag name="line" type="inline">
       <description>Horizontal line</description>
     </tag>
     <tag name="b">
@@ -39,16 +39,16 @@
     </tag>
     <tag name="style">
       <attributes>
-        <attribute name="size" type="numberPx" optional="true"/>
-        <attribute name="color" type="color" optional="true"/>
+        <attribute name="size" valueType="numberPx" optional="true"/>
+        <attribute name="color" valueType="color" optional="true"/>
       </attributes>
     </tag>
     <tag name="size">
-      <attribute type="number"/>
+      <attribute valueType="number"/>
       <description>Changes the font-size of {text}</description>
     </tag>
     <tag name="color">
-      <attribute type="color"/>
+      <attribute valueType="color"/>
       <description>Changes the color of {text}</description>
     </tag>
     <tag name="center">
@@ -61,27 +61,27 @@
       <description>Right aligns {text} on screen</description>
     </tag>
     <tag name="quote">
-      <attribute type="string" optional="true"/>
+      <attribute valueType="string" optional="true"/>
       <description>Creates a quotation box containing {text}</description>
     </tag>
     <tag name="spoiler">
-      <attribute type="string" optional="true"/>
+      <attribute valueType="string" optional="true"/>
       <description>
         Creates a spoiler section (a box) that is by default collapsed until you click a button or the box itself
         to expand it to show the {text}
       </description>
     </tag>
     <tag name="url">
-      <attribute type="url" optional="true" swap="true"/>
+      <attribute valueType="url" optional="true" swap="true"/>
       <description>Makes a link to {url}</description>
     </tag>
     <tag name="img" textType="url">
-      <attribute type="size" optional="true"/>
+      <attribute valueType="size" optional="true"/>
       <attributes>
-        <attribute name="width" type="number"/>
-        <attribute name="height" type="number"/>
-        <attribute name="title" type="string" optional="true"/>
-        <attribute name="alt" type="string" optional="true"/>
+        <attribute name="width" valueType="number"/>
+        <attribute name="height" valueType="number"/>
+        <attribute name="title" valueType="string" optional="true"/>
+        <attribute name="alt" valueType="string" optional="true"/>
       </attributes>
       <description>Shows the image indicated by {url}</description>
     </tag>
@@ -97,11 +97,11 @@
     <tag name="li" parentNames="ul,ol,list">
       <description>Specifies an {item} within a list</description>
     </tag>
-    <tag name="*" parentNames="ul,ol,list" inline="true">
+    <tag name="*" parentNames="ul,ol,list" type="line">
       <description>Specifies an {item} within a list (Shorthand)</description>
     </tag>
     <tag name="code">
-      <attribute type="language" optional="true"/>
+      <attribute valueType="language" optional="true"/>
       <description>Meant for rendering code snippets</description>
     </tag>
     <tag name="pre">

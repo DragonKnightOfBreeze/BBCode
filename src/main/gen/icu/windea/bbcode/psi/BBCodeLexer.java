@@ -6,6 +6,7 @@ package icu.windea.bbcode.psi;
 import com.intellij.lexer.*;
 import com.intellij.psi.tree.IElementType;
 import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
+import icu.windea.bbcode.lang.schema.BBCodeTagType;
 
 import static com.intellij.psi.TokenType.*;
 import static icu.windea.bbcode.psi.BBCodeTypes.*;
@@ -772,9 +773,13 @@ public BBCodeLexer() {
           case 21: break;
           case 7:
             { yybegin(WAITING_TAG_BODY);
-      boolean isEmptyTag = BBCodeSchemaManager.INSTANCE.isEmptyTag(tagName);
+      BBCodeTagType tagType = BBCodeSchemaManager.INSTANCE.getTagType(tagName);
       tagName = null;
-      return isEmptyTag ? EMPTY_TAG_PREFIX_END : TAG_PREFIX_END;
+      if(tagType == BBCodeTagType.Inline || tagType == BBCodeTagType.Line) {
+          return EMPTY_TAG_PREFIX_END;
+      } else {
+          return TAG_PREFIX_END;
+      }
             }
           // fall through
           case 22: break;

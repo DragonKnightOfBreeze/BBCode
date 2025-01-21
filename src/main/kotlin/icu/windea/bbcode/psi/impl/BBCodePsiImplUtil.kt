@@ -5,8 +5,8 @@ import com.intellij.psi.*
 import com.intellij.psi.util.*
 import com.intellij.util.*
 import icons.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.psi.*
-import icu.windea.bbcode.util.*
 import javax.swing.*
 
 @Suppress("UNUSED_PARAMETER")
@@ -36,7 +36,7 @@ object BBCodePsiImplUtil {
     fun getTextOffset(element: BBCodeTag): Int {
         return element.nameIdentifier?.startOffset ?: 1
     }
-    
+
     @JvmStatic
     fun getValue(element: BBCodeTag): String? {
         return element.attributeValue?.text

@@ -6,6 +6,12 @@
 
 * [X] #2 `[img]` and custom tags do not work
 * [X] #3 `[list]` with only one `[*]` is detected as an error
+* [X] 其他优化与BUG修复
+
+
+* [X] #2 `[img]` and custom tags do not work
+* [X] #3 `[list]` with only one `[*]` is detected as an error
+* [X] Other optimizations and BUG fixes
 
 ## 2.1
 

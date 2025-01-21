@@ -8,9 +8,9 @@ import com.intellij.psi.*
 import com.intellij.psi.util.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.codeInsight.unwrap.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.psi.*
 import icu.windea.bbcode.psi.BBCodeTypes.*
-import icu.windea.bbcode.util.*
 
 //com.intellij.codeInsight.daemon.impl.analysis.RemoveTagAndPromoteChildrenIntentionAction
 
@@ -25,7 +25,7 @@ class RemoveTagAndPromoteChildrenIntentionAction : IntentionAction {
 
     override fun isAvailable(project: Project, editor: Editor, file: PsiFile): Boolean {
         val tag = getTag(editor, file) ?: return false
-        if(BBCodeManager.isInlineTag(tag)) return false
+        if(BBCodeManager.isEmptyTag(tag)) return false
         val offset = editor.caretModel.offset
         val startEnd = tag.children().find { it.elementType == TAG_PREFIX_END }
         if (startEnd == null || offset <= startEnd.startOffset) return true

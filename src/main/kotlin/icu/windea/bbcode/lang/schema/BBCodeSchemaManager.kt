@@ -8,6 +8,7 @@ import icu.windea.bbcode.*
 import icu.windea.bbcode.psi.*
 import icu.windea.bbcode.util.*
 
+@Suppress("unused")
 object BBCodeSchemaManager {
     object Keys : KeyRegistry() {
         val schemaForTag by createKey<CachedValue<BBCodeSchema.Tag>>(Keys)
@@ -52,10 +53,10 @@ object BBCodeSchemaManager {
         return tagSchema.attributeMap[attributeName]
     }
 
-    fun isEmptyTag(tagName: String?): Boolean {
-        if (tagName.isNullOrEmpty()) return false
-        val schema = getSchema(defaultProject) ?: return false
-        val tagSchema = schema.tagMap[tagName] ?: return false
-        return tagSchema.inline
+    fun getTagType(tagName: String?): BBCodeTagType? {
+        if (tagName.isNullOrEmpty()) return null
+        val schema = getSchema(defaultProject) ?: return null
+        val tagSchema = schema.tagMap[tagName] ?: return null
+        return tagSchema.type
     }
 }

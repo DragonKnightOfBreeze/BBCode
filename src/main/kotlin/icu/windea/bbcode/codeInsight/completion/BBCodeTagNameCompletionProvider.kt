@@ -59,7 +59,7 @@ class BBCodeTagNameCompletionProvider : CompletionProvider<CompletionParameters>
                     if(nextChar == ']') {
                         //move caret to the right bound of "]"
                         EditorModificationUtil.moveCaretRelatively(editor, 1 + nextCharOffset)
-                    } else if(tagSchema.inline) {
+                    } else if(tagSchema.type == BBCodeTagType.Inline || tagSchema.type == BBCodeTagType.Line) {
                         //insert "]" and move caret to the right bound
                         EditorModificationUtil.insertStringAtCaret(editor, "]", false, 1)
                     } else {

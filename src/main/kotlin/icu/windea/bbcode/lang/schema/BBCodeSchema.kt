@@ -15,8 +15,8 @@ data class BBCodeSchema(
         val name: String,
         val parentNames: Set<String>? = null,
         val childNames: Set<String>? = null,
+        val type: BBCodeTagType = BBCodeTagType.Block,
         val textType: String? = null,
-        val inline: Boolean = false,
         val attribute: SimpleAttribute? = null,
         val attributes: List<Attribute> = emptyList(),
         val description: String? = null,
@@ -27,7 +27,7 @@ data class BBCodeSchema(
 
     data class SimpleAttribute(
         val pointer: SmartPsiElementPointer<XmlTag>,
-        val type: String,
+        val valueType: String,
         val optional: Boolean = false,
         val swap: Boolean = false,
         val description: String? = null,
@@ -36,7 +36,7 @@ data class BBCodeSchema(
     data class Attribute(
         val pointer: SmartPsiElementPointer<XmlTag>,
         val name: String,
-        val type: String,
+        val valueType: String,
         val optional: Boolean = false,
         val description: String? = null,
     )

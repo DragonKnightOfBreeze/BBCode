@@ -8,16 +8,16 @@ import com.intellij.psi.codeStyle.*
 import com.intellij.psi.util.*
 import com.intellij.util.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.psi.*
 import icu.windea.bbcode.psi.BBCodeTypes.*
-import icu.windea.bbcode.util.*
 import kotlin.math.*
 
 //com.intellij.lang.xml.XmlEnclosingTagUnwrapper
 
 class BBCodeEnclosingTagUnwrapper : Unwrapper {
     override fun isApplicableTo(e: PsiElement): Boolean {
-        return e is BBCodeTag && !BBCodeManager.isInlineTag(e)
+        return e is BBCodeTag && !BBCodeManager.isEmptyTag(e)
     }
 
     override fun collectElementsToIgnore(element: PsiElement, result: Set<PsiElement>) {

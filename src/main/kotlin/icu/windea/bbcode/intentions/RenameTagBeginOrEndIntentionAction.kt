@@ -6,8 +6,8 @@ import com.intellij.openapi.project.*
 import com.intellij.psi.*
 import com.intellij.psi.util.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.psi.*
-import icu.windea.bbcode.util.*
 
 //com.intellij.codeInspection.htmlInspections.RenameTagBeginOrEndIntentionAction
 
@@ -20,7 +20,7 @@ class RenameTagBeginOrEndIntentionAction(
         return if (start) BBCodeBundle.message("bbcode.intention.rename.start.tag", sourceName, targetName)
         else BBCodeBundle.message("bbcode.intention.rename.end.tag", sourceName, targetName)
     }
-    
+
     override fun getText(): String {
         return familyName
     }

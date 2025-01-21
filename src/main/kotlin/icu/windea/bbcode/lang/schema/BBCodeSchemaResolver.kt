@@ -30,8 +30,8 @@ object BBCodeSchemaResolver {
             name = attributes["name"] ?: return null,
             parentNames = attributes["parentNames"]?.toCommaDelimitedStringSet(),
             childNames = attributes["childNames"]?.toCommaDelimitedStringSet(),
+            type = attributes["type"]?.uppercase()?.let { BBCodeTagType.resolve(it) } ?: BBCodeTagType.Block,
             textType = attributes["textType"],
-            inline = attributes["inline"].toBoolean(),
             attribute = subTags["attribute"]?.firstOrNull()?.let { resolveSimpleAttributeSchema(it, project) },
             attributes = subTags["attributes"]?.firstOrNull()?.subTags?.mapNotNull { resolveAttributeSchema(it, project) }.orEmpty(),
             description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
@@ -43,7 +43,7 @@ object BBCodeSchemaResolver {
         val subTags = tag.subTags.groupBy { it.name }
         return BBCodeSchema.SimpleAttribute(
             pointer = tag.createPointer(project),
-            type = attributes["type"] ?: "string",
+            valueType = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
             swap = attributes["swap"].toBoolean(),
             description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
@@ -56,7 +56,7 @@ object BBCodeSchemaResolver {
         return BBCodeSchema.Attribute(
             pointer = tag.createPointer(project),
             name = attributes["name"] ?: return null,
-            type = attributes["type"] ?: "string",
+            valueType = attributes["type"] ?: "string",
             optional = attributes["optional"].toBoolean(),
             description = subTags["description"]?.firstOrNull()?.value?.trimmedText,
         )

@@ -10,9 +10,9 @@ import com.intellij.psi.util.*
 import com.intellij.util.containers.*
 import icu.windea.bbcode.*
 import icu.windea.bbcode.intentions.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.lang.schema.*
 import icu.windea.bbcode.psi.*
-import icu.windea.bbcode.util.*
 
 class BBCodeSchemaValidationInspection : LocalInspectionTool() {
     @JvmField
@@ -39,10 +39,13 @@ class BBCodeSchemaValidationInspection : LocalInspectionTool() {
 
                 //check whether tag should be inline
 
-                val isInline = BBCodeManager.isInlineTag(element)
-                if (schema.inline != isInline) {
-                    val message = if (schema.inline) BBCodeBundle.message("bbcode.inspection.messages.tag.inline", name)
-                    else BBCodeBundle.message("bbcode.inspection.messages.tag.notInline", name)
+                val isEmptyTag = BBCodeManager.isEmptyTag(element)
+                if (isEmptyTag && !(schema.type == BBCodeTagType.Inline || schema.type == BBCodeTagType.Line)) {
+                    val message = BBCodeBundle.message("bbcode.inspection.messages.tag.empty", name)
+                    holder.registerProblem(nameElement, message)
+                }
+                if (!isEmptyTag && (schema.type == BBCodeTagType.Inline || schema.type == BBCodeTagType.Line)) {
+                    val message = BBCodeBundle.message("bbcode.inspection.messages.tag.notEmpty", name)
                     holder.registerProblem(nameElement, message)
                 }
 

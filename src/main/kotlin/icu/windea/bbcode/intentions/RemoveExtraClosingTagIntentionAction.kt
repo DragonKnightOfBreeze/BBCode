@@ -9,8 +9,8 @@ import com.intellij.psi.templateLanguages.*
 import com.intellij.psi.util.*
 import com.intellij.xml.analysis.*
 import icu.windea.bbcode.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.psi.*
-import icu.windea.bbcode.util.*
 
 //com.intellij.codeInspection.htmlInspections.RemoveExtraClosingTagIntentionAction
 

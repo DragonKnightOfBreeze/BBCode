@@ -16,6 +16,5 @@ class BBCodeSchemaResolvingTest : BasePlatformTestCase() {
         schema!!
         assert(schema.url == "https://www.bbcode.org/reference.php")
         assert(schema.tags.isNotEmpty())
-        assert(schema.tagMap["line"]?.inline == true)
     }
 }

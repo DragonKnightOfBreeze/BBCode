@@ -7,8 +7,8 @@ import com.intellij.openapi.project.*
 import com.intellij.openapi.util.*
 import com.intellij.psi.*
 import com.intellij.psi.util.*
+import icu.windea.bbcode.lang.*
 import icu.windea.bbcode.psi.*
-import icu.windea.bbcode.util.*
 
 //com.intellij.lang.xml.XmlUnwrapDescriptor
 
