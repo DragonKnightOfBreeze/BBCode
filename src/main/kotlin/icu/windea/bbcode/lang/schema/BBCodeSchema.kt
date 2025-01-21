@@ -15,7 +15,7 @@ data class BBCodeSchema(
         val name: String,
         val parentNames: Set<String>? = null,
         val childNames: Set<String>? = null,
-        val type: BBCodeTagType = BBCodeTagType.Block,
+        val type: BBCodeTagType = BBCodeTagType.Default,
         val textType: String? = null,
         val attribute: SimpleAttribute? = null,
         val attributes: List<Attribute> = emptyList(),

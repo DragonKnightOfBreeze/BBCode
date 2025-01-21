@@ -25,7 +25,7 @@
 
 root ::= (tag | text) *
 
-tag ::= tag_prefix (<<isIncompleteTag>> | <<isInlineTag>> | <<isLineTag>> tag_body | tag_body tag_suffix) ? {
+tag ::= tag_prefix (<<isIncompleteTag>> | <<isInlineTag>> | <<isLineTag>> tag_body <<exitLineTag>> | tag_body tag_suffix) {
   pin=1
   mixin="icu.windea.bbcode.psi.impl.BBCodeNamedElementImpl"
   implements=[
@@ -38,7 +38,7 @@ tag ::= tag_prefix (<<isIncompleteTag>> | <<isInlineTag>> | <<isLineTag>> tag_bo
 private tag_prefix ::= TAG_PREFIX_START <<putTagName>> TAG_NAME attributes? (TAG_PREFIX_END | EMPTY_TAG_PREFIX_END) {
   pin=1
 }
-private tag_body ::= (tag | text) *
+private tag_body ::= (&<<checkTagBody>> (tag | text)) *
 private tag_suffix ::= TAG_SUFFIX_START TAG_NAME TAG_SUFFIX_END {
   pin=1
 }

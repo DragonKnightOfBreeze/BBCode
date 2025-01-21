@@ -1,6 +1,6 @@
 package icu.windea.bbcode.psi;
 
-import com.intellij.lexer.*;
+import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
 import icu.windea.bbcode.lang.schema.BBCodeTagType;
@@ -92,15 +92,15 @@ TEXT_TOKEN=([^\[\]\s]|\\\S)+
 <WAITING_TAG_PREFIX_END> {
   {WHITE_SPACE} { return WHITE_SPACE; }
   "]" {
-      yybegin(WAITING_TAG_BODY);
-      BBCodeTagType tagType = BBCodeSchemaManager.INSTANCE.getTagType(tagName);
-      tagName = null;
-      if(tagType == BBCodeTagType.Inline || tagType == BBCodeTagType.Line) {
-          return EMPTY_TAG_PREFIX_END;
-      } else {
-          return TAG_PREFIX_END;
-      }
-  }
+        yybegin(WAITING_TAG_BODY);
+        BBCodeTagType tagType = BBCodeSchemaManager.INSTANCE.getTagType(tagName);
+        tagName = null;
+        if(tagType == BBCodeTagType.Empty || tagType == BBCodeTagType.Line) {
+            return EMPTY_TAG_PREFIX_END;
+        } else {
+            return TAG_PREFIX_END;
+        }
+    }
   "[" { yybegin(WAITING_TAG_PREFIX); return TAG_PREFIX_START; }
 }
 <WAITING_TAG_BODY> {

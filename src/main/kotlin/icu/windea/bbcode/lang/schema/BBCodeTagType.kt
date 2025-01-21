@@ -1,8 +1,9 @@
 package icu.windea.bbcode.lang.schema
 
 enum class BBCodeTagType {
-    Block,
+    Default,
     Inline,
+    Empty,
     Line,
     ;
 

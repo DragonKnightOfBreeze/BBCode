@@ -1,7 +1,7 @@
 package icu.windea.bbcode.codeInsight.completion
 
 import com.intellij.codeInsight.completion.*
-import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.lookup.*
 import com.intellij.openapi.editor.*
 import com.intellij.psi.util.*
 import com.intellij.util.*
@@ -19,7 +19,8 @@ class BBCodeTagNameCompletionProvider : CompletionProvider<CompletionParameters>
         if(parentTag == null) {
             val schema = BBCodeSchemaManager.getSchema(project) ?: return
             //typing a root tag
-            schema.tags.forEach { tagSchema ->
+            schema.tags.forEach f@{ tagSchema ->
+                if(!tagSchema.parentNames.isNullOrEmpty()) return@f
                 addLookupElement(tagSchema, result)
             }
         } else {
@@ -27,7 +28,16 @@ class BBCodeTagNameCompletionProvider : CompletionProvider<CompletionParameters>
             val schema = BBCodeSchemaManager.getSchema(project) ?: return
             parentTagSchema.childNames?.forEach f@{ childName ->
                 val tagSchema = schema.tagMap[childName] ?: return@f
+                if(tagSchema.parentNames != null && parentTagSchema.name !in tagSchema.parentNames) return@f
                 addLookupElement(tagSchema, result)
+            }
+            if(parentTagSchema.childNames == null) {
+                //typing a inline or empty tag
+                schema.tags.forEach f@{ tagSchema ->
+                    if(!tagSchema.parentNames.isNullOrEmpty()) return@f
+                    if(tagSchema.type != BBCodeTagType.Inline && tagSchema.type != BBCodeTagType.Empty) return@f
+                    addLookupElement(tagSchema, result)
+                }
             }
         }
     }
@@ -59,7 +69,7 @@ class BBCodeTagNameCompletionProvider : CompletionProvider<CompletionParameters>
                     if(nextChar == ']') {
                         //move caret to the right bound of "]"
                         EditorModificationUtil.moveCaretRelatively(editor, 1 + nextCharOffset)
-                    } else if(tagSchema.type == BBCodeTagType.Inline || tagSchema.type == BBCodeTagType.Line) {
+                    } else if(tagSchema.type == BBCodeTagType.Empty || tagSchema.type == BBCodeTagType.Line) {
                         //insert "]" and move caret to the right bound
                         EditorModificationUtil.insertStringAtCaret(editor, "]", false, 1)
                     } else {

@@ -30,7 +30,7 @@ object BBCodeSchemaResolver {
             name = attributes["name"] ?: return null,
             parentNames = attributes["parentNames"]?.toCommaDelimitedStringSet(),
             childNames = attributes["childNames"]?.toCommaDelimitedStringSet(),
-            type = attributes["type"]?.uppercase()?.let { BBCodeTagType.resolve(it) } ?: BBCodeTagType.Block,
+            type = attributes["type"]?.uppercase()?.let { BBCodeTagType.resolve(it) } ?: BBCodeTagType.Default,
             textType = attributes["textType"],
             attribute = subTags["attribute"]?.firstOrNull()?.let { resolveSimpleAttributeSchema(it, project) },
             attributes = subTags["attributes"]?.firstOrNull()?.subTags?.mapNotNull { resolveAttributeSchema(it, project) }.orEmpty(),

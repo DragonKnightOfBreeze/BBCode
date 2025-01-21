@@ -40,11 +40,11 @@ class BBCodeSchemaValidationInspection : LocalInspectionTool() {
                 //check whether tag should be inline
 
                 val isEmptyTag = BBCodeManager.isEmptyTag(element)
-                if (isEmptyTag && !(schema.type == BBCodeTagType.Inline || schema.type == BBCodeTagType.Line)) {
+                if (isEmptyTag && !(schema.type == BBCodeTagType.Empty || schema.type == BBCodeTagType.Line)) {
                     val message = BBCodeBundle.message("bbcode.inspection.messages.tag.empty", name)
                     holder.registerProblem(nameElement, message)
                 }
-                if (!isEmptyTag && (schema.type == BBCodeTagType.Inline || schema.type == BBCodeTagType.Line)) {
+                if (!isEmptyTag && (schema.type == BBCodeTagType.Empty || schema.type == BBCodeTagType.Line)) {
                     val message = BBCodeBundle.message("bbcode.inspection.messages.tag.notEmpty", name)
                     holder.registerProblem(nameElement, message)
                 }

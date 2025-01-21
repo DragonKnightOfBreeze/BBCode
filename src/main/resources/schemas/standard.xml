@@ -22,60 +22,60 @@
     <tag name="h6">
       <description>Heading 6</description>
     </tag>
-    <tag name="line" type="inline">
+    <tag name="line" type="empty">
       <description>Horizontal line</description>
     </tag>
-    <tag name="b">
+    <tag name="b" type="inline">
       <description>Makes {text} bold</description>
     </tag>
-    <tag name="i">
+    <tag name="i" type="inline">
       <description>Makes {text} italic</description>
     </tag>
-    <tag name="u">
+    <tag name="u" type="inline">
       <description>Underlines {text}</description>
     </tag>
-    <tag name="s">
+    <tag name="s" type="inline">
       <description>Create a strikethrough on {text}</description>
     </tag>
-    <tag name="style">
+    <tag name="style" type="inline">
       <attributes>
         <attribute name="size" valueType="numberPx" optional="true"/>
         <attribute name="color" valueType="color" optional="true"/>
       </attributes>
     </tag>
-    <tag name="size">
+    <tag name="size" type="inline">
       <attribute valueType="number"/>
       <description>Changes the font-size of {text}</description>
     </tag>
-    <tag name="color">
+    <tag name="color" type="inline">
       <attribute valueType="color"/>
       <description>Changes the color of {text}</description>
     </tag>
-    <tag name="center">
+    <tag name="center" type="inline">
       <description>Centers {text} on screen</description>
     </tag>
-    <tag name="left">
+    <tag name="left" type="inline">
       <description>Left aligns {text} on screen</description>
     </tag>
-    <tag name="right">
+    <tag name="right" type="inline">
       <description>Right aligns {text} on screen</description>
     </tag>
-    <tag name="quote">
+    <tag name="quote" type="inline">
       <attribute valueType="string" optional="true"/>
       <description>Creates a quotation box containing {text}</description>
     </tag>
-    <tag name="spoiler">
+    <tag name="spoiler" type="inline">
       <attribute valueType="string" optional="true"/>
       <description>
         Creates a spoiler section (a box) that is by default collapsed until you click a button or the box itself
         to expand it to show the {text}
       </description>
     </tag>
-    <tag name="url">
+    <tag name="url" type="inline">
       <attribute valueType="url" optional="true" swap="true"/>
       <description>Makes a link to {url}</description>
     </tag>
-    <tag name="img" textType="url">
+    <tag name="img" type="inline" textType="url">
       <attribute valueType="size" optional="true"/>
       <attributes>
         <attribute name="width" valueType="number"/>
@@ -100,7 +100,7 @@
     <tag name="*" parentNames="ul,ol,list" type="line">
       <description>Specifies an {item} within a list (Shorthand)</description>
     </tag>
-    <tag name="code">
+    <tag name="code" type="inline">
       <attribute valueType="language" optional="true"/>
       <description>Meant for rendering code snippets</description>
     </tag>
@@ -119,7 +119,7 @@
     <tag name="td" parentNames="tr">
       <description>Shows {content} in a table (heading) cell</description>
     </tag>
-    <tag name="youtube" textType="youtubeId">
+    <tag name="youtube" type="inline" textType="youtubeId">
       <description>Shows the YouTube video indicated by {id}</description>
     </tag>
   </tags>

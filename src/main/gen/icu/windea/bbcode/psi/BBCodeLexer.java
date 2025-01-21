@@ -3,7 +3,7 @@
 
 package icu.windea.bbcode.psi;
 
-import com.intellij.lexer.*;
+import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import icu.windea.bbcode.lang.schema.BBCodeSchemaManager;
 import icu.windea.bbcode.lang.schema.BBCodeTagType;
@@ -39,7 +39,7 @@ public class BBCodeLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = {
-     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7, 
+     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5,  5,  6,  6,  7,  7,
      0,  0,  8, 8
   };
 
@@ -773,13 +773,13 @@ public BBCodeLexer() {
           case 21: break;
           case 7:
             { yybegin(WAITING_TAG_BODY);
-      BBCodeTagType tagType = BBCodeSchemaManager.INSTANCE.getTagType(tagName);
-      tagName = null;
-      if(tagType == BBCodeTagType.Inline || tagType == BBCodeTagType.Line) {
-          return EMPTY_TAG_PREFIX_END;
-      } else {
-          return TAG_PREFIX_END;
-      }
+        BBCodeTagType tagType = BBCodeSchemaManager.INSTANCE.getTagType(tagName);
+        tagName = null;
+        if(tagType == BBCodeTagType.Empty || tagType == BBCodeTagType.Line) {
+            return EMPTY_TAG_PREFIX_END;
+        } else {
+            return TAG_PREFIX_END;
+        }
             }
           // fall through
           case 22: break;
