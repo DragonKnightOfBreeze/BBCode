@@ -78,8 +78,8 @@
     <tag name="img" type="inline" textType="url">
       <attribute valueType="size" optional="true"/>
       <attributes>
-        <attribute name="width" valueType="number"/>
-        <attribute name="height" valueType="number"/>
+        <attribute name="width" valueType="number" optional="true"/>
+        <attribute name="height" valueType="number" optional="true"/>
         <attribute name="title" valueType="string" optional="true"/>
         <attribute name="alt" valueType="string" optional="true"/>
       </attributes>

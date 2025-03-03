@@ -2,6 +2,14 @@
 
 ## TODO
 
+## 2.3
+
+* [X] #4 Minor schema issue with `[img]` tag
+
+***
+
+* [X] #4 Minor schema issue with `[img]` tag
+
 ## 2.2
 
 * [X] #2 `[img]` and custom tags do not work
